@@ -1,13 +1,34 @@
 import { UserPlus, Cross, Mail, Lock, User, Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
+import useAuthStore from '../store/authStore'
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  const signUp = useAuthStore((s) => s.signUp)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      await signUp(email, password)
+      toast.success('Check your email to confirm your account!')
+      navigate('/login')
+    } catch (err) {
+      toast.error(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)]">
-      {/* Left — Decorative Image */}
       <div className="relative hidden w-1/2 overflow-hidden lg:block">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/60 to-charcoal/80 z-10" />
         <img
@@ -25,10 +46,8 @@ export default function SignUp() {
         </div>
       </div>
 
-      {/* Right — Form */}
       <div className="flex w-full items-center justify-center px-4 lg:w-1/2">
         <div className="w-full max-w-sm animate-fade-up">
-          {/* Header */}
           <div className="mb-2 flex items-center gap-3 text-accent">
             <div className="rounded-sm bg-accent/10 p-2">
               <UserPlus size={20} />
@@ -39,7 +58,6 @@ export default function SignUp() {
           </div>
           <p className="ml-12 text-sm text-slate">Join our church community</p>
 
-          {/* Social Buttons */}
           <div className="mt-8 flex gap-3">
             <button className="flex flex-1 items-center justify-center gap-2 rounded-sm border border-divider px-4 py-2.5 text-sm text-slate transition hover:border-accent/30 hover:bg-accent/5 hover:text-charcoal">
               <svg className="h-4 w-4" viewBox="0 0 24 24">
@@ -58,7 +76,6 @@ export default function SignUp() {
             </button>
           </div>
 
-          {/* Divider */}
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-divider" />
@@ -68,8 +85,7 @@ export default function SignUp() {
             </div>
           </div>
 
-          {/* Form */}
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="group relative">
               <label htmlFor="name" className="sr-only">Full Name</label>
               <div className="relative">
@@ -77,6 +93,8 @@ export default function SignUp() {
                 <input
                   id="name"
                   type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   placeholder="Full Name"
                   className="w-full rounded-sm border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
                 />
@@ -89,7 +107,10 @@ export default function SignUp() {
                 <input
                   id="email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
+                  required
                   className="w-full rounded-sm border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
                 />
               </div>
@@ -101,7 +122,11 @@ export default function SignUp() {
                 <input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
+                  required
+                  minLength={6}
                   className="w-full rounded-sm border border-divider py-3 pl-10 pr-10 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
                 />
                 <button
@@ -117,9 +142,10 @@ export default function SignUp() {
 
             <button
               type="submit"
-              className="w-full rounded-sm bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98]"
+              disabled={loading}
+              className="w-full rounded-sm bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98] disabled:opacity-60"
             >
-              Create Account
+              {loading ? 'Creating account...' : 'Create Account'}
             </button>
           </form>
 

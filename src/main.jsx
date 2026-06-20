@@ -4,7 +4,10 @@ import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { YouVersionProvider } from '@youversion/platform-react-ui'
 import App from './App'
+import useAuthStore from './store/authStore'
 import './styles/index.css'
+
+useAuthStore.getState().initialize()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

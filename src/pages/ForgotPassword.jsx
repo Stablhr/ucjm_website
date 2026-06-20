@@ -1,10 +1,31 @@
-import { KeyRound, Cross, Mail, ArrowLeft } from 'lucide-react'
+import { KeyRound, Cross, Mail, ArrowLeft, CheckCircle } from 'lucide-react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
+import useAuthStore from '../store/authStore'
 
 export default function ForgotPassword() {
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [sent, setSent] = useState(false)
+  const resetPassword = useAuthStore((s) => s.resetPassword)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      await resetPassword(email)
+      setSent(true)
+      toast.success('Reset link sent!')
+    } catch (err) {
+      toast.error(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="flex min-h-[calc(100vh-4rem)]">
-      {/* Left — Decorative Image */}
       <div className="relative hidden w-1/2 overflow-hidden lg:block">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/60 to-charcoal/80 z-10" />
         <img
@@ -23,10 +44,8 @@ export default function ForgotPassword() {
         </div>
       </div>
 
-      {/* Right — Form */}
       <div className="flex w-full items-center justify-center px-4 lg:w-1/2">
         <div className="w-full max-w-sm animate-fade-up">
-          {/* Header */}
           <div className="mb-2 flex items-center gap-3 text-accent">
             <div className="rounded-sm bg-accent/10 p-2">
               <KeyRound size={20} />
@@ -39,8 +58,7 @@ export default function ForgotPassword() {
             Enter your email to receive a reset link
           </p>
 
-          {/* Form */}
-          <form className="mt-8 space-y-5" onSubmit={(e) => e.preventDefault()}>
+          <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
             <div className="group relative">
               <label htmlFor="email" className="sr-only">Email</label>
               <div className="relative">
@@ -48,18 +66,30 @@ export default function ForgotPassword() {
                 <input
                   id="email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
-                  className="w-full rounded-sm border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
+                  required
+                  disabled={sent}
+                  className="w-full rounded-sm border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20 disabled:opacity-60"
                 />
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="w-full rounded-sm bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98]"
-            >
-              Send Reset Link
-            </button>
+            {sent ? (
+              <div className="flex items-center gap-2 rounded-sm border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+                <CheckCircle size={16} />
+                Reset link sent! Check your email.
+              </div>
+            ) : (
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full rounded-sm bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98] disabled:opacity-60"
+              >
+                {loading ? 'Sending...' : 'Send Reset Link'}
+              </button>
+            )}
           </form>
 
           <p className="mt-8 text-center text-sm text-slate">
