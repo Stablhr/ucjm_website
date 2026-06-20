@@ -1,4 +1,4 @@
-# ⛪ Church App — Website Build Plan
+  # ⛪ Church App — Website Build Plan
 ### Phase-by-Phase Development Guide with Design Reference
 
 > **Design Reference:** [Eindhoven Design District](https://www.eindhovendesigndistrict.com/)
@@ -73,16 +73,18 @@ assets/
   docs/                 # Style guides, font licenses, asset credits
 ```
 
-### `src/assets/` (Optimized for the App)
-Files here are **imported in code** and optimized by Vite during build (compression, hashing, etc.).
+### `public/` (Served As-Is by Vite)
+Files here are served at the root URL. Use for images referenced directly in JSX (not imported).
 
 ```
-src/assets/
-  images/       # Optimized web-ready images (hero, thumbnails, OG image)
-  icons/        # Custom SVG icons (non-Lucide)
+public/
+  images/       # Hero background, logo, OG image, favicons
+  favicon.ico
+  apple-touch-icon.png
+  robots.txt
 ```
 
-> **Workflow:** Edit originals in `assets/`, export optimized copies to `src/assets/images/` or `src/assets/icons/`, then import them in components.
+> **Workflow:** Edit originals in `assets/`, export optimized copies to `public/images/`, then reference as `/images/filename.jpg` in JSX.
 
 ---
 
@@ -212,6 +214,9 @@ assets/                          # Raw source files (not bundled)
   docs/                          # Style guides, asset credits
 
 public/                          # Static files served as-is
+  images/
+    logo.jpg
+    hero-bg.png
   favicon.ico
   apple-touch-icon.png
   robots.txt
@@ -234,7 +239,6 @@ src/
   store/
     authStore.js   # Zustand store for user session
   assets/
-    images/        # Optimized web images (hero, logo, thumbnails)
     icons/         # Custom SVG icons (non-Lucide)
   styles/
     index.css      # Tailwind base + custom global resets
