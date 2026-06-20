@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X, Cross, BookOpen, Music, Compass, User } from 'lucide-react'
 
@@ -20,9 +20,22 @@ const navLinks = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-divider bg-ivory/95 backdrop-blur">
+    <nav
+      className={`fixed top-0 z-50 w-full animate-slide-down transition-all duration-500 ${
+        scrolled
+          ? 'border-b border-white/20 bg-white/50 shadow-sm shadow-black/5 backdrop-blur-xl'
+          : 'border-b border-divider bg-white/80'
+      }`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2">
           <img
@@ -33,7 +46,7 @@ export default function Navbar() {
         </Link>
 
         <button
-          className="lg:hidden"
+          className="text-charcoal lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
@@ -59,7 +72,7 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="border-t border-divider px-4 pb-4 lg:hidden">
+        <div className="border-t border-divider bg-white px-4 pb-4">
           <div className="flex flex-col gap-4 pt-4">
             {navLinks.map((link) => {
               const Icon = iconMap[link.label]
