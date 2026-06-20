@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Music, ListMusic } from 'lucide-react'
+import { Music, ListMusic, Plus } from 'lucide-react'
 import useSongsStore from '../features/songs/songsStore'
 import SongList from '../features/songs/SongList'
 import SongDetail from '../features/songs/SongDetail'
+import AddSongModal from '../features/songs/AddSongModal'
 import PlaylistManager from '../features/songs/PlaylistManager'
 import PlaylistDetail from '../features/songs/PlaylistDetail'
 
@@ -15,6 +16,7 @@ export default function Songs() {
   const [activeTab, setActiveTab] = useState('library')
   const [selectedSong, setSelectedSong] = useState(null)
   const [selectedPlaylist, setSelectedPlaylist] = useState(null)
+  const [showAddSong, setShowAddSong] = useState(false)
 
   const setTransposeOffset = useSongsStore((s) => s.setTransposeOffset)
 
@@ -73,25 +75,36 @@ export default function Songs() {
           </p>
         </div>
 
-        {/* Tabs */}
-        <div className="mb-6 flex gap-1 border-b border-divider">
-          {TABS.map((tab) => {
-            const Icon = tab.icon
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition-all ${
-                  activeTab === tab.id
-                    ? 'border-accent text-accent'
-                    : 'border-transparent text-slate hover:border-divider hover:text-charcoal'
-                }`}
-              >
-                <Icon size={16} />
-                {tab.label}
-              </button>
-            )
-          })}
+        {/* Tabs + Add Song button */}
+        <div className="mb-6 flex items-end justify-between border-b border-divider">
+          <div className="flex gap-1">
+            {TABS.map((tab) => {
+              const Icon = tab.icon
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition-all ${
+                    activeTab === tab.id
+                      ? 'border-accent text-accent'
+                      : 'border-transparent text-slate hover:border-divider hover:text-charcoal'
+                  }`}
+                >
+                  <Icon size={16} />
+                  {tab.label}
+                </button>
+              )
+            })}
+          </div>
+          {activeTab === 'library' && (
+            <button
+              onClick={() => setShowAddSong(true)}
+              className="mb-2 inline-flex items-center gap-1.5 rounded-sm bg-accent px-3 py-1.5 text-xs font-medium text-white transition hover:bg-accent/90 active:scale-[0.97]"
+            >
+              <Plus size={14} />
+              Add Song
+            </button>
+          )}
         </div>
 
         {/* Tab content */}
@@ -101,6 +114,8 @@ export default function Songs() {
           <PlaylistManager onSelectPlaylist={handleSelectPlaylist} />
         )}
       </div>
+
+      {showAddSong && <AddSongModal onClose={() => setShowAddSong(false)} />}
     </section>
   )
 }

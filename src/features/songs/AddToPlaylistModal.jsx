@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { X, Plus, Check } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { supabase } from '../../services/supabase'
 import usePlaylistStore from './playlistStore'
 
 export default function AddToPlaylistModal({ song, onClose }) {
@@ -22,12 +23,42 @@ export default function AddToPlaylistModal({ song, onClose }) {
     fetchPlaylists()
   }, [fetchPlaylists])
 
+  const resolveSongId = async () => {
+    if (song._source !== 'builtin') return song.id
+
+    const { data: existing } = await supabase
+      .from('songs')
+      .select('id')
+      .eq('title', song.title)
+      .eq('artist', song.artist)
+      .maybeSingle()
+
+    if (existing) return existing.id
+
+    const { data: inserted, error } = await supabase
+      .from('songs')
+      .insert({
+        title: song.title,
+        artist: song.artist || '',
+        key: song.key || 'G',
+        category: song.category || 'Worship',
+        language: song.language || 'English',
+        lyrics_with_chords: song.lyrics_with_chords || '',
+      })
+      .select('id')
+      .single()
+
+    if (error) throw error
+    return inserted.id
+  }
+
   const handleAdd = async (playlistId) => {
     setLoading(true)
     try {
+      const songId = await resolveSongId()
       const existingSongs = await getPlaylistSongs(playlistId)
       const nextPos = existingSongs.length
-      await addSongToPlaylist(playlistId, song.id, nextPos, '')
+      await addSongToPlaylist(playlistId, songId, nextPos, '')
       toast.success(`Added to playlist`)
       setSelectedPlaylistId(playlistId)
     } catch (err) {

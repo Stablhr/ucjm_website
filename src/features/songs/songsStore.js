@@ -1,7 +1,16 @@
 import { create } from 'zustand'
+import { supabase } from '../../services/supabase'
+
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+}
 
 const useSongsStore = create((set, get) => ({
   songs: [],
+  userSongs: [],
   loading: false,
   searchQuery: '',
   activeCategory: 'All',
@@ -20,13 +29,49 @@ const useSongsStore = create((set, get) => ({
     set({ loading: true })
     try {
       const res = await fetch('/songs.json')
-      const data = await res.json()
-      set({ songs: data })
+      const jsonSongs = await res.json()
+      const builtIn = jsonSongs.map((s, i) => ({
+        ...s,
+        id: `builtin-${slugify(s.title)}-${i}`,
+        _source: 'builtin',
+      }))
+
+      const { data: supabaseSongs, error } = await supabase
+        .from('songs')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      const userSongs = !error && supabaseSongs
+        ? supabaseSongs.map((s) => ({ ...s, _source: 'user' }))
+        : []
+
+      set({ songs: [...builtIn, ...userSongs], userSongs })
     } catch {
       set({ songs: [] })
     } finally {
       set({ loading: false })
     }
+  },
+
+  addSong: async (songData) => {
+    const { data, error } = await supabase
+      .from('songs')
+      .insert({
+        title: songData.title,
+        artist: songData.artist || '',
+        key: songData.key || 'G',
+        category: songData.category || 'Worship',
+        language: songData.language || 'English',
+        lyrics_with_chords: songData.lyrics_with_chords || '',
+      })
+      .select()
+      .single()
+
+    if (error) throw error
+
+    const newSong = { ...data, _source: 'user' }
+    set((state) => ({ songs: [newSong, ...state.songs], userSongs: [newSong, ...state.userSongs] }))
+    return newSong
   },
 
   getFilteredSongs: () => {
@@ -58,6 +103,7 @@ const useSongsStore = create((set, get) => ({
   reset: () =>
     set({
       songs: [],
+      userSongs: [],
       searchQuery: '',
       activeCategory: 'All',
       transposeOffset: 0,

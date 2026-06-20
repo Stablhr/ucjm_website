@@ -1,11 +1,47 @@
-import { ArrowLeft, Plus, Check } from 'lucide-react'
+import { ArrowLeft, Plus } from 'lucide-react'
 import { useState, useMemo } from 'react'
 import useSongsStore from './songsStore'
-import { transposeLyrics, renderChordLine } from './chordParser'
+import { transposeLyrics } from './chordParser'
 import ChordTransposer from './ChordTransposer'
 import AddToPlaylistModal from './AddToPlaylistModal'
 
 const CHORD_REGEX = /\[([A-G][#b]?(?:m|dim|aug|sus[24]|add[0-9]|[0-9])?)\]/g
+
+function parseSegments(line) {
+  const segments = []
+  const regex = new RegExp(CHORD_REGEX.source, 'g')
+  let lastIndex = 0
+  let match
+
+  while ((match = regex.exec(line)) !== null) {
+    if (match.index > lastIndex) {
+      segments.push({ chord: null, text: line.slice(lastIndex, match.index) })
+    }
+    segments.push({ chord: match[1], text: '' })
+    lastIndex = match.index + match[0].length
+  }
+
+  if (lastIndex < line.length) {
+    segments.push({ chord: null, text: line.slice(lastIndex) })
+  }
+
+  const merged = []
+  for (let i = 0; i < segments.length; i++) {
+    if (
+      segments[i].chord &&
+      !segments[i].text &&
+      i + 1 < segments.length &&
+      !segments[i + 1].chord
+    ) {
+      merged.push({ chord: segments[i].chord, text: segments[i + 1].text })
+      i++
+    } else {
+      merged.push(segments[i])
+    }
+  }
+
+  return merged
+}
 
 export default function SongDetail({ song, onBack }) {
   const transposeOffset = useSongsStore((s) => s.transposeOffset)
@@ -18,12 +54,9 @@ export default function SongDetail({ song, onBack }) {
 
   const renderedLines = useMemo(() => {
     return transposedLyrics.split('\n').map((line) => {
-      const chords = []
-      let match
-      while ((match = CHORD_REGEX.exec(line)) !== null) {
-        chords.push({ chord: match[1], index: match.index })
-      }
-      return { text: line.replace(CHORD_REGEX, ''), chords }
+      if (!line.trim()) return { type: 'empty' }
+      const segments = parseSegments(line)
+      return { type: 'line', segments }
     })
   }, [transposedLyrics])
 
@@ -63,32 +96,32 @@ export default function SongDetail({ song, onBack }) {
 
       {/* Lyrics with chords */}
       <div className="mb-8 rounded-sm border border-divider bg-white p-6 sm:p-8">
-        {renderedLines.map((line, i) => (
-          <div key={i} className="relative leading-7">
-            {line.chords.length > 0 && (
-              <div
-                className="pointer-events-none font-mono text-accent"
-                style={{ height: 0, overflow: 'visible' }}
-              >
-                {(() => {
-                  const result = []
-                  let lastIdx = 0
-                  const sorted = [...line.chords].sort(
-                    (a, b) => a.index - b.index
+        {renderedLines.map((line, i) => {
+          if (line.type === 'empty') {
+            return <div key={i} className="h-4" />
+          }
+
+          return (
+            <div key={i} className="flex flex-wrap items-baseline leading-7">
+              {line.segments.map((seg, j) => {
+                if (seg.chord) {
+                  return (
+                    <span
+                      key={j}
+                      className="inline-flex flex-col items-baseline leading-tight"
+                    >
+                      <span className="font-mono text-xs text-accent leading-none">
+                        {seg.chord}
+                      </span>
+                      <span>{seg.text || '\u00A0'}</span>
+                    </span>
                   )
-                  sorted.forEach((c) => {
-                    const spaces = c.index - lastIdx
-                    if (spaces > 0) result.push(' '.repeat(spaces))
-                    result.push(c.chord)
-                    lastIdx = c.index + c.chord.length
-                  })
-                  return result.join('')
-                })()}
-              </div>
-            )}
-            <span>{line.text}</span>
-          </div>
-        ))}
+                }
+                return <span key={j}>{seg.text}</span>
+              })}
+            </div>
+          )
+        })}
       </div>
 
       {/* Actions */}
