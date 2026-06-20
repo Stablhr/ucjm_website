@@ -56,6 +56,36 @@ Generous whitespace between sections — minimum `py-24` on desktop.
 
 ---
 
+## Asset Organization
+
+The project uses a two-tier asset system to keep source files separate from optimized build files.
+
+### Top-Level `assets/` (Raw Source Files)
+These are **not bundled** by Vite and live outside `src/`. Use this for original, unoptimized files that you manage manually.
+
+```
+assets/
+  logo/                 # Original logo files (.svg, .png, .ai, .eps)
+  brand/                # Brand guidelines, color palettes, fonts
+  photos/               # Raw church photos
+    event-photos/       # Subfolder for event-specific images
+  videos/               # Worship videos, testimonials, sermon recordings
+  docs/                 # Style guides, font licenses, asset credits
+```
+
+### `src/assets/` (Optimized for the App)
+Files here are **imported in code** and optimized by Vite during build (compression, hashing, etc.).
+
+```
+src/assets/
+  images/       # Optimized web-ready images (hero, thumbnails, OG image)
+  icons/        # Custom SVG icons (non-Lucide)
+```
+
+> **Workflow:** Edit originals in `assets/`, export optimized copies to `src/assets/images/` or `src/assets/icons/`, then import them in components.
+
+---
+
 ## Constraints You Must Know Before Building
 
 ### Technical Constraints
@@ -173,6 +203,19 @@ npm install workbox-window          # Service worker for offline Bible
 
 **Folder Structure to Create:**
 ```
+assets/                          # Raw source files (not bundled)
+  logo/                          # Original logo files
+  brand/                         # Brand guidelines, color palettes
+  photos/                        # Raw church photos
+    event-photos/
+  videos/                        # Worship videos, sermon recordings
+  docs/                          # Style guides, asset credits
+
+public/                          # Static files served as-is
+  favicon.ico
+  apple-touch-icon.png
+  robots.txt
+
 src/
   components/
     layout/        # Navbar, Footer, Layout wrapper
@@ -191,7 +234,8 @@ src/
   store/
     authStore.js   # Zustand store for user session
   assets/
-    images/        # Hero photos, church logo
+    images/        # Optimized web images (hero, logo, thumbnails)
+    icons/         # Custom SVG icons (non-Lucide)
   styles/
     index.css      # Tailwind base + custom global resets
 ```
