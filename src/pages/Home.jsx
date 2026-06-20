@@ -1,4 +1,5 @@
-import { BookHeart, Megaphone, Heart, ArrowRight } from 'lucide-react'
+import { VerseOfTheDay } from '@youversion/platform-react-ui'
+import { Megaphone, Heart, ArrowRight } from 'lucide-react'
 import useScrollReveal from '../hooks/useScrollReveal'
 
 function FadeSection({ children, className = '' }) {
@@ -40,31 +41,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Daily Verse */}
+      {/* Daily Verse — powered by YouVersion */}
       <FadeSection>
         <section className="py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
-              <div className="mb-4 flex items-center justify-center gap-2 text-accent">
-                <BookHeart size={24} />
-                <h2 className="font-display text-4xl font-bold text-charcoal">
-                  Verse of the Day
-                </h2>
-              </div>
-              <div className="group mt-8 rounded-sm border border-divider p-8 transition hover:-translate-y-1 hover:border-accent/30">
-                <p className="font-display text-xl leading-relaxed text-charcoal">
-                  "For God so loved the world that he gave his one and only Son,
-                  that whoever believes in him shall not perish but have eternal
-                  life."
-                </p>
-                <p className="mt-4 font-mono text-sm text-slate">John 3:16</p>
+              <h2 className="font-display text-4xl font-bold text-charcoal">
+                Verse of the Day
+              </h2>
+              <div className="mt-8">
+                <VerseOfTheDay />
               </div>
             </div>
           </div>
         </section>
       </FadeSection>
 
-      {/* Announcements */}
+      {/* Announcements Placeholder */}
       <FadeSection>
         <section className="border-t border-divider py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

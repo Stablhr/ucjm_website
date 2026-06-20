@@ -92,11 +92,13 @@ public/
 
 ### Technical Constraints
 - **ReactJS (Vite) only** — no Next.js for Phase 1. Server-side rendering comes later.
+- **React 19.1+ required** — YouVersion Platform SDK requires React 19.1 or higher.
 - **Tailwind CSS only** — no separate CSS files except for `index.css` global resets.
 - **No browser localStorage for auth tokens** — use in-memory or HTTP-only cookies.
 - **Bible API rate limits** — API.Bible free tier caps at 5,000 requests/day. Cache responses in state.
 - **No bundling native mobile yet** — Phase 1 is web only. PWA added in Phase 3.
 - **Firebase free tier limits** — Firestore: 50k reads/day, 20k writes/day, 1GB storage.
+- **YouVersion Platform SDK** — Uses the free YouVersion Platform SDK (`@youversion/platform-react-ui`) for all Bible data. No separate Bible API key needed. Sign up at [platform.youversion.com](https://platform.youversion.com) for an App Key.
 
 ### Design Constraints
 - **Font loading** — Use `<link rel="preconnect">` for Google Fonts or self-host via `fontsource`.
@@ -139,9 +141,9 @@ public/
 **Phase 1**
 ```bash
 npm install react-router-dom        # Page routing
-npm install axios                   # API calls
 npm install firebase                # Auth + Firestore DB
 npm install zustand                 # Global state (lightweight)
+npm install @youversion/platform-react-ui  # Bible content (YouVersion SDK)
 npm install @fontsource/playfair-display
 npm install @fontsource/inter
 npm install lucide-react            # Icons
@@ -150,7 +152,6 @@ npm install react-hot-toast         # Notification toasts
 
 **Phase 2**
 ```bash
-npm install @tanstack/react-query   # Data fetching + caching (Bible API calls)
 npm install react-virtuoso          # Virtualized list for long Bible chapters
 npm install tone                    # Optional: audio tuner for chord practice
 ```
@@ -177,7 +178,7 @@ npm install workbox-window          # Service worker for offline Bible
 |---|---|---|
 | **Firebase Auth** | Login, signup, Google OAuth | Free tier |
 | **Firestore** | Announcements, songs, user data | Free tier |
-| **API.Bible** | Fetch Bible chapters/verses | Free (5k req/day) |
+| **YouVersion Platform SDK** | Verse of the Day, Bible reader, Bible search | Free |
 | **Firebase Hosting** | Deploy the web app | Free tier |
 | **Vercel** (alternative) | Deploy frontend with CI/CD | Free tier |
 | **Cloudinary** (optional) | Store announcement images, church photos | Free tier |
@@ -235,7 +236,6 @@ src/
     home/          # Announcements, daily verse
   services/
     firebase.js    # Firebase config + exports
-    bibleApi.js    # API.Bible wrapper
   store/
     authStore.js   # Zustand store for user session
   assets/
@@ -309,11 +309,12 @@ export const db = getFirestore(app);
 ### Week 4 — Daily Verse & Announcements (Live Data)
 
 **Tasks:**
-- Register at scripture.api.bible and get your API key
-- Build `bibleApi.js` service — function to fetch verse of the day
+- Sign up at [platform.youversion.com](https://platform.youversion.com) and get your App Key
+- Add `VITE_YV_APP_KEY` to `.env.local`
+- Wire up `YouVersionProvider` with the App Key in `main.jsx`
+- Use the built-in `<VerseOfTheDay />` component on the Home page
 - Create Firestore collection: `announcements` with fields: `title, body, imageUrl, postedAt`
 - Manually add 2–3 test announcements directly in Firebase console
-- Build `DailyVerse.jsx` component — fetches and displays verse, caches in Zustand
 - Build `AnnouncementCard.jsx` — image, date, title, excerpt, "Read more" link
 - Build `AnnouncementFeed.jsx` — fetches from Firestore, renders cards in grid
 - Wire both into `Home.jsx`
@@ -368,7 +369,7 @@ Document fields:
 VITE_FIREBASE_API_KEY=...
 VITE_FIREBASE_AUTH_DOMAIN=...
 VITE_FIREBASE_PROJECT_ID=...
-VITE_BIBLE_API_KEY=...
+VITE_YV_APP_KEY=...
 ```
 
 **Deliverable:** Live URL. Phase 1 is shipped. ✅
@@ -384,21 +385,18 @@ VITE_BIBLE_API_KEY=...
 ### Week 7 — Bible Reader Page
 
 **Tasks:**
-- Build `Bible.jsx` page with:
-  - Book selector dropdown
-  - Chapter selector dropdown
-  - Verse list rendered below
-- Integrate API.Bible — fetch books → fetch chapters → fetch verses
-- Wrap all fetches with `@tanstack/react-query` for caching
+- Build `Bible.jsx` page using the built-in `<BibleReader />` component from the YouVersion SDK
+- The component includes: book/chapter navigation, version picker, customizable font/theme
+- Wrap in a full-page container
 - Add font size controls (3 sizes: Normal, Large, Extra Large) stored in Zustand
 - Add dark mode toggle (Tailwind `dark:` classes, stored in Zustand + localStorage)
-- Add "Copy verse" button on each verse
+- Add "Copy verse" button on each verse (via `BibleTextView` or custom logic)
 - Add verse bookmark — saves to Firestore under `users/{uid}/bookmarks`
 
 **EDD Layout Pattern:**
-- Bible page: Left column = navigator (sticky), Right column = verse content
-- Verse text: `font-['Playfair_Display']` for body text — matches EDD's editorial serif feel
-- Verse reference: `font-['IBM_Plex_Mono'] text-sm text-slate` — distinct typographic role
+- Bible page: full-height reader with sticky header
+- The `BibleReader.Toolbar` can be placed at top or bottom via `border` prop
+- Use `BibleReader.Content` with custom font and verse number settings
 
 ---
 
@@ -445,7 +443,7 @@ VITE_BIBLE_API_KEY=...
 **Tasks:**
 - Build `Search.jsx` page with a single text input
 - On submit: query Firestore for matching songs (by title), announcements (by title)
-- For Bible search: use API.Bible search endpoint
+- For Bible search: use the YouVersion SDK (BibleChapterPicker and BibleVersionPicker provide built-in browsing; search is handled via the SDK)
 - Show results in tabbed sections: Bible | Songs | Announcements
 - Add recent searches (stored in Zustand, lost on refresh — no persistence needed yet)
 
@@ -499,7 +497,7 @@ VITE_BIBLE_API_KEY=...
 **Tasks:**
 - Install and configure `vite-plugin-pwa`
 - Create `manifest.json` with app name, icons, theme color
-- Set up service worker to cache: app shell, fonts, and Bible chapters already read
+- Set up service worker to cache: app shell, fonts, and Bible chapters already read (YouVersion SDK handles its own caching)
 - Add "Add to Home Screen" prompt for mobile users
 - Test install on Android Chrome and iOS Safari
 
@@ -557,6 +555,6 @@ Constants:    SCREAMING_SNAKE  BIBLE_VERSIONS.js, READING_PLANS.js
 
 > *Build Phase 1 first. Ship it. Get real feedback from your church community before writing Phase 2 code.*
 >
-> **Stack:** ReactJS (Vite) + Tailwind CSS + Firebase + API.Bible
+> **Stack:** ReactJS (Vite) + Tailwind CSS + Firebase + YouVersion Platform SDK
 > **Design Reference:** eindhovendesigndistrict.com
 > **PRD Reference:** See `README.md` in this project
