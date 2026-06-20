@@ -20,6 +20,20 @@ export default {
         body: ['Inter', 'sans-serif'],
         mono: ['IBM Plex Mono', 'monospace'],
       },
+      keyframes: {
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(24px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 0.6s ease-out forwards',
+        'fade-in': 'fade-in 0.6s ease-out forwards',
+      },
       spacing: {
         18: '4.5rem',
         22: '5.5rem',

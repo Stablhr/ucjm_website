@@ -1,4 +1,13 @@
 import { Link } from 'react-router-dom'
+import { Cross, BookOpen, Music, Compass, User } from 'lucide-react'
+
+const iconMap = {
+  Home: Cross,
+  Bible: BookOpen,
+  Songs: Music,
+  'Reading Guide': Compass,
+  Login: User,
+}
 
 const quickLinks = [
   { to: '/', label: 'Home' },
@@ -26,15 +35,19 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-semibold text-charcoal">Quick Links</h3>
             <div className="flex flex-col gap-2">
-              {quickLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className="text-sm text-slate transition-colors hover:text-accent"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {quickLinks.map((link) => {
+                const Icon = iconMap[link.label]
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className="flex items-center gap-2 text-sm text-slate transition-all hover:translate-x-1 hover:text-accent"
+                  >
+                    <Icon size={14} />
+                    {link.label}
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </div>
