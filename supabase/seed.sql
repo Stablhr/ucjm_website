@@ -1,11 +1,13 @@
-const songsData = [
-  {
-    title: 'Maglilingkod Ako Sa Yo',
-    artist: 'Himig Heswita',
-    key: 'G',
-    category: 'Worship',
-    language: 'Filipino',
-    lyrics_with_chords: `[G]Maglilingkod [C]ako sa 'Yo
+-- ============================================================
+-- Seed: Worship Songs
+-- Run this in the Supabase SQL Editor (SQL Editor > New Query)
+-- Make sure to run the migration (00002_songs.sql) first.
+-- ============================================================
+
+INSERT INTO songs (title, artist, key, category, language, lyrics_with_chords) VALUES
+
+('Maglilingkod Ako Sa Yo', 'Himig Heswita', 'G', 'Worship', 'Filipino',
+$$[G]Maglilingkod [C]ako sa 'Yo
 [G]Sa buo kong [D]puso at [G]kaluluwa
 [Em]Pag-ibig [Bm]Mo'y sapat [C]na
 [G]Upang [D]akay [G]lumigaya
@@ -13,15 +15,10 @@ const songsData = [
 [G]Panginoon [C]ko't Diyos
 [G]Ikaw ang [D]siyang aking [G]ligaya
 [Em]Pag-ibig [Bm]Mo'y walang [C]katulad
-[G]Kaya't [D]ako ay [G]sasamba`,
-  },
-  {
-    title: 'What a Beautiful Name',
-    artist: 'Hillsong Worship',
-    key: 'D',
-    category: 'Worship',
-    language: 'English',
-    lyrics_with_chords: `[D]You were the [A]Word at the be[Bm]ginning
+[G]Kaya't [D]ako ay [G]sasamba$$),
+
+('What a Beautiful Name', 'Hillsong Worship', 'D', 'Worship', 'English',
+$$[D]You were the [A]Word at the be[Bm]ginning
 [G]One with God the Lord Most [D]High
 [A]Your hidden [D]glory in cre[A]ation
 [Bm]Now revealed in [G]Jesus [A]Christ
@@ -35,15 +32,10 @@ What a beauti[Bm]ful [G]Name it [D]is
 What a beauti[Bm]ful [G]Name it [D]is
 The Name of [A]Jesus Christ my [Bm]King
 What a beauti[Bm]ful [G]Name it [D]is
-Nothing com[Bm]pares to [G]what You've [D]done`,
-  },
-  {
-    title: 'Great Is Thy Faithfulness',
-    artist: 'Thomas O. Chisholm',
-    key: 'C',
-    category: 'Hymn',
-    language: 'English',
-    lyrics_with_chords: `[C]Great is Thy [F]faithful[C]ness, O [G7]God my [C]Father
+Nothing com[Bm]pares to [G]what You've [D]done$$),
+
+('Great Is Thy Faithfulness', 'Thomas O. Chisholm', 'C', 'Hymn', 'English',
+$$[C]Great is Thy [F]faithful[C]ness, O [G7]God my [C]Father
 [F]There is no [C]shadow of [Dm]turning with [G7]Thee
 [C]Thou changest [F]not, Thy com[C]passions they [Am]fail [Dm]not
 [F]As Thou hast [C]been Thou for[G7]ever wilt [C]be
@@ -53,38 +45,23 @@ Nothing com[Bm]pares to [G]what You've [D]done`,
 [C]Morning by [F]morning new [C]mercies I [Am]see
 [F]All I have [C]needed Thy [Dm]hand hath pro[G7]vided
 [C]Great is Thy [F]faithful[C]ness
-[G7]Lord, unto [C]me`,
-  },
-  {
-    title: '10,000 Reasons (Bless the Lord)',
-    artist: 'Matt Redman',
-    key: 'G',
-    category: 'Praise',
-    language: 'English',
-    lyrics_with_chords: `[G]Bless the Lord [D]O my [Em]soul
+[G7]Lord, unto [C]me$$),
+
+('10,000 Reasons (Bless the Lord)', 'Matt Redman', 'G', 'Praise', 'English',
+$$[G]Bless the Lord [D]O my [Em]soul
 [C]O my [G]soul
 [G]Worship His [D]holy [Em]name
 [C]Sing like never [G]before
 [Em]O my [D]soul
-[C]I'll worship Your [G]holy [D]name`,
-  },
-  {
-    title: 'Way Maker',
-    artist: 'Sinach',
-    key: 'C',
-    category: 'Worship',
-    language: 'English',
-    lyrics_with_chords: `[C]Way Maker, [G]Miracle Worker
+[C]I'll worship Your [G]holy [D]name$$),
+
+('Way Maker', 'Sinach', 'C', 'Worship', 'English',
+$$[C]Way Maker, [G]Miracle Worker
 [Am]Promise Keeper, [F]Light in the darkness
-[C]My God, [G]that is who You [F]are`,
-  },
-  {
-    title: 'Panalangin sa Pagbubukas',
-    artist: 'Bukas Palad',
-    key: 'G',
-    category: 'Worship',
-    language: 'Filipino',
-    lyrics_with_chords: `[G]Panginoong [C]Diyos
+[C]My God, [G]that is who You [F]are$$),
+
+('Panalangin sa Pagbubukas', 'Bukas Palad', 'G', 'Worship', 'Filipino',
+$$[G]Panginoong [C]Diyos
 [G]Kami'y iyong [D]tipan[G]an
 [Em]Pagpalain [Bm]Mo ang [C]aming [Am]pagsamba
 [G]Sa iyong [D]piling [G]Diyos
@@ -92,15 +69,10 @@ Nothing com[Bm]pares to [G]what You've [D]done`,
 [G]Tanggapin Mo [C]Panginoon
 [G]Ang alay naming [D]puso't [G]buhay
 [Em]Sambahin [Bm]Ka nami[C]ng [Am]tah[G]imik
-[G]Sa 'Yong [D]banal na [G]tahanan`,
-  },
-  {
-    title: 'How Great Is Our God',
-    artist: 'Chris Tomlin',
-    key: 'G',
-    category: 'Praise',
-    language: 'English',
-    lyrics_with_chords: `[G]The splendor of the [D]King
+[G]Sa 'Yong [D]banal na [G]tahanan$$),
+
+('How Great Is Our God', 'Chris Tomlin', 'G', 'Praise', 'English',
+$$[G]The splendor of the [D]King
 Clothed in [Em]majesty
 [C]Let all the earth re[G]joice
 [G]All the earth re[D]joice
@@ -115,15 +87,10 @@ And dark[Em]ness tries to hide
 [G]How great is [D]our God
 [Em]And all will [C]see
 How [G]great, how [D]great
-Is [C]our [G]God`,
-  },
-  {
-    title: 'Walang Ibang Diyos',
-    artist: 'HCC Worship',
-    key: 'D',
-    category: 'Praise',
-    language: 'Filipino',
-    lyrics_with_chords: `[D]Walang ibang [A]Diyos
+Is [C]our [G]God$$),
+
+('Walang Ibang Diyos', 'HCC Worship', 'D', 'Praise', 'Filipino',
+$$[D]Walang ibang [A]Diyos
 [Bm]Maliban sa [G]'Yo
 [D]Ikaw lamang [A]Panginoon
 [G]Ang aking sasam[Bm]bahan
@@ -131,28 +98,18 @@ Is [C]our [G]God`,
 [D]Ang buhay ko'y [A]sa 'Yo
 [Bm]Ang puso ko'y [G]sa 'Yo
 [D]Walang ibang [A]Diyos
-[G]Kundi Ikaw [D]lamang`,
-  },
-  {
-    title: 'Mighty to Save',
-    artist: 'Hillsong Worship',
-    key: 'C',
-    category: 'Worship',
-    language: 'English',
-    lyrics_with_chords: `[C]Everyone needs compas[G]sion
+[G]Kundi Ikaw [D]lamang$$),
+
+('Mighty to Save', 'Hillsong Worship', 'C', 'Worship', 'English',
+$$[C]Everyone needs compas[G]sion
 [A]Love that's never [F]failing
 [C]Let mercy fall on [G]me
 [F]Everyone needs for[C]giveness
 [G]A kind of a King who [Am]offers
-[F]His amazing grace`,
-  },
-  {
-    title: "Sa 'Yo Lamang",
-    artist: 'Bukas Palad',
-    key: 'G',
-    category: 'Worship',
-    language: 'Filipino',
-    lyrics_with_chords: `[G]Sa 'Yo la[D]mang
+[F]His amazing grace$$),
+
+('Sa ''Yo Lamang', 'Bukas Palad', 'G', 'Worship', 'Filipino',
+$$[G]Sa 'Yo la[D]mang
 [Em]Nakalaan ang [C]pagsambang [G]ito
 [D]Tanging Ikaw
 [Em]Diyos na [C]bukal ng pag-[G]ibig
@@ -162,15 +119,10 @@ Is [C]our [G]God`,
 [G]Panginoon [D]ko
 [Em]Sa 'Yo la[C]mang
 [G]Ang papuri [D]ko
-[Em]Sa 'Yo la[C]mang`,
-  },
-  {
-    title: 'Lord I Lift Your Name on High',
-    artist: 'Rick Founds',
-    key: 'C',
-    category: 'Praise',
-    language: 'English',
-    lyrics_with_chords: `[C]Lord I lift Your name on [F]high
+[Em]Sa 'Yo la[C]mang$$),
+
+('Lord I Lift Your Name on High', 'Rick Founds', 'C', 'Praise', 'English',
+$$[C]Lord I lift Your name on [F]high
 [C]Lord I love to sing Your [G]praises
 [C]I'm so glad You're in my [F]life
 [C]I'm so glad You came to [G]save us
@@ -181,15 +133,10 @@ From the [F]earth to the [C]cross
 My [Dm]debt to [G]pay
 From the [C]cross to the [F]grave
 From the [C]grave to the [F]sky
-[C]Lord I lift Your name on [G]high`,
-  },
-  {
-    title: 'Dito sa Puso Ko',
-    artist: 'Himig Heswita',
-    key: 'G',
-    category: 'Worship',
-    language: 'Filipino',
-    lyrics_with_chords: `[G]Dito sa [C]puso [G]ko
+[C]Lord I lift Your name on [G]high$$),
+
+('Dito sa Puso Ko', 'Himig Heswita', 'G', 'Worship', 'Filipino',
+$$[G]Dito sa [C]puso [G]ko
 [D]Ikaw ang [G]hari
 [Em]Dito sa [Bm]puso [C]ko
 [Am]Ikaw ang [D]Pangino[G]on
@@ -197,15 +144,10 @@ From the [C]grave to the [F]sky
 [G]Puspos ng [C]pag-ibig [G]Mo
 [D]Ako ay [G]sumasamba
 [Em]Sa 'Yong [Bm]presensya
-[C]Ligaya [D]ko'y [G]ganap`,
-  },
-  {
-    title: 'Build My Life',
-    artist: 'Housefires',
-    key: 'D',
-    category: 'Worship',
-    language: 'English',
-    lyrics_with_chords: `[D]Worthy of every [A]song we could [Bm]sing
+[C]Ligaya [D]ko'y [G]ganap$$),
+
+('Build My Life', 'Housefires', 'D', 'Worship', 'English',
+$$[D]Worthy of every [A]song we could [Bm]sing
 [G]Worthy of all the [D]praise we could [A]bring
 [G]Worthy of every [D]breath we could [Bm]breathe
 [G]We live for [A]You
@@ -213,15 +155,10 @@ From the [C]grave to the [F]sky
 [D]Jesus, the Name a[A]bove every [Bm]name
 [G]Beautiful Savior, [D]glorious [A]Lord
 [G]Emmanuel, [D]God is with [Bm]us
-[G]We live for [A]You`,
-  },
-  {
-    title: 'Shout to the Lord',
-    artist: 'Darlene Zschech',
-    key: 'D',
-    category: 'Praise',
-    language: 'English',
-    lyrics_with_chords: `[D]My Jesus, my [A]Savior
+[G]We live for [A]You$$),
+
+('Shout to the Lord', 'Darlene Zschech', 'D', 'Praise', 'English',
+$$[D]My Jesus, my [A]Savior
 [G]Lord, there is none like [D]You
 [D]All of my [A]days
 [G]I want to [A]praise the [D]wonders of Your [A]mighty [D]love
@@ -229,8 +166,4 @@ From the [C]grave to the [F]sky
 [D]My comfort, my [A]shelter
 [G]Tower of refuge and [D]strength
 [D]Let every [A]breath, all that [G]I am
-[A]Never cease to [D]worship [A]You`,
-  },
-]
-
-export default songsData
+[A]Never cease to [D]worship [A]You$$);

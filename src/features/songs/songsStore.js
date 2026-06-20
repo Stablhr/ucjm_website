@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { supabase } from '../../services/supabase'
 
 const useSongsStore = create((set, get) => ({
   songs: [],
@@ -19,15 +18,15 @@ const useSongsStore = create((set, get) => ({
 
   fetchSongs: async () => {
     set({ loading: true })
-    const { data, error } = await supabase
-      .from('songs')
-      .select('*')
-      .order('title')
-
-    if (!error && data) {
+    try {
+      const res = await fetch('/songs.json')
+      const data = await res.json()
       set({ songs: data })
+    } catch {
+      set({ songs: [] })
+    } finally {
+      set({ loading: false })
     }
-    set({ loading: false })
   },
 
   getFilteredSongs: () => {
