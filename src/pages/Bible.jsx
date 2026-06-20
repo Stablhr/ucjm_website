@@ -1,25 +1,89 @@
-import { BookOpen } from 'lucide-react'
+import { useState } from 'react'
+import { BibleReader } from '@youversion/platform-react-ui'
+import { BookOpen, Minus, Plus, Sun, Moon } from 'lucide-react'
+
+const fontSizes = [
+  { label: 'Small', value: 16 },
+  { label: 'Normal', value: 20 },
+  { label: 'Large', value: 26 },
+]
 
 export default function Bible() {
+  const [fontSize, setFontSize] = useState(20)
+  const [darkMode, setDarkMode] = useState(false)
+
   return (
-    <section className="py-24">
-      <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-md">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
-            <BookOpen size={32} className="text-accent" />
-          </div>
-          <h1 className="font-display text-4xl font-bold text-charcoal">
+    <div className={`flex min-h-[calc(100vh-4rem)] flex-col ${darkMode ? 'bg-charcoal' : ''}`}>
+      {/* Top bar */}
+      <div className={`flex items-center justify-between border-b px-4 py-3 sm:px-6 lg:px-8 ${
+        darkMode ? 'border-white/10 bg-charcoal' : 'border-divider bg-ivory'
+      }`}>
+        <div className="flex items-center gap-2 text-accent">
+          <BookOpen size={20} />
+          <h1 className={`font-display text-xl font-bold ${darkMode ? 'text-white' : 'text-charcoal'}`}>
             Bible
           </h1>
-          <p className="mt-3 text-slate">
-            The Bible reader is coming soon. Dive into Scripture with our
-            chapter-by-chapter reader.
-          </p>
-          <span className="mt-6 inline-block rounded-sm bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
-            Phase 2
-          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          {/* Font size controls */}
+          <div className={`flex items-center gap-1 rounded-sm border px-2 py-1 ${
+            darkMode ? 'border-white/10' : 'border-divider'
+          }`}>
+            <button
+              onClick={() => setFontSize((s) => Math.max(12, s - 2))}
+              className="rounded-sm p-1 text-slate transition hover:bg-accent/10 hover:text-accent"
+              aria-label="Decrease font size"
+            >
+              <Minus size={14} />
+            </button>
+            <span className={`min-w-[3ch] text-center font-mono text-xs ${darkMode ? 'text-white/60' : 'text-slate'}`}>
+              {fontSize}
+            </span>
+            <button
+              onClick={() => setFontSize((s) => Math.min(32, s + 2))}
+              className="rounded-sm p-1 text-slate transition hover:bg-accent/10 hover:text-accent"
+              aria-label="Increase font size"
+            >
+              <Plus size={14} />
+            </button>
+          </div>
+
+          {/* Dark mode toggle */}
+          <button
+            onClick={() => setDarkMode((d) => !d)}
+            className={`rounded-sm p-2 transition ${
+              darkMode
+                ? 'bg-accent text-white'
+                : 'text-slate hover:bg-accent/10 hover:text-accent'
+            }`}
+            aria-label="Toggle dark mode"
+          >
+            {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
         </div>
       </div>
-    </section>
+
+      {/* Bible Reader */}
+      <div className={`flex-1 overflow-auto ${darkMode ? 'bg-charcoal' : ''}`}>
+        <BibleReader.Root
+          defaultBook="JHN"
+          defaultChapter="1"
+          defaultVersionId={3034}
+          fontSize={fontSize}
+          fontFamily="Playfair Display, serif"
+          lineHeight={1.8}
+          showVerseNumbers={true}
+          background={darkMode ? 'dark' : 'light'}
+        >
+          <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+            <BibleReader.Toolbar border="bottom" />
+            <div className="mt-6">
+              <BibleReader.Content />
+            </div>
+          </div>
+        </BibleReader.Root>
+      </div>
+    </div>
   )
 }
