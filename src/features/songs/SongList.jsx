@@ -1,4 +1,4 @@
-import { Search, Music } from 'lucide-react'
+import { Search, Music, Grid3X3, List } from 'lucide-react'
 import { useEffect } from 'react'
 import useSongsStore from './songsStore'
 import SongCard from './SongCard'
@@ -8,10 +8,21 @@ export default function SongList({ onSelectSong }) {
   const setSearchQuery = useSongsStore((s) => s.setSearchQuery)
   const activeCategory = useSongsStore((s) => s.activeCategory)
   const setActiveCategory = useSongsStore((s) => s.setActiveCategory)
+  const activeArtist = useSongsStore((s) => s.activeArtist)
+  const setActiveArtist = useSongsStore((s) => s.setActiveArtist)
+  const activeAlbum = useSongsStore((s) => s.activeAlbum)
+  const setActiveAlbum = useSongsStore((s) => s.setActiveAlbum)
+  const activeLanguage = useSongsStore((s) => s.activeLanguage)
+  const setActiveLanguage = useSongsStore((s) => s.setActiveLanguage)
+  const viewMode = useSongsStore((s) => s.viewMode)
+  const setViewMode = useSongsStore((s) => s.setViewMode)
   const fetchSongs = useSongsStore((s) => s.fetchSongs)
   const loading = useSongsStore((s) => s.loading)
   const filteredSongs = useSongsStore((s) => s.getFilteredSongs())
   const categories = useSongsStore((s) => s.getCategories())
+  const artists = useSongsStore((s) => s.getArtists())
+  const albums = useSongsStore((s) => s.getAlbums())
+  const languages = useSongsStore((s) => s.getLanguages())
 
   useEffect(() => {
     fetchSongs()
@@ -19,11 +30,16 @@ export default function SongList({ onSelectSong }) {
 
   if (loading) {
     return (
-      <div className="space-y-3">
-        {[1, 2, 3, 4, 5].map((i) => (
+      <div className={viewMode === 'grid'
+        ? 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'
+        : 'space-y-3'
+      }>
+        {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className="h-20 animate-pulse rounded-sm bg-slate/5"
+            className={`animate-pulse rounded-sm bg-slate/5 ${
+              viewMode === 'grid' ? 'aspect-[2/1.4]' : 'h-16'
+            }`}
           />
         ))}
       </div>
@@ -42,12 +58,76 @@ export default function SongList({ onSelectSong }) {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search songs..."
+          placeholder="Search songs, artists, albums..."
           className="w-full rounded-sm border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
         />
       </div>
 
-      {/* Category filters */}
+      {/* Filter dropdowns row */}
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <select
+          value={activeArtist}
+          onChange={(e) => setActiveArtist(e.target.value)}
+          className="rounded-sm border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+        >
+          {artists.map((a) => (
+            <option key={a} value={a}>
+              {a === 'All' ? 'All Artists' : a}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={activeAlbum}
+          onChange={(e) => setActiveAlbum(e.target.value)}
+          className="rounded-sm border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+        >
+          {albums.map((a) => (
+            <option key={a} value={a}>
+              {a === 'All' ? 'All Albums' : a}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={activeLanguage}
+          onChange={(e) => setActiveLanguage(e.target.value)}
+          className="rounded-sm border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+        >
+          {languages.map((l) => (
+            <option key={l} value={l}>
+              {l === 'All' ? 'All Languages' : l}
+            </option>
+          ))}
+        </select>
+
+        <div className="ml-auto flex items-center gap-1 rounded-sm border border-divider bg-white p-0.5">
+          <button
+            onClick={() => setViewMode('grid')}
+            className={`rounded-sm p-1.5 transition-colors ${
+              viewMode === 'grid'
+                ? 'bg-accent text-white'
+                : 'text-slate hover:text-charcoal'
+            }`}
+            aria-label="Grid view"
+          >
+            <Grid3X3 size={14} />
+          </button>
+          <button
+            onClick={() => setViewMode('list')}
+            className={`rounded-sm p-1.5 transition-colors ${
+              viewMode === 'list'
+                ? 'bg-accent text-white'
+                : 'text-slate hover:text-charcoal'
+            }`}
+            aria-label="List view"
+          >
+            <List size={14} />
+          </button>
+        </div>
+      </div>
+
+      {/* Category chips */}
       <div className="mb-5 flex flex-wrap gap-2">
         {categories.map((cat) => (
           <button
@@ -64,6 +144,13 @@ export default function SongList({ onSelectSong }) {
         ))}
       </div>
 
+      {/* Results count */}
+      {filteredSongs.length > 0 && (
+        <p className="mb-3 font-mono text-xs text-slate/50">
+          {filteredSongs.length} song{filteredSongs.length !== 1 ? 's' : ''}
+        </p>
+      )}
+
       {/* Results */}
       {filteredSongs.length === 0 ? (
         <div className="flex flex-col items-center py-16 text-center">
@@ -72,19 +159,28 @@ export default function SongList({ onSelectSong }) {
           </div>
           <p className="text-sm text-slate">No songs found</p>
           <p className="mt-1 text-xs text-slate/60">
-            Try adjusting your search or filter
+            Try adjusting your search or filters
           </p>
         </div>
-      ) : (
-        <div className="space-y-2">
-          <p className="font-mono text-xs text-slate/50">
-            {filteredSongs.length} song{filteredSongs.length !== 1 ? 's' : ''}
-          </p>
+      ) : viewMode === 'grid' ? (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredSongs.map((song) => (
             <SongCard
               key={song.id}
               song={song}
               onClick={onSelectSong}
+              viewMode={viewMode}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {filteredSongs.map((song) => (
+            <SongCard
+              key={song.id}
+              song={song}
+              onClick={onSelectSong}
+              viewMode={viewMode}
             />
           ))}
         </div>

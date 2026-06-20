@@ -43,6 +43,12 @@ function parseSegments(line) {
   return merged
 }
 
+const CATEGORY_GRADIENTS = {
+  Praise: 'from-amber-400 to-orange-500',
+  Worship: 'from-emerald-500 to-teal-600',
+  Hymn: 'from-violet-500 to-purple-700',
+}
+
 export default function SongDetail({ song, onBack }) {
   const transposeOffset = useSongsStore((s) => s.transposeOffset)
   const [showPlaylistModal, setShowPlaylistModal] = useState(false)
@@ -60,11 +66,13 @@ export default function SongDetail({ song, onBack }) {
     })
   }, [transposedLyrics])
 
+  const gradient = song.image_color || CATEGORY_GRADIENTS[song.category] || 'from-accent/20 to-accent/5'
+
   if (!song) return null
 
   return (
     <div>
-      {/* Header */}
+      {/* Back button row */}
       <div className="mb-6 flex items-center justify-between">
         <button
           onClick={onBack}
@@ -77,20 +85,49 @@ export default function SongDetail({ song, onBack }) {
         <ChordTransposer />
       </div>
 
-      {/* Song info */}
-      <div className="mb-8">
-        <h1 className="font-display text-3xl font-bold text-charcoal">
-          {song.title}
-        </h1>
-        <div className="mt-2 flex items-center gap-3">
-          <p className="text-sm text-slate">{song.artist}</p>
-          <span className="text-slate/30">|</span>
-          <span className="rounded-sm bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
-            {song.key}
-          </span>
-          <span className="rounded-sm bg-accent/5 px-2 py-0.5 font-mono text-xs text-slate">
-            {song.category}
-          </span>
+      {/* Hero banner */}
+      <div className={`relative mb-8 overflow-hidden rounded-sm bg-gradient-to-br ${gradient}`}>
+        <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-end sm:p-8">
+          {/* Art thumbnail */}
+          <div className="h-28 w-28 shrink-0 overflow-hidden rounded-sm shadow-lg sm:h-36 sm:w-36">
+            {song.image_url ? (
+              <img
+                src={song.image_url}
+                alt={song.title}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-white/10">
+                <span className="font-display text-5xl font-bold text-white/60">
+                  {song.title.charAt(0)}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Song info overlay */}
+          <div className="min-w-0 flex-1 text-white">
+            <h1 className="font-display text-3xl font-bold leading-tight sm:text-4xl">
+              {song.title}
+            </h1>
+            <p className="mt-1 text-sm text-white/80">{song.artist}</p>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <span className="rounded-sm bg-white/20 px-2.5 py-0.5 font-mono text-xs font-bold">
+                {song.key}
+              </span>
+              <span className="rounded-sm bg-white/15 px-2.5 py-0.5 font-mono text-xs">
+                {song.category}
+              </span>
+              <span className="rounded-sm bg-white/15 px-2.5 py-0.5 font-mono text-xs uppercase">
+                {song.language}
+              </span>
+              {song.album && (
+                <span className="text-xs text-white/60">
+                  {song.album}{song.album_year ? ` (${song.album_year})` : ''}
+                </span>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 

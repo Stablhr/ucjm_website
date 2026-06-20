@@ -14,12 +14,24 @@ const useSongsStore = create((set, get) => ({
   loading: false,
   searchQuery: '',
   activeCategory: 'All',
+  activeArtist: 'All',
+  activeAlbum: 'All',
+  activeLanguage: 'All',
+  viewMode: 'grid',
   transposeOffset: 0,
   currentSongId: null,
 
   setSearchQuery: (query) => set({ searchQuery: query }),
 
   setActiveCategory: (category) => set({ activeCategory: category }),
+
+  setActiveArtist: (artist) => set({ activeArtist: artist }),
+
+  setActiveAlbum: (album) => set({ activeAlbum: album }),
+
+  setActiveLanguage: (language) => set({ activeLanguage: language }),
+
+  setViewMode: (mode) => set({ viewMode: mode }),
 
   setTransposeOffset: (offset) => set({ transposeOffset: offset }),
 
@@ -63,6 +75,10 @@ const useSongsStore = create((set, get) => ({
         category: songData.category || 'Worship',
         language: songData.language || 'English',
         lyrics_with_chords: songData.lyrics_with_chords || '',
+        album: songData.album || '',
+        album_year: songData.album_year || null,
+        image_url: songData.image_url || '',
+        image_color: songData.image_color || 'from-accent/20 to-accent/5',
       })
       .select()
       .single()
@@ -75,7 +91,7 @@ const useSongsStore = create((set, get) => ({
   },
 
   getFilteredSongs: () => {
-    const { songs, searchQuery, activeCategory } = get()
+    const { songs, searchQuery, activeCategory, activeArtist, activeAlbum, activeLanguage } = get()
     let filtered = songs
 
     if (searchQuery.trim()) {
@@ -83,12 +99,25 @@ const useSongsStore = create((set, get) => ({
       filtered = filtered.filter(
         (s) =>
           s.title.toLowerCase().includes(q) ||
-          s.artist.toLowerCase().includes(q)
+          s.artist.toLowerCase().includes(q) ||
+          (s.album || '').toLowerCase().includes(q)
       )
     }
 
     if (activeCategory !== 'All') {
       filtered = filtered.filter((s) => s.category === activeCategory)
+    }
+
+    if (activeArtist !== 'All') {
+      filtered = filtered.filter((s) => s.artist === activeArtist)
+    }
+
+    if (activeAlbum !== 'All') {
+      filtered = filtered.filter((s) => (s.album || '') === activeAlbum)
+    }
+
+    if (activeLanguage !== 'All') {
+      filtered = filtered.filter((s) => s.language === activeLanguage)
     }
 
     return filtered
@@ -100,12 +129,34 @@ const useSongsStore = create((set, get) => ({
     return ['All', ...cats]
   },
 
+  getArtists: () => {
+    const { songs } = get()
+    const artists = new Set(songs.map((s) => s.artist).filter(Boolean))
+    return ['All', ...artists]
+  },
+
+  getAlbums: () => {
+    const { songs } = get()
+    const albums = new Set(songs.map((s) => s.album).filter(Boolean))
+    return ['All', ...albums]
+  },
+
+  getLanguages: () => {
+    const { songs } = get()
+    const langs = new Set(songs.map((s) => s.language).filter(Boolean))
+    return ['All', ...langs]
+  },
+
   reset: () =>
     set({
       songs: [],
       userSongs: [],
       searchQuery: '',
       activeCategory: 'All',
+      activeArtist: 'All',
+      activeAlbum: 'All',
+      activeLanguage: 'All',
+      viewMode: 'grid',
       transposeOffset: 0,
       currentSongId: null,
     }),
