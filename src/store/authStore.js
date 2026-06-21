@@ -77,6 +77,11 @@ const useAuthStore = create((set) => ({
     return data
   },
 
+  signInWithOAuth: async (provider) => {
+    const { error } = await supabase.auth.signInWithOAuth({ provider })
+    if (error) throw error
+  },
+
   signOut: async () => {
     await supabase.auth.signOut()
     set({ user: null, profile: null, isLoggedIn: false })
