@@ -1,4 +1,4 @@
-import { ArrowLeft, CheckCircle, Flame } from 'lucide-react'
+import { ArrowLeft, CheckCircle, Flame, BookOpen, Heart, Target } from 'lucide-react'
 import { BibleTextView } from '@youversion/platform-react-ui'
 import useGuideStore from './guideStore'
 import plans from './plans'
@@ -25,7 +25,6 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
 
   return (
     <div className="animate-fade-up">
-      {/* Back button & streak */}
       <div className="mb-6 flex items-center justify-between">
         <button
           onClick={onBack}
@@ -35,13 +34,17 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
           Back to {plan.title}
         </button>
 
-        <div className="flex items-center gap-1.5 font-mono text-sm text-accent-warm">
-          <Flame size={16} />
-          <span>{streak} day streak</span>
-        </div>
+        {streak > 0 && (
+          <div className="flex items-center gap-1.5 font-mono text-sm text-accent-warm">
+            <Flame
+              size={16}
+              className="animate-fire"
+            />
+            <span>{streak} day streak</span>
+          </div>
+        )}
       </div>
 
-      {/* Day header */}
       <div className="mb-8">
         <span className="font-mono text-xs text-slate">
           Day {day.day} of {plan.days.length}
@@ -51,8 +54,25 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
         </h2>
       </div>
 
-      {/* Verse */}
+      <div className="mb-6 flex items-center gap-6 border-b border-divider pb-4 text-xs font-medium text-slate">
+        <span className="flex items-center gap-1.5 text-accent">
+          <BookOpen size={14} /> Read
+        </span>
+        <span className="text-slate/30">&rarr;</span>
+        <span className="flex items-center gap-1.5">
+          <Heart size={14} /> Reflect
+        </span>
+        <span className="text-slate/30">&rarr;</span>
+        <span className="flex items-center gap-1.5">
+          <Target size={14} /> Pray
+        </span>
+      </div>
+
       <div className="mb-8 rounded-sm border border-divider bg-white p-6">
+        <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
+          <BookOpen size={14} />
+          Scripture
+        </div>
         <BibleTextView
           versionId={3034}
           references={[day.verseRef]}
@@ -63,15 +83,27 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
         </p>
       </div>
 
-      {/* Reflection */}
-      <div className="mb-8">
-        <h3 className="mb-2 font-mono text-xs font-medium uppercase tracking-wider text-slate">
+      <div className="mb-8 rounded-sm border border-divider bg-white p-6">
+        <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
+          <Heart size={14} />
           Reflection
-        </h3>
-        <p className="leading-relaxed text-charcoal/80">{day.reflection}</p>
+        </div>
+        <p className="font-display text-lg leading-relaxed text-charcoal/85">
+          {day.reflection}
+        </p>
       </div>
 
-      {/* Navigation */}
+      <div className="mb-8 rounded-sm border border-divider bg-white p-6">
+        <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
+          <Target size={14} />
+          Prayer
+        </div>
+        <p className="italic leading-relaxed text-charcoal/70">
+          Lord, thank You for Your Word. Help me to live out what I've learned today.
+          Let this truth take root in my heart and transform the way I think, speak, and act. Amen.
+        </p>
+      </div>
+
       <div className="flex items-center justify-between border-t border-divider pt-6">
         <div>
           {prevDay && (
@@ -94,6 +126,12 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
               <CheckCircle size={16} />
               Mark Complete
             </button>
+          )}
+
+          {completed && nextDay && (
+            <p className="text-sm text-slate">
+              Great job!
+            </p>
           )}
 
           {nextDay && (

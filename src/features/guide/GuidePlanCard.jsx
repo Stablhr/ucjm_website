@@ -7,6 +7,7 @@ import {
   Feather,
   Zap,
   CheckCircle,
+  ArrowRight,
 } from 'lucide-react'
 import useGuideStore from './guideStore'
 
@@ -47,6 +48,10 @@ export default function GuidePlanCard({ plan }) {
     progress[`${plan.id}-${d.day}`]?.completed
   ).length
 
+  const hasStarted = completedDays > 0
+  const isComplete = completedDays === plan.days.length
+  const pct = Math.round((completedDays / plan.days.length) * 100)
+
   return (
     <button
       onClick={() => setActivePlan(plan.id)}
@@ -57,23 +62,28 @@ export default function GuidePlanCard({ plan }) {
           <Icon size={22} />
         </div>
         <span className="font-mono text-xs opacity-60">
-          {plan.days.length} days
+          {plan.days.length} {plan.days.length === 1 ? 'day' : 'days'}
         </span>
       </div>
 
       <h3 className="font-display text-lg font-bold">{plan.title}</h3>
       <p className="mt-1 text-sm opacity-70">{plan.description}</p>
 
+      <p className="mt-3 text-xs italic opacity-60">
+        {isComplete
+          ? 'All days completed!'
+          : `Start with "${plan.days[0].title}"`}
+      </p>
+
       <div className="mt-4 flex w-full items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="h-1.5 flex-1 rounded-full bg-white/60"
+          <div
+            className="h-1.5 flex-1 rounded-full bg-white/60"
             style={{ width: 120 }}
           >
             <div
               className="h-full rounded-full bg-current transition-all"
-              style={{
-                width: `${Math.round((completedDays / plan.days.length) * 100)}%`,
-              }}
+              style={{ width: `${pct}%` }}
             />
           </div>
           <span className="font-mono text-xs opacity-60">
@@ -81,9 +91,12 @@ export default function GuidePlanCard({ plan }) {
           </span>
         </div>
 
-        {completedDays === plan.days.length && (
-          <CheckCircle size={16} className="shrink-0" />
-        )}
+        {isComplete && <CheckCircle size={16} className="shrink-0" />}
+      </div>
+
+      <div className="mt-4 flex w-full items-center justify-end gap-1.5 text-xs font-medium opacity-0 transition-opacity group-hover:opacity-100">
+        {isComplete ? 'Review Plan' : hasStarted ? 'Continue' : 'Start Plan'}
+        <ArrowRight size={14} />
       </div>
     </button>
   )

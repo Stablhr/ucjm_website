@@ -1,4 +1,4 @@
-import { CheckCircle } from 'lucide-react'
+import { CheckCircle, BookOpen, Sparkles } from 'lucide-react'
 import useGuideStore from './guideStore'
 
 export default function GuideDayCard({ planId, day, dayNumber }) {
@@ -33,19 +33,28 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
       </div>
 
       <div className="min-w-0 flex-1">
-        <h4
-          className={`font-medium ${
-            completed ? 'text-green-700' : 'text-charcoal'
-          }`}
-        >
-          {day.title}
-        </h4>
+        <div className="flex items-center gap-2">
+          <h4
+            className={`font-medium ${
+              completed ? 'text-green-700' : 'text-charcoal'
+            }`}
+          >
+            {day.title}
+          </h4>
+          {completed && (
+            <Sparkles size={14} className="text-green-500" />
+          )}
+        </div>
         <p
           className={`mt-0.5 font-mono text-xs ${
             completed ? 'text-green-600' : 'text-slate'
           }`}
         >
           {day.verseRef.replace(/\./g, ' ')}
+        </p>
+        <p className="mt-1 flex items-center gap-1 text-xs text-slate/60">
+          <BookOpen size={11} />
+          Read &mdash; Reflect &mdash; Pray
         </p>
       </div>
 
