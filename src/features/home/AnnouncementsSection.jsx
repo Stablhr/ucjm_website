@@ -18,15 +18,15 @@ export default function AnnouncementsSection() {
         {loading ? (
           <div className="mt-8 grid gap-8 md:grid-cols-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="rounded-sm border border-divider p-6">
-                <div className="mb-3 h-40 animate-pulse rounded-sm bg-divider" />
-                <div className="mb-2 h-6 w-3/4 animate-pulse rounded-sm bg-divider" />
-                <div className="h-4 w-full animate-pulse rounded-sm bg-divider" />
+              <div key={i} className="rounded-lg border border-divider p-6">
+                <div className="mb-3 h-40 animate-pulse rounded-lg bg-divider" />
+                <div className="mb-2 h-6 w-3/4 animate-pulse rounded-lg bg-divider" />
+                <div className="h-4 w-full animate-pulse rounded-lg bg-divider" />
               </div>
             ))}
           </div>
         ) : announcements.length === 0 ? (
-          <div className="mt-8 rounded-sm border border-divider py-16 text-center">
+          <div className="mt-8 rounded-lg border border-divider py-16 text-center">
             <p className="text-sm text-slate">No announcements yet. Check back soon!</p>
           </div>
         ) : (
@@ -34,17 +34,17 @@ export default function AnnouncementsSection() {
             {announcements.map((a) => (
               <div
                 key={a.id}
-                className="group rounded-sm border border-divider p-6 transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-sm"
+                className="group rounded-lg border border-divider p-6 transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-sm"
               >
                 {a.image_url && (
                   <img
                     src={a.image_url}
                     alt={a.title}
-                    className="mb-3 h-40 w-full rounded-sm object-cover transition group-hover:brightness-95"
+                    className="mb-3 h-40 w-full rounded-lg object-cover transition group-hover:brightness-95"
                   />
                 )}
                 {!a.image_url && (
-                  <div className="mb-3 h-40 rounded-sm bg-divider transition group-hover:brightness-95" />
+                  <div className="mb-3 h-40 rounded-lg bg-divider transition group-hover:brightness-95" />
                 )}
                 <h3 className="font-display text-xl font-bold text-charcoal">
                   {a.title}

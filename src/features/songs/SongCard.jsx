@@ -46,9 +46,9 @@ export default function SongCard({ song, onClick, viewMode }) {
     return (
       <button
         onClick={() => onClick?.(song)}
-        className="group flex w-full items-center gap-4 rounded-sm border border-divider bg-white p-3 text-left transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-sm"
+        className="group flex w-full items-center gap-4 rounded-lg border border-divider bg-white p-3 text-left transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-sm"
       >
-        <div className="h-12 w-12 shrink-0 overflow-hidden rounded-sm">
+        <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg">
           <Monogram song={song} className="h-full w-full" />
         </div>
 
@@ -63,11 +63,11 @@ export default function SongCard({ song, onClick, viewMode }) {
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          <span className="rounded-sm bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
+          <span className="rounded-lg bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
             {song.key}
           </span>
           <span
-            className={`hidden rounded-sm bg-gradient-to-br ${catColor} px-2 py-0.5 font-mono text-xs text-white sm:inline-block`}
+            className={`hidden rounded-lg bg-gradient-to-br ${catColor} px-2 py-0.5 font-mono text-xs text-white sm:inline-block`}
           >
             {song.category}
           </span>
@@ -98,18 +98,18 @@ export default function SongCard({ song, onClick, viewMode }) {
   return (
     <button
       onClick={() => onClick?.(song)}
-      className="group flex w-full flex-col overflow-hidden rounded-sm border border-divider bg-white text-left transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-md"
+      className="group flex w-full flex-col overflow-hidden rounded-lg border border-divider bg-white text-left transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-md"
     >
       {/* Art area */}
       <div className="relative aspect-[2/1] w-full overflow-hidden">
         <Monogram song={song} className="h-full w-full" />
         <div className="absolute bottom-2 left-2">
-          <span className="inline-block rounded-sm bg-white/90 px-2 py-0.5 font-mono text-xs font-bold text-accent shadow-sm">
+          <span className="inline-block rounded-lg bg-white/90 px-2 py-0.5 font-mono text-xs font-bold text-accent shadow-sm">
             {song.key}
           </span>
         </div>
         <div className="absolute right-2 top-2">
-          <span className="inline-block rounded-sm bg-white/80 px-1.5 py-0.5 font-mono text-[10px] uppercase text-slate shadow-sm">
+          <span className="inline-block rounded-lg bg-white/80 px-1.5 py-0.5 font-mono text-[10px] uppercase text-slate shadow-sm">
             {LANG_LABELS[song.language] || song.language}
           </span>
         </div>
@@ -126,7 +126,7 @@ export default function SongCard({ song, onClick, viewMode }) {
 
         <div className="mt-2 flex items-center gap-2">
           <span
-            className={`rounded-sm bg-gradient-to-br ${catColor} px-2 py-0.5 font-mono text-[10px] text-white`}
+            className={`rounded-lg bg-gradient-to-br ${catColor} px-2 py-0.5 font-mono text-[10px] text-white`}
           >
             {song.category}
           </span>

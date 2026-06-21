@@ -54,7 +54,7 @@ export default function AdminAnnouncements() {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-16 animate-pulse rounded-sm bg-divider" />
+            <div key={i} className="h-16 animate-pulse rounded-lg bg-divider" />
           ))}
         </div>
       ) : announcements.length === 0 ? (
@@ -75,7 +75,7 @@ export default function AdminAnnouncements() {
           </Link>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-sm border border-divider">
+        <div className="overflow-hidden rounded-lg border border-divider">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-divider bg-ivory">
               <tr>
@@ -94,7 +94,7 @@ export default function AdminAnnouncements() {
                   </td>
                   <td className="hidden px-4 py-3 sm:table-cell">
                     <span
-                      className={`inline-block rounded-sm px-2 py-0.5 text-xs font-medium ${
+                      className={`inline-block rounded-lg px-2 py-0.5 text-xs font-medium ${
                         a.is_published
                           ? 'bg-green-50 text-green-700'
                           : 'bg-divider text-slate'
@@ -107,14 +107,14 @@ export default function AdminAnnouncements() {
                     <div className="flex items-center justify-end gap-2">
                       <Link
                         to={`/admin/announcements/${a.id}/edit`}
-                        className="rounded-sm p-1.5 text-slate transition-colors hover:bg-accent/5 hover:text-accent"
+                        className="rounded-lg p-1.5 text-slate transition-colors hover:bg-accent/5 hover:text-accent"
                       >
                         <Edit3 size={15} />
                       </Link>
                       <button
                         onClick={() => handleDelete(a.id)}
                         disabled={deleting === a.id}
-                        className="rounded-sm p-1.5 text-slate transition-colors hover:bg-red-50 hover:text-red-600 disabled:opacity-50"
+                        className="rounded-lg p-1.5 text-slate transition-colors hover:bg-red-50 hover:text-red-600 disabled:opacity-50"
                       >
                         <Trash2 size={15} />
                       </button>

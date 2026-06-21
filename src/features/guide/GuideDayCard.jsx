@@ -12,7 +12,7 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
   return (
     <button
       onClick={() => setCurrentDay(dayNumber)}
-      className={`group flex w-full items-center gap-4 rounded-sm border px-5 py-4 text-left transition-all ${
+      className={`group flex w-full items-center gap-4 rounded-lg border px-5 py-4 text-left transition-all ${
         isActive
           ? 'border-accent bg-accent/5'
           : completed

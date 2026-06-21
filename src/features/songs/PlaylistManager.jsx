@@ -63,7 +63,7 @@ export default function PlaylistManager({ onSelectPlaylist }) {
     return (
       <div className="space-y-3">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-20 animate-pulse rounded-sm bg-slate/5" />
+          <div key={i} className="h-20 animate-pulse rounded-lg bg-slate/5" />
         ))}
       </div>
     )
@@ -74,7 +74,7 @@ export default function PlaylistManager({ onSelectPlaylist }) {
       {!showCreate ? (
         <button
           onClick={() => setShowCreate(true)}
-          className="mb-5 flex w-full items-center justify-center gap-2 rounded-sm border border-dashed border-divider py-3 text-sm text-slate transition-colors hover:border-accent/30 hover:text-accent"
+          className="mb-5 flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-divider py-3 text-sm text-slate transition-colors hover:border-accent/30 hover:text-accent"
         >
           <Plus size={16} />
           New Playlist
@@ -82,7 +82,7 @@ export default function PlaylistManager({ onSelectPlaylist }) {
       ) : (
         <form
           onSubmit={handleCreate}
-          className="mb-5 rounded-sm border border-divider bg-white p-4"
+          className="mb-5 rounded-lg border border-divider bg-white p-4"
         >
           <h4 className="mb-3 font-display text-sm font-bold text-charcoal">
             New Playlist
@@ -94,33 +94,33 @@ export default function PlaylistManager({ onSelectPlaylist }) {
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder="Title (e.g. Sunday June 28)"
               required
-              className="w-full rounded-sm border border-divider px-3 py-2 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
+              className="w-full rounded-lg border border-divider px-3 py-2 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
             />
             <input
               type="date"
               value={newDate}
               onChange={(e) => setNewDate(e.target.value)}
-              className="w-full rounded-sm border border-divider px-3 py-2 text-sm text-charcoal outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+              className="w-full rounded-lg border border-divider px-3 py-2 text-sm text-charcoal outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
             />
             <input
               type="text"
               value={newCreator}
               onChange={(e) => setNewCreator(e.target.value)}
               placeholder="Your name (optional)"
-              className="w-full rounded-sm border border-divider px-3 py-2 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
+              className="w-full rounded-lg border border-divider px-3 py-2 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
             />
             <div className="flex gap-2">
               <button
                 type="button"
                 onClick={() => setShowCreate(false)}
-                className="flex-1 rounded-sm border border-divider py-2 text-sm text-slate transition-colors hover:border-accent/30"
+                className="flex-1 rounded-lg border border-divider py-2 text-sm text-slate transition-colors hover:border-accent/30"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={creating}
-                className="flex-1 rounded-sm bg-accent py-2 text-sm font-medium text-white transition hover:bg-accent/90 disabled:opacity-60"
+                className="flex-1 rounded-lg bg-accent py-2 text-sm font-medium text-white transition hover:bg-accent/90 disabled:opacity-60"
               >
                 {creating ? 'Creating...' : 'Create'}
               </button>
@@ -144,7 +144,7 @@ export default function PlaylistManager({ onSelectPlaylist }) {
           {playlists.map((p) => (
             <div
               key={p.id}
-              className="group flex items-center gap-4 rounded-sm border border-divider bg-white p-4 transition-all hover:border-accent/30"
+              className="group flex items-center gap-4 rounded-lg border border-divider bg-white p-4 transition-all hover:border-accent/30"
             >
               <button
                 onClick={() => onSelectPlaylist(p)}
@@ -180,7 +180,7 @@ export default function PlaylistManager({ onSelectPlaylist }) {
 
               <button
                 onClick={() => handleDelete(p.id, p.title)}
-                className="shrink-0 rounded-sm p-1.5 text-slate/30 transition-colors hover:bg-red-50 hover:text-red-500"
+                className="shrink-0 rounded-lg p-1.5 text-slate/30 transition-colors hover:bg-red-50 hover:text-red-500"
               >
                 <Trash2 size={14} />
               </button>

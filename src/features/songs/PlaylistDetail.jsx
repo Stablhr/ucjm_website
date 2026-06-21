@@ -77,7 +77,7 @@ export default function PlaylistDetail({ playlist, onBack }) {
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="h-16 animate-pulse rounded-sm bg-slate/5"
+              className="h-16 animate-pulse rounded-lg bg-slate/5"
             />
           ))}
         </div>
@@ -96,7 +96,7 @@ export default function PlaylistDetail({ playlist, onBack }) {
           {songs.map((entry, idx) => (
             <div
               key={entry.id}
-              className="flex items-center gap-4 rounded-sm border border-divider bg-white px-4 py-3 transition-all hover:border-accent/20"
+              className="flex items-center gap-4 rounded-lg border border-divider bg-white px-4 py-3 transition-all hover:border-accent/20"
             >
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
                 {idx + 1}
@@ -116,13 +116,13 @@ export default function PlaylistDetail({ playlist, onBack }) {
                 </p>
               </div>
 
-              <span className="rounded-sm bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
+              <span className="rounded-lg bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
                 {entry.songs?.key || '?'}
               </span>
 
               <button
                 onClick={() => handleRemove(entry.song_id)}
-                className="rounded-sm p-1.5 text-slate/30 transition-colors hover:bg-red-50 hover:text-red-500"
+                className="rounded-lg p-1.5 text-slate/30 transition-colors hover:bg-red-50 hover:text-red-500"
               >
                 <Trash2 size={14} />
               </button>

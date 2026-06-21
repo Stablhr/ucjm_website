@@ -68,7 +68,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
         </span>
       </div>
 
-      <div className="mb-8 rounded-sm border border-divider bg-white p-6">
+      <div className="mb-8 rounded-lg border border-divider bg-white p-6">
         <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
           <BookOpen size={14} />
           Scripture
@@ -83,7 +83,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
         </p>
       </div>
 
-      <div className="mb-8 rounded-sm border border-divider bg-white p-6">
+      <div className="mb-8 rounded-lg border border-divider bg-white p-6">
         <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
           <Heart size={14} />
           Reflection
@@ -93,7 +93,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
         </p>
       </div>
 
-      <div className="mb-8 rounded-sm border border-divider bg-white p-6">
+      <div className="mb-8 rounded-lg border border-divider bg-white p-6">
         <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
           <Target size={14} />
           Prayer
@@ -121,7 +121,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
           {!completed && (
             <button
               onClick={handleComplete}
-              className="inline-flex items-center gap-2 rounded-sm bg-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98]"
+              className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98]"
             >
               <CheckCircle size={16} />
               Mark Complete

@@ -38,7 +38,7 @@ export default function Guide() {
             </p>
             <Link
               to="/login"
-              className="mt-6 inline-flex items-center gap-2 rounded-sm bg-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98]"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98]"
             >
               <LogIn size={16} />
               Sign In

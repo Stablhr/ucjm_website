@@ -53,7 +53,7 @@ export default function AdminLayout() {
                 key={link.to}
                 to={link.to}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 rounded-sm px-4 py-2.5 text-sm font-medium transition-colors ${
+                className={`flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
                   isActive
                     ? 'bg-accent/10 text-accent'
                     : 'text-slate hover:bg-accent/5 hover:text-charcoal'
@@ -72,7 +72,7 @@ export default function AdminLayout() {
           </div>
           <button
             onClick={signOut}
-            className="flex w-full items-center gap-3 rounded-sm px-4 py-2.5 text-sm font-medium text-slate transition-colors hover:bg-red-50 hover:text-red-600"
+            className="flex w-full items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-slate transition-colors hover:bg-red-50 hover:text-red-600"
           >
             <LogOut size={18} />
             Sign Out

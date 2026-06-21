@@ -54,10 +54,10 @@ export default function AdminDashboard() {
             <Link
               key={card.label}
               to={card.href}
-              className="group rounded-sm border border-divider bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-sm"
+              className="group rounded-lg border border-divider bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-sm"
             >
               <div className="flex items-center justify-between">
-                <div className={`rounded-sm p-3 ${card.bg}`}>
+                <div className={`rounded-lg p-3 ${card.bg}`}>
                   <Icon size={24} className={card.color} />
                 </div>
                 <ArrowRight

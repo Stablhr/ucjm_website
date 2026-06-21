@@ -50,7 +50,7 @@ export default function SignUp() {
       <div className="flex w-full items-center justify-center px-4 lg:w-1/2">
         <div className="w-full max-w-sm animate-fade-up">
           <div className="mb-2 flex items-center gap-3 text-accent">
-            <div className="rounded-sm bg-accent/10 p-2">
+            <div className="rounded-lg bg-accent/10 p-2">
               <UserPlus size={20} />
             </div>
             <h1 className="font-display text-3xl font-bold text-charcoal">
@@ -63,7 +63,7 @@ export default function SignUp() {
             <button
               type="button"
               onClick={() => signInWithOAuth('google')}
-              className="flex flex-1 items-center justify-center gap-2 rounded-sm border border-divider px-4 py-2.5 text-sm text-slate transition hover:border-accent/30 hover:bg-accent/5 hover:text-charcoal"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-divider px-4 py-2.5 text-sm text-slate transition hover:border-accent/30 hover:bg-accent/5 hover:text-charcoal"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
@@ -76,7 +76,7 @@ export default function SignUp() {
             <button
               type="button"
               onClick={() => signInWithOAuth('facebook', { scopes: 'public_profile' })}
-              className="flex flex-1 items-center justify-center gap-2 rounded-sm border border-divider px-4 py-2.5 text-sm text-slate transition hover:border-accent/30 hover:bg-accent/5 hover:text-charcoal"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-divider px-4 py-2.5 text-sm text-slate transition hover:border-accent/30 hover:bg-accent/5 hover:text-charcoal"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="#1877F2">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -105,7 +105,7 @@ export default function SignUp() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Full Name"
-                  className="w-full rounded-sm border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
+                  className="w-full rounded-lg border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
                 />
               </div>
             </div>
@@ -120,7 +120,7 @@ export default function SignUp() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
                   required
-                  className="w-full rounded-sm border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
+                  className="w-full rounded-lg border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
                 />
               </div>
             </div>
@@ -136,7 +136,7 @@ export default function SignUp() {
                   placeholder="Password"
                   required
                   minLength={6}
-                  className="w-full rounded-sm border border-divider py-3 pl-10 pr-10 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
+                  className="w-full rounded-lg border border-divider py-3 pl-10 pr-10 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
                 />
                 <button
                   type="button"
@@ -152,7 +152,7 @@ export default function SignUp() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-sm bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98] disabled:opacity-60"
+              className="w-full rounded-lg bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98] disabled:opacity-60"
             >
               {loading ? 'Creating account...' : 'Create Account'}
             </button>

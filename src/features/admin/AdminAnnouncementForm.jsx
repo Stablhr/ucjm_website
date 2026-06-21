@@ -112,7 +112,7 @@ export default function AdminAnnouncementForm() {
             onChange={(e) => handleChange('title', e.target.value)}
             placeholder="Sunday Service — June 22"
             required
-            className="w-full rounded-sm border border-divider px-4 py-2.5 text-sm text-charcoal outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
+            className="w-full rounded-lg border border-divider px-4 py-2.5 text-sm text-charcoal outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
           />
         </div>
 
@@ -123,7 +123,7 @@ export default function AdminAnnouncementForm() {
             onChange={(e) => handleChange('description', e.target.value)}
             placeholder="Join us this Sunday at 9AM for worship..."
             rows={5}
-            className="w-full resize-y rounded-sm border border-divider px-4 py-2.5 text-sm text-charcoal outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
+            className="w-full resize-y rounded-lg border border-divider px-4 py-2.5 text-sm text-charcoal outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
           />
         </div>
 
@@ -134,7 +134,7 @@ export default function AdminAnnouncementForm() {
             value={form.image_url}
             onChange={(e) => handleChange('image_url', e.target.value)}
             placeholder="https://example.com/image.jpg"
-            className="w-full rounded-sm border border-divider px-4 py-2.5 text-sm text-charcoal outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
+            className="w-full rounded-lg border border-divider px-4 py-2.5 text-sm text-charcoal outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
           />
         </div>
 

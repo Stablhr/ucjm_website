@@ -55,7 +55,7 @@ export default function GuidePlanCard({ plan }) {
   return (
     <button
       onClick={() => setActivePlan(plan.id)}
-      className={`group relative flex flex-col items-start rounded-sm border p-6 text-left transition-all ${colorClass}`}
+      className={`group relative flex flex-col items-start rounded-lg border p-6 text-left transition-all ${colorClass}`}
     >
       <div className="mb-3 flex items-center gap-3">
         <div className="rounded-full bg-white/80 p-2.5 shadow-sm">

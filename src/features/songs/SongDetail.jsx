@@ -86,10 +86,10 @@ export default function SongDetail({ song, onBack }) {
       </div>
 
       {/* Hero banner */}
-      <div className={`relative mb-8 overflow-hidden rounded-sm bg-gradient-to-br ${gradient}`}>
+      <div className={`relative mb-8 overflow-hidden rounded-lg bg-gradient-to-br ${gradient}`}>
         <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-end sm:p-8">
           {/* Art thumbnail */}
-          <div className="h-28 w-28 shrink-0 overflow-hidden rounded-sm shadow-lg sm:h-36 sm:w-36">
+          <div className="h-28 w-28 shrink-0 overflow-hidden rounded-lg shadow-lg sm:h-36 sm:w-36">
             {song.image_url ? (
               <img
                 src={song.image_url}
@@ -112,13 +112,13 @@ export default function SongDetail({ song, onBack }) {
             </h1>
             <p className="mt-1 text-sm text-white/80">{song.artist}</p>
             <div className="mt-3 flex flex-wrap items-center gap-3">
-              <span className="rounded-sm bg-white/20 px-2.5 py-0.5 font-mono text-xs font-bold">
+              <span className="rounded-lg bg-white/20 px-2.5 py-0.5 font-mono text-xs font-bold">
                 {song.key}
               </span>
-              <span className="rounded-sm bg-white/15 px-2.5 py-0.5 font-mono text-xs">
+              <span className="rounded-lg bg-white/15 px-2.5 py-0.5 font-mono text-xs">
                 {song.category}
               </span>
-              <span className="rounded-sm bg-white/15 px-2.5 py-0.5 font-mono text-xs uppercase">
+              <span className="rounded-lg bg-white/15 px-2.5 py-0.5 font-mono text-xs uppercase">
                 {song.language}
               </span>
               {song.album && (
@@ -132,7 +132,7 @@ export default function SongDetail({ song, onBack }) {
       </div>
 
       {/* Lyrics with chords */}
-      <div className="mb-8 rounded-sm border border-divider bg-white p-6 sm:p-8">
+      <div className="mb-8 rounded-lg border border-divider bg-white p-6 sm:p-8">
         {renderedLines.map((line, i) => {
           if (line.type === 'empty') {
             return <div key={i} className="h-4" />
@@ -164,7 +164,7 @@ export default function SongDetail({ song, onBack }) {
       {/* Actions */}
       <button
         onClick={() => setShowPlaylistModal(true)}
-        className="inline-flex items-center gap-2 rounded-sm border border-divider px-4 py-2.5 text-sm text-slate transition-all hover:border-accent/30 hover:text-accent active:scale-[0.98]"
+        className="inline-flex items-center gap-2 rounded-lg border border-divider px-4 py-2.5 text-sm text-slate transition-all hover:border-accent/30 hover:text-accent active:scale-[0.98]"
       >
         <Plus size={16} />
         Add to Playlist

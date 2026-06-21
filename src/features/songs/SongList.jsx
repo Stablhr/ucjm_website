@@ -37,7 +37,7 @@ export default function SongList({ onSelectSong }) {
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className={`animate-pulse rounded-sm bg-slate/5 ${
+            className={`animate-pulse rounded-lg bg-slate/5 ${
               viewMode === 'grid' ? 'aspect-[2/1.4]' : 'h-16'
             }`}
           />
@@ -59,7 +59,7 @@ export default function SongList({ onSelectSong }) {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search songs, artists, albums..."
-          className="w-full rounded-sm border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
+          className="w-full rounded-lg border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
         />
       </div>
 
@@ -68,7 +68,7 @@ export default function SongList({ onSelectSong }) {
         <select
           value={activeArtist}
           onChange={(e) => setActiveArtist(e.target.value)}
-          className="rounded-sm border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+          className="rounded-lg border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
         >
           {artists.map((a) => (
             <option key={a} value={a}>
@@ -80,7 +80,7 @@ export default function SongList({ onSelectSong }) {
         <select
           value={activeAlbum}
           onChange={(e) => setActiveAlbum(e.target.value)}
-          className="rounded-sm border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+          className="rounded-lg border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
         >
           {albums.map((a) => (
             <option key={a} value={a}>
@@ -92,7 +92,7 @@ export default function SongList({ onSelectSong }) {
         <select
           value={activeLanguage}
           onChange={(e) => setActiveLanguage(e.target.value)}
-          className="rounded-sm border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+          className="rounded-lg border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
         >
           {languages.map((l) => (
             <option key={l} value={l}>
@@ -101,10 +101,10 @@ export default function SongList({ onSelectSong }) {
           ))}
         </select>
 
-        <div className="ml-auto flex items-center gap-1 rounded-sm border border-divider bg-white p-0.5">
+        <div className="ml-auto flex items-center gap-1 rounded-lg border border-divider bg-white p-0.5">
           <button
             onClick={() => setViewMode('grid')}
-            className={`rounded-sm p-1.5 transition-colors ${
+            className={`rounded-lg p-1.5 transition-colors ${
               viewMode === 'grid'
                 ? 'bg-accent text-white'
                 : 'text-slate hover:text-charcoal'
@@ -115,7 +115,7 @@ export default function SongList({ onSelectSong }) {
           </button>
           <button
             onClick={() => setViewMode('list')}
-            className={`rounded-sm p-1.5 transition-colors ${
+            className={`rounded-lg p-1.5 transition-colors ${
               viewMode === 'list'
                 ? 'bg-accent text-white'
                 : 'text-slate hover:text-charcoal'
@@ -133,7 +133,7 @@ export default function SongList({ onSelectSong }) {
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`rounded-sm px-3 py-1.5 font-mono text-xs transition-all ${
+            className={`rounded-lg px-3 py-1.5 font-mono text-xs transition-all ${
               activeCategory === cat
                 ? 'bg-accent text-white'
                 : 'bg-accent/5 text-slate hover:bg-accent/10 hover:text-charcoal'

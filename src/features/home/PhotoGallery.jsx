@@ -20,19 +20,19 @@ export default function PhotoGallery() {
             {Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}
-                className="aspect-square animate-pulse rounded-sm bg-divider"
+                className="aspect-square animate-pulse rounded-lg bg-divider"
               />
             ))}
           </div>
         ) : photos.length === 0 ? (
-          <div className="mt-8 rounded-sm border border-divider py-16 text-center">
+          <div className="mt-8 rounded-lg border border-divider py-16 text-center">
             <Image size={32} className="mx-auto mb-3 text-slate/30" />
             <p className="text-sm text-slate">No photos yet. They will appear here.</p>
           </div>
         ) : (
           <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {photos.map((photo) => (
-              <div key={photo.id} className="group aspect-square overflow-hidden rounded-sm">
+              <div key={photo.id} className="group aspect-square overflow-hidden rounded-lg">
                 <img
                   src={photo.image_url}
                   alt={photo.alt_text ?? ''}

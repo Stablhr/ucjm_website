@@ -109,7 +109,7 @@ export default function AddSongModal({ onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-charcoal/30 p-4 pt-8">
-      <div className="w-full max-w-2xl animate-fade-up rounded-sm border border-divider bg-ivory p-6">
+      <div className="w-full max-w-2xl animate-fade-up rounded-lg border border-divider bg-ivory p-6">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between">
           <h2 className="font-display text-xl font-bold text-charcoal">
@@ -138,7 +138,7 @@ export default function AddSongModal({ onClose }) {
             />
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="group relative flex h-32 cursor-pointer items-center justify-center overflow-hidden rounded-sm border-2 border-dashed border-divider bg-ivory transition-colors hover:border-accent/30"
+              className="group relative flex h-32 cursor-pointer items-center justify-center overflow-hidden rounded-lg border-2 border-dashed border-divider bg-ivory transition-colors hover:border-accent/30"
             >
               {uploading ? (
                 <div className="flex flex-col items-center gap-2 text-sm text-slate">
@@ -159,7 +159,7 @@ export default function AddSongModal({ onClose }) {
               )}
               {imageUrl && (
                 <div className="absolute inset-0 flex items-center justify-center bg-charcoal/40 opacity-0 transition-opacity group-hover:opacity-100">
-                  <span className="rounded-sm bg-white px-3 py-1 text-xs font-medium text-charcoal shadow-sm">
+                  <span className="rounded-lg bg-white px-3 py-1 text-xs font-medium text-charcoal shadow-sm">
                     Change Image
                   </span>
                 </div>
@@ -179,7 +179,7 @@ export default function AddSongModal({ onClose }) {
                     key={g.value}
                     type="button"
                     onClick={() => setImageColor(g.value)}
-                    className={`h-8 w-8 rounded-sm bg-gradient-to-br ${g.value} ${
+                    className={`h-8 w-8 rounded-lg bg-gradient-to-br ${g.value} ${
                       imageColor === g.value
                         ? 'ring-2 ring-accent ring-offset-1'
                         : ''
@@ -202,7 +202,7 @@ export default function AddSongModal({ onClose }) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Amazing Grace"
-                className="w-full rounded-sm border border-divider px-3 py-2.5 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
+                className="w-full rounded-lg border border-divider px-3 py-2.5 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
               />
             </div>
             <div>
@@ -214,7 +214,7 @@ export default function AddSongModal({ onClose }) {
                 value={artist}
                 onChange={(e) => setArtist(e.target.value)}
                 placeholder="e.g. John Newton"
-                className="w-full rounded-sm border border-divider px-3 py-2.5 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
+                className="w-full rounded-lg border border-divider px-3 py-2.5 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
               />
             </div>
           </div>
@@ -230,7 +230,7 @@ export default function AddSongModal({ onClose }) {
                 value={album}
                 onChange={(e) => setAlbum(e.target.value)}
                 placeholder="e.g. Hymns of Faith"
-                className="w-full rounded-sm border border-divider px-3 py-2.5 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
+                className="w-full rounded-lg border border-divider px-3 py-2.5 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
               />
             </div>
             <div>
@@ -244,7 +244,7 @@ export default function AddSongModal({ onClose }) {
                 placeholder="e.g. 2024"
                 min={1000}
                 max={2100}
-                className="w-full rounded-sm border border-divider px-3 py-2.5 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
+                className="w-full rounded-lg border border-divider px-3 py-2.5 text-sm text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
               />
             </div>
           </div>
@@ -258,7 +258,7 @@ export default function AddSongModal({ onClose }) {
               <select
                 value={key}
                 onChange={(e) => setKey(e.target.value)}
-                className="w-full rounded-sm border border-divider px-3 py-2.5 text-sm text-charcoal outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+                className="w-full rounded-lg border border-divider px-3 py-2.5 text-sm text-charcoal outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
               >
                 {KEYS.map((k) => (
                   <option key={k} value={k}>
@@ -274,7 +274,7 @@ export default function AddSongModal({ onClose }) {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full rounded-sm border border-divider px-3 py-2.5 text-sm text-charcoal outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+                className="w-full rounded-lg border border-divider px-3 py-2.5 text-sm text-charcoal outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
               >
                 {CATEGORIES.map((c) => (
                   <option key={c} value={c}>
@@ -290,7 +290,7 @@ export default function AddSongModal({ onClose }) {
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="w-full rounded-sm border border-divider px-3 py-2.5 text-sm text-charcoal outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+                className="w-full rounded-lg border border-divider px-3 py-2.5 text-sm text-charcoal outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
               >
                 {LANGUAGES.map((l) => (
                   <option key={l} value={l}>
@@ -308,7 +308,7 @@ export default function AddSongModal({ onClose }) {
             </label>
             <p className="mb-2 text-xs text-slate/60">
               Use{' '}
-              <code className="rounded-sm bg-accent/5 px-1 font-mono text-accent">
+              <code className="rounded-lg bg-accent/5 px-1 font-mono text-accent">
                 [G]
               </code>{' '}
               for chords. Separate verses with blank lines.
@@ -322,7 +322,7 @@ export default function AddSongModal({ onClose }) {
 
 [G]I once was [C]lost but [G]now am [D]found
 [G]Was blind but [C]now I [G]see`}
-              className="w-full rounded-sm border border-divider px-3 py-2.5 font-mono text-sm leading-relaxed text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
+              className="w-full rounded-lg border border-divider px-3 py-2.5 font-mono text-sm leading-relaxed text-charcoal outline-none placeholder:text-slate/50 focus:border-accent focus:ring-1 focus:ring-accent/20"
             />
           </div>
 
@@ -331,14 +331,14 @@ export default function AddSongModal({ onClose }) {
             <button
               type="button"
               onClick={onClose}
-              className="rounded-sm border border-divider px-4 py-2.5 text-sm text-slate transition-colors hover:border-accent/30 hover:text-charcoal"
+              className="rounded-lg border border-divider px-4 py-2.5 text-sm text-slate transition-colors hover:border-accent/30 hover:text-charcoal"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="rounded-sm bg-accent px-6 py-2.5 text-sm font-medium text-white transition hover:bg-accent/90 disabled:opacity-60"
+              className="rounded-lg bg-accent px-6 py-2.5 text-sm font-medium text-white transition hover:bg-accent/90 disabled:opacity-60"
             >
               {saving ? 'Saving...' : 'Add Song'}
             </button>

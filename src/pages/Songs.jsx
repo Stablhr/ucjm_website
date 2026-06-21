@@ -99,7 +99,7 @@ export default function Songs() {
           {activeTab === 'library' && (
             <button
               onClick={() => setShowAddSong(true)}
-              className="mb-2 inline-flex items-center gap-1.5 rounded-sm bg-accent px-3 py-1.5 text-xs font-medium text-white transition hover:bg-accent/90 active:scale-[0.97]"
+              className="mb-2 inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-white transition hover:bg-accent/90 active:scale-[0.97]"
             >
               <Plus size={14} />
               Add Song

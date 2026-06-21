@@ -48,7 +48,7 @@ function TeaserRow({ feature, index }) {
       } ${isVisible ? 'animate-fade-up' : 'opacity-0'}`}
     >
       <div className="w-full lg:w-1/2">
-        <div className="overflow-hidden rounded-sm">
+        <div className="overflow-hidden rounded-lg">
           <img
             src={feature.image}
             alt={feature.alt}
@@ -57,7 +57,7 @@ function TeaserRow({ feature, index }) {
         </div>
       </div>
       <div className="w-full lg:w-1/2 lg:px-8">
-        <div className="mb-4 inline-flex items-center justify-center rounded-sm bg-accent/10 p-2.5 text-accent">
+        <div className="mb-4 inline-flex items-center justify-center rounded-lg bg-accent/10 p-2.5 text-accent">
           <Icon size={22} />
         </div>
         <h3 className="font-display text-3xl font-bold text-charcoal">

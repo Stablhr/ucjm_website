@@ -23,7 +23,7 @@ export default function DailyVerse() {
             A word of inspiration for today
           </p>
 
-          <div className="relative rounded-sm border border-divider bg-white p-8 sm:p-12">
+          <div className="relative rounded-lg border border-divider bg-white p-8 sm:p-12">
             <Quote
               size={48}
               className="absolute left-4 top-4 text-accent/10"

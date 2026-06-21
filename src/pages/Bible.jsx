@@ -27,12 +27,12 @@ export default function Bible() {
 
         <div className="flex items-center gap-3">
           {/* Font size controls */}
-          <div className={`flex items-center gap-1 rounded-sm border px-2 py-1 ${
+          <div className={`flex items-center gap-1 rounded-lg border px-2 py-1 ${
             darkMode ? 'border-white/10' : 'border-divider'
           }`}>
             <button
               onClick={() => setFontSize((s) => Math.max(12, s - 2))}
-              className="rounded-sm p-1 text-slate transition hover:bg-accent/10 hover:text-accent"
+              className="rounded-lg p-1 text-slate transition hover:bg-accent/10 hover:text-accent"
               aria-label="Decrease font size"
             >
               <Minus size={14} />
@@ -42,7 +42,7 @@ export default function Bible() {
             </span>
             <button
               onClick={() => setFontSize((s) => Math.min(32, s + 2))}
-              className="rounded-sm p-1 text-slate transition hover:bg-accent/10 hover:text-accent"
+              className="rounded-lg p-1 text-slate transition hover:bg-accent/10 hover:text-accent"
               aria-label="Increase font size"
             >
               <Plus size={14} />
@@ -52,7 +52,7 @@ export default function Bible() {
           {/* Dark mode toggle */}
           <button
             onClick={() => setDarkMode((d) => !d)}
-            className={`rounded-sm p-2 transition ${
+            className={`rounded-lg p-2 transition ${
               darkMode
                 ? 'bg-accent text-white'
                 : 'text-slate hover:bg-accent/10 hover:text-accent'

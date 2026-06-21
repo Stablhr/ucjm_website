@@ -47,7 +47,7 @@ export default function ForgotPassword() {
       <div className="flex w-full items-center justify-center px-4 lg:w-1/2">
         <div className="w-full max-w-sm animate-fade-up">
           <div className="mb-2 flex items-center gap-3 text-accent">
-            <div className="rounded-sm bg-accent/10 p-2">
+            <div className="rounded-lg bg-accent/10 p-2">
               <KeyRound size={20} />
             </div>
             <h1 className="font-display text-3xl font-bold text-charcoal">
@@ -71,13 +71,13 @@ export default function ForgotPassword() {
                   placeholder="Email"
                   required
                   disabled={sent}
-                  className="w-full rounded-sm border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20 disabled:opacity-60"
+                  className="w-full rounded-lg border border-divider py-3 pl-10 pr-3 text-sm text-charcoal outline-none placeholder:text-slate transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20 disabled:opacity-60"
                 />
               </div>
             </div>
 
             {sent ? (
-              <div className="flex items-center gap-2 rounded-sm border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+              <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
                 <CheckCircle size={16} />
                 Reset link sent! Check your email.
               </div>
@@ -85,7 +85,7 @@ export default function ForgotPassword() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-sm bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98] disabled:opacity-60"
+                className="w-full rounded-lg bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98] disabled:opacity-60"
               >
                 {loading ? 'Sending...' : 'Send Reset Link'}
               </button>

@@ -16,7 +16,7 @@ export default function ServiceTimes() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div
           ref={ref}
-          className={`mx-auto max-w-3xl rounded-sm border border-divider bg-white p-8 sm:p-12 ${isVisible ? 'animate-fade-up' : 'opacity-0'}`}
+          className={`mx-auto max-w-3xl rounded-lg border border-divider bg-white p-8 sm:p-12 ${isVisible ? 'animate-fade-up' : 'opacity-0'}`}
         >
           <div className="mb-4 flex items-center gap-2 text-accent">
             <Clock size={24} />
@@ -43,7 +43,7 @@ export default function ServiceTimes() {
             ))}
           </div>
 
-          <div className="mt-8 flex items-start gap-3 rounded-sm bg-ivory p-4">
+          <div className="mt-8 flex items-start gap-3 rounded-lg bg-ivory p-4">
             <MapPin size={18} className="mt-0.5 shrink-0 text-accent-warm" />
             <div>
               <p className="text-sm font-medium text-charcoal">UCJM Church</p>

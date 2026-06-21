@@ -18,15 +18,15 @@ export default function UpcomingEvents() {
         {loading ? (
           <div className="mt-8 grid gap-8 md:grid-cols-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="rounded-sm border border-divider p-6">
-                <div className="mb-3 h-16 w-16 animate-pulse rounded-sm bg-divider" />
-                <div className="mb-2 h-6 w-3/4 animate-pulse rounded-sm bg-divider" />
-                <div className="h-4 w-full animate-pulse rounded-sm bg-divider" />
+              <div key={i} className="rounded-lg border border-divider p-6">
+                <div className="mb-3 h-16 w-16 animate-pulse rounded-lg bg-divider" />
+                <div className="mb-2 h-6 w-3/4 animate-pulse rounded-lg bg-divider" />
+                <div className="h-4 w-full animate-pulse rounded-lg bg-divider" />
               </div>
             ))}
           </div>
         ) : events.length === 0 ? (
-          <div className="mt-8 rounded-sm border border-divider py-16 text-center">
+          <div className="mt-8 rounded-lg border border-divider py-16 text-center">
             <Calendar size={32} className="mx-auto mb-3 text-slate/30" />
             <p className="text-sm text-slate">No upcoming events. Stay tuned!</p>
           </div>
@@ -37,9 +37,9 @@ export default function UpcomingEvents() {
               return (
                 <div
                   key={e.id}
-                  className="group flex gap-5 rounded-sm border border-divider p-6 transition-all hover:-translate-y-1 hover:border-accent-warm/30 hover:shadow-sm"
+                  className="group flex gap-5 rounded-lg border border-divider p-6 transition-all hover:-translate-y-1 hover:border-accent-warm/30 hover:shadow-sm"
                 >
-                  <div className="flex shrink-0 flex-col items-center justify-center rounded-sm bg-accent-warm/10 px-4 py-3 text-center">
+                  <div className="flex shrink-0 flex-col items-center justify-center rounded-lg bg-accent-warm/10 px-4 py-3 text-center">
                     <span className="font-display text-2xl font-bold text-accent-warm">
                       {eventDate.getDate()}
                     </span>
