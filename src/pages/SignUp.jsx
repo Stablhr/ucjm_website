@@ -17,7 +17,7 @@ export default function SignUp() {
     e.preventDefault()
     setLoading(true)
     try {
-      await signUp(email, password)
+      await signUp(email, password, name)
       toast.success('Check your email to confirm your account!')
       navigate('/login')
     } catch (err) {
