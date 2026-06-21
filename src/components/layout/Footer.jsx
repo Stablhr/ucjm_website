@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Cross, BookOpen, Music, Compass, User } from 'lucide-react'
+import { Cross, BookOpen, Music, Compass, User, ExternalLink } from 'lucide-react'
 
 const iconMap = {
   Home: Cross,
@@ -30,6 +30,39 @@ export default function Footer() {
                 className="h-10 w-auto"
               />
             </Link>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <h3 className="text-sm font-semibold text-charcoal">Our Branches</h3>
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://www.facebook.com/ucjmmain"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-slate transition-all hover:translate-x-1 hover:text-accent"
+              >
+                <ExternalLink size={14} />
+                UCJM Main (Imus)
+              </a>
+              <a
+                href="https://www.facebook.com/UCJMGenTrias"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-slate transition-all hover:translate-x-1 hover:text-accent"
+              >
+                <ExternalLink size={14} />
+                UCJM Castillon (Gen.Tri)
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=100069203779606"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-slate transition-all hover:translate-x-1 hover:text-accent"
+              >
+                <ExternalLink size={14} />
+                UCJM Ternate
+              </a>
+            </div>
           </div>
 
           <div className="flex flex-col gap-4">
