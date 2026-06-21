@@ -75,7 +75,7 @@ export default function SignUp() {
             </button>
             <button
               type="button"
-              onClick={() => signInWithOAuth('facebook')}
+              onClick={() => signInWithOAuth('facebook', { scopes: 'public_profile' })}
               className="flex flex-1 items-center justify-center gap-2 rounded-sm border border-divider px-4 py-2.5 text-sm text-slate transition hover:border-accent/30 hover:bg-accent/5 hover:text-charcoal"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="#1877F2">
