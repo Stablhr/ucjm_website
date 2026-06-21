@@ -28,7 +28,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)]">
+    <div className="flex min-h-[calc(100vh-5rem)]">
       <div className="relative hidden w-1/2 overflow-hidden lg:block">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/60 to-charcoal/80 z-10" />
         <img

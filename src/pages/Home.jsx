@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
-import { VerseOfTheDay } from '@youversion/platform-react-ui'
 import { Heart, ArrowRight } from 'lucide-react'
 import useScrollReveal from '../hooks/useScrollReveal'
 import useHomeStore from '../features/home/homeStore'
 import AnnouncementsSection from '../features/home/AnnouncementsSection'
 import UpcomingEvents from '../features/home/UpcomingEvents'
+import DailyVerse from '../features/home/DailyVerse'
 import FeatureTeaser from '../features/home/FeatureTeaser'
 import ServiceTimes from '../features/home/ServiceTimes'
 import PhotoGallery from '../features/home/PhotoGallery'
@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative flex h-screen items-center justify-center overflow-hidden">
+      <section className="relative flex h-screen items-center justify-center overflow-hidden -mt-20">
         <img
           src="/images/hero-bg.png"
           alt=""
@@ -56,18 +56,7 @@ export default function Home() {
 
       {/* Daily Verse — powered by YouVersion */}
       <FadeSection>
-        <section className="py-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="font-display text-4xl font-bold text-charcoal">
-                Verse of the Day
-              </h2>
-              <div className="mt-8">
-                <VerseOfTheDay />
-              </div>
-            </div>
-          </div>
-        </section>
+        <DailyVerse />
       </FadeSection>
 
       {/* Announcements — live from Supabase */}

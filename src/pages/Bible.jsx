@@ -13,7 +13,7 @@ export default function Bible() {
   const [darkMode, setDarkMode] = useState(false)
 
   return (
-    <div className={`flex min-h-[calc(100vh-4rem)] flex-col ${darkMode ? 'bg-charcoal' : ''}`}>
+    <div className={`flex min-h-[calc(100vh-5rem)] flex-col ${darkMode ? 'bg-charcoal' : ''}`}>
       {/* Top bar */}
       <div className={`flex items-center justify-between border-b px-4 py-3 sm:px-6 lg:px-8 ${
         darkMode ? 'border-white/10 bg-charcoal' : 'border-divider bg-ivory'
