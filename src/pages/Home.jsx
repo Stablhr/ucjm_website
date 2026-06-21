@@ -1,6 +1,13 @@
+import { useEffect } from 'react'
 import { VerseOfTheDay } from '@youversion/platform-react-ui'
-import { Megaphone, Heart, ArrowRight } from 'lucide-react'
+import { Heart, ArrowRight } from 'lucide-react'
 import useScrollReveal from '../hooks/useScrollReveal'
+import useHomeStore from '../features/home/homeStore'
+import AnnouncementsSection from '../features/home/AnnouncementsSection'
+import UpcomingEvents from '../features/home/UpcomingEvents'
+import FeatureTeaser from '../features/home/FeatureTeaser'
+import ServiceTimes from '../features/home/ServiceTimes'
+import PhotoGallery from '../features/home/PhotoGallery'
 
 function FadeSection({ children, className = '' }) {
   const [ref, isVisible] = useScrollReveal()
@@ -15,6 +22,12 @@ function FadeSection({ children, className = '' }) {
 }
 
 export default function Home() {
+  const fetchAll = useHomeStore((s) => s.fetchAll)
+
+  useEffect(() => {
+    fetchAll()
+  }, [])
+
   return (
     <>
       {/* Hero */}
@@ -57,34 +70,25 @@ export default function Home() {
         </section>
       </FadeSection>
 
-      {/* Announcements Placeholder */}
+      {/* Announcements — live from Supabase */}
       <FadeSection>
-        <section className="border-t border-divider py-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-4 flex items-center gap-2 text-accent">
-              <Megaphone size={24} />
-              <h2 className="font-display text-4xl font-bold text-charcoal">
-                Announcements
-              </h2>
-            </div>
-            <div className="mt-8 grid gap-8 md:grid-cols-3">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="group rounded-sm border border-divider p-6 transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-sm"
-                >
-                  <div className="mb-3 h-40 bg-divider transition group-hover:brightness-95" />
-                  <h3 className="font-display text-xl font-bold text-charcoal">
-                    Announcement Title {i}
-                  </h3>
-                  <p className="mt-2 text-sm text-slate">
-                    Announcement description goes here.
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <AnnouncementsSection />
+      </FadeSection>
+
+      {/* Service Times */}
+      <ServiceTimes />
+
+      {/* Feature Teaser */}
+      <FeatureTeaser />
+
+      {/* Upcoming Events — live from Supabase */}
+      <FadeSection>
+        <UpcomingEvents />
+      </FadeSection>
+
+      {/* Photo Gallery — live from Supabase */}
+      <FadeSection>
+        <PhotoGallery />
       </FadeSection>
 
       {/* CTA Banner */}

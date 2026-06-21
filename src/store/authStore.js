@@ -1,28 +1,73 @@
 import { create } from 'zustand'
 import { supabase } from '../services/supabase'
 
-const useAuthStore = create((set, get) => ({
+const useAuthStore = create((set) => ({
   user: null,
+  profile: null,
   isLoggedIn: false,
   loading: true,
 
   setUser: (user) => set({ user, isLoggedIn: !!user }),
 
-  clearUser: () => set({ user: null, isLoggedIn: false }),
+  clearUser: () => set({ user: null, profile: null, isLoggedIn: false }),
+
+  fetchProfile: async (userId) => {
+    const { data } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .maybeSingle()
+    if (data) set({ profile: data })
+  },
 
   initialize: async () => {
     const { data: { user } } = await supabase.auth.getUser()
-    set({ user, isLoggedIn: !!user, loading: false })
+    if (user) {
+      try {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user.id)
+          .maybeSingle()
+        set({ user, profile: profile ?? null, isLoggedIn: true })
+      } catch {
+        set({ user, isLoggedIn: true })
+      }
+    }
+    set({ loading: false })
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      set({ user: session?.user ?? null, isLoggedIn: !!session?.user })
+    supabase.auth.onAuthStateChange(async (_event, session) => {
+      const u = session?.user ?? null
+      if (u) {
+        try {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', u.id)
+            .maybeSingle()
+          set({ user: u, profile: profile ?? null, isLoggedIn: true })
+        } catch {
+          set({ user: u, isLoggedIn: true })
+        }
+      } else {
+        set({ user: null, profile: null, isLoggedIn: false })
+      }
     })
   },
 
   signIn: async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) throw error
-    set({ user: data.user, isLoggedIn: true })
+    try {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', data.user.id)
+        .maybeSingle()
+      set({ user: data.user, profile: profile ?? null, isLoggedIn: true })
+    } catch {
+      set({ user: data.user, isLoggedIn: true })
+    }
     return data
   },
 
@@ -34,7 +79,7 @@ const useAuthStore = create((set, get) => ({
 
   signOut: async () => {
     await supabase.auth.signOut()
-    set({ user: null, isLoggedIn: false })
+    set({ user: null, profile: null, isLoggedIn: false })
   },
 
   resetPassword: async (email) => {
