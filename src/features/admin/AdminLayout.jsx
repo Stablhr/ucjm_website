@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { LayoutDashboard, Megaphone, Calendar, Menu, X, LogOut, Cross } from 'lucide-react'
+import { LayoutDashboard, Megaphone, Calendar, Menu, X, User, Cross } from 'lucide-react'
 import useAuthStore from '../../store/authStore'
 
 const adminLinks = [
@@ -12,7 +12,6 @@ const adminLinks = [
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const location = useLocation()
-  const signOut = useAuthStore((s) => s.signOut)
   const profile = useAuthStore((s) => s.profile)
 
   return (
@@ -70,13 +69,13 @@ export default function AdminLayout() {
           <div className="mb-2 px-4 text-xs text-slate">
             {profile?.full_name || 'Admin'}
           </div>
-          <button
-            onClick={signOut}
-            className="flex w-full items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-slate transition-colors hover:bg-red-50 hover:text-red-600"
+          <Link
+            to="/profile"
+            className="flex w-full items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-slate transition-colors hover:bg-accent/5 hover:text-accent"
           >
-            <LogOut size={18} />
-            Sign Out
-          </button>
+            <User size={18} />
+            Profile
+          </Link>
         </div>
       </aside>
 

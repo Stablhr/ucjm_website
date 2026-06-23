@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Menu, X, Cross, BookOpen, Music, Compass, LogIn, Shield, LogOut } from 'lucide-react'
+import { Menu, X, Cross, BookOpen, Music, Compass, LogIn, Shield, User } from 'lucide-react'
 import useAuthStore from '../../store/authStore'
 
 export default function Navbar() {
@@ -8,7 +8,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const user = useAuthStore((s) => s.user)
   const profile = useAuthStore((s) => s.profile)
-  const signOut = useAuthStore((s) => s.signOut)
   const isAdmin = profile?.role === 'admin'
 
   useEffect(() => {
@@ -24,7 +23,7 @@ export default function Navbar() {
     { to: '/guide', label: 'Guide', icon: Compass },
     ...(isAdmin ? [{ to: '/admin', label: 'Admin', icon: Shield }] : []),
     ...(user
-      ? [{ to: '#', label: 'Sign Out', icon: LogOut, action: signOut }]
+      ? [{ to: '/profile', label: 'Profile', icon: User }]
       : [{ to: '/login', label: 'Sign In', icon: LogIn }]),
   ]
 
