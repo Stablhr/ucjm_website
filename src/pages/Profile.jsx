@@ -9,6 +9,7 @@ export default function Profile() {
   const profile = useAuthStore((s) => s.profile)
   const signOut = useAuthStore((s) => s.signOut)
   const updateProfile = useAuthStore((s) => s.updateProfile)
+  const refreshProfile = useAuthStore((s) => s.refreshProfile)
   const navigate = useNavigate()
 
   const [fullName, setFullName] = useState('')
@@ -20,9 +21,10 @@ export default function Profile() {
       navigate('/login')
       return
     }
+    refreshProfile()
     setFullName(profile?.full_name || '')
     setLoading(false)
-  }, [user, profile, navigate])
+  }, [user, profile, navigate, refreshProfile])
 
   const handleSave = async (e) => {
     e.preventDefault()

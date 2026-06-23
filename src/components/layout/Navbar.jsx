@@ -8,13 +8,21 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const user = useAuthStore((s) => s.user)
   const profile = useAuthStore((s) => s.profile)
+  const refreshProfile = useAuthStore((s) => s.refreshProfile)
   const isAdmin = profile?.role === 'admin'
+  const firstName = profile?.full_name
+    ? profile.full_name.split(' ')[0]
+    : user?.email?.split('@')[0] || 'Profile'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    if (user) refreshProfile()
+  }, [user, refreshProfile])
 
   const navLinks = [
     { to: '/', label: 'Home', icon: Cross },
@@ -23,7 +31,7 @@ export default function Navbar() {
     { to: '/guide', label: 'Guide', icon: Compass },
     ...(isAdmin ? [{ to: '/admin', label: 'Admin', icon: Shield }] : []),
     ...(user
-      ? [{ to: '/profile', label: 'Profile', icon: User }]
+      ? [{ to: '/profile', label: firstName, icon: User }]
       : [{ to: '/login', label: 'Sign In', icon: LogIn }]),
   ]
 

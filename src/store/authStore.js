@@ -87,6 +87,17 @@ const useAuthStore = create((set) => ({
     set({ user: null, profile: null, isLoggedIn: false })
   },
 
+  refreshProfile: async () => {
+    const { user } = useAuthStore.getState()
+    if (!user) return
+    const { data } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .maybeSingle()
+    if (data) set({ profile: data })
+  },
+
   updateProfile: async (updates) => {
     const user = useAuthStore.getState().user
     if (!user) throw new Error('Not authenticated')
