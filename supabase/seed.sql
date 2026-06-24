@@ -45,6 +45,30 @@ $$[C]Great is Thy [F]faithful[C]ness, O [G7]God my [C]Father
 [C]Morning by [F]morning new [C]mercies I [Am]see
 [F]All I have [C]needed Thy [Dm]hand hath pro[G7]vided
 [C]Great is Thy [F]faithful[C]ness
+[G7]Lord, unto [C]me
+
+[C]Summer and [F]winter, and [C]springtime and [G7]harvest
+[F]Sun, moon and [C]stars in their [Dm]courses a[G7]bove
+[C]Join with all [F]nature in [C]manifold [Am]wit[F]ness
+[F]To Thy great [C]faithfulness, [G7]mercy and [C]love
+
+[C]Great is Thy [F]faithful[C]ness
+[C]Great is Thy [F]faithful[G7]ness
+[C]Morning by [F]morning new [C]mercies I [Am]see
+[F]All I have [C]needed Thy [Dm]hand hath pro[G7]vided
+[C]Great is Thy [F]faithful[C]ness
+[G7]Lord, unto [C]me
+
+[C]Pardon for [F]sin and a [C]peace that en[G7]dureth
+[F]Thine own dear [C]presence to [Dm]cheer and to [G7]guide
+[C]Strength for to[F]day and bright [C]hope for to[Am]mor[F]row
+[F]Blessings all [C]mine, with ten [G7]thousand be[C]side
+
+[C]Great is Thy [F]faithful[C]ness
+[C]Great is Thy [F]faithful[G7]ness
+[C]Morning by [F]morning new [C]mercies I [Am]see
+[F]All I have [C]needed Thy [Dm]hand hath pro[G7]vided
+[C]Great is Thy [F]faithful[C]ness
 [G7]Lord, unto [C]me$$),
 
 ('10,000 Reasons (Bless the Lord)', 'Matt Redman', 'G', 'Praise', 'English',
@@ -152,6 +176,16 @@ $$[D]Worthy of every [A]song we could [Bm]sing
 [G]Worthy of every [D]breath we could [Bm]breathe
 [G]We live for [A]You
 
+[D]And I will [A]build my life upon Your [Bm]love
+[G]It is a firm foun[D]dation
+[A]And I will [G]put my trust in [D]You alone
+[Bm]And I will not be [G]shaken
+
+[D]There is [A]nothing better than [Bm]You
+[G]There is [D]nothing better than [A]You
+[G]Lord, there is [D]nothing
+[Bm]There is [G]nothing better than [A]You
+
 [D]Jesus, the Name a[A]bove every [Bm]name
 [G]Beautiful Savior, [D]glorious [A]Lord
 [G]Emmanuel, [D]God is with [Bm]us
@@ -206,7 +240,16 @@ That brings [A]Jericho down
 [A]I'll praise 'cause You're faithful
 [Bm]Praise 'cause You're true
 [C#m]Praise 'cause there's [D]nobody
-Greater than [A]You$$),
+Greater than [A]You
+
+[F#m]Praise the [D]Lord, oh my [A]soul
+[F#m]Praise the [D]Lord, oh my [A]soul
+[F#m]I won't be [D]quiet, my [A]God is a[E]live
+How could I keep it inside
+Praise the Lord oh my soul
+
+[A]Let everything that has breath
+Praise the Lord, Praise the Lord$$),
 
 ('I Thank God', 'Maverick City Music & UPPERROOM', 'Db', 'Praise', 'English',
 $$[Db]Wandering into the night
@@ -315,7 +358,16 @@ Except for a heart singing
 [B]Get up and praise the Lord
 [F#]Come on my soul, don't you get shy on me
 [E]Lift up your song, you've got a lion inside
-Get up and praise the [B]Lord$$),
+Get up and praise the [B]Lord
+
+[B]So I throw up my hands
+[F#]And praise You again and again
+'Cause all that I have is a
+[E]Hallelujah, [G]halle[F#]lujah
+[B]And I know it's not much
+[F#]But I've nothing else fit for a King
+Except for a heart singing
+[E]Hallelujah, [G]halle[F#]lu[B]jah$$),
 
 ('Jireh', 'Elevation Worship & Maverick City Music', 'Eb', 'Worship', 'English',
 $$[Cm]I'll never be more loved than I am right now
@@ -393,6 +445,14 @@ $$[G]I love You, Lord
 [C]I'm surrendered now
 [D]I give You every[Em]thing
 [G/B]Your goodness is running [C]after
+[D]It's running after [G]me
+
+[C]All my life You have been [G]faithful
+[C]All my life You have been [G]so, so [D]good
+[C]With every breath that I am [G]able
+[D/F#]I will [Em]sing of the [C]goodness of [D]God
+
+[G/B]Your goodness is running [C]after
 [D]It's running after [G]me$$),
 
 ('Battle Belongs', 'Phil Wickham', 'Db', 'Worship', 'English',
@@ -425,7 +485,17 @@ $$[Db]When all I see is the battle
 [Ab]Nothing can stand against the [Bbm]power of our God
 [Gb]You shine in the shadow
 [Db]You win every battle
-[Ab]Nothing can stand against the [Bbm]power of our God$$),
+[Ab]Nothing can stand against the [Bbm]power of our God
+
+[Gb]So when I fight, I'll [Db]fight on my knees
+[Ab]With my hands lifted [Bbm]high
+[Gb]Oh God, the battle be[Db]longs to [Ab]You
+[Gb]And every fear I [Db]lay at Your feet
+[Ab]I'll sing through the [Bbm]night
+[Gb]Oh God, the battle be[Db]longs to [Ab]You
+
+[Db]When all I see is the battle
+[Gb]You see my victory$$),
 
 ('Holy Forever', 'Chris Tomlin', 'Db', 'Worship', 'English',
 $$[Db]A thousand generations

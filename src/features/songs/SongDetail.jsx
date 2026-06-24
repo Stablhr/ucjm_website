@@ -1,9 +1,11 @@
-import { ArrowLeft, Plus, Youtube } from 'lucide-react'
+import { ArrowLeft, Plus, Youtube, Pencil } from 'lucide-react'
 import { useState, useMemo } from 'react'
 import useSongsStore from './songsStore'
+import useAuthStore from '../../store/authStore'
 import { transposeLyrics } from './chordParser'
 import ChordTransposer from './ChordTransposer'
 import AddToPlaylistModal from './AddToPlaylistModal'
+import EditSongModal from './EditSongModal'
 
 const CHORD_REGEX = /\[([A-G][#b]?(?:m|dim|aug|sus[24]|add[0-9]|[0-9])?(?:\/[A-G][#b]?)?)\]/g
 
@@ -56,7 +58,9 @@ const CATEGORY_GRADIENTS = {
 
 export default function SongDetail({ song, onBack }) {
   const transposeOffset = useSongsStore((s) => s.transposeOffset)
+  const user = useAuthStore((s) => s.user)
   const [showPlaylistModal, setShowPlaylistModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
 
   const transposedLyrics = useMemo(
     () => transposeLyrics(song.lyrics_with_chords, transposeOffset),
@@ -186,18 +190,37 @@ export default function SongDetail({ song, onBack }) {
       )}
 
       {/* Actions */}
-      <button
-        onClick={() => setShowPlaylistModal(true)}
-        className="inline-flex items-center gap-2 rounded-lg border border-divider px-4 py-2.5 text-sm text-slate transition-all hover:border-accent/30 hover:text-accent active:scale-[0.98]"
-      >
-        <Plus size={16} />
-        Add to Playlist
-      </button>
+      <div className="flex flex-wrap items-center gap-3">
+        <button
+          onClick={() => setShowPlaylistModal(true)}
+          className="inline-flex items-center gap-2 rounded-lg border border-divider px-4 py-2.5 text-sm text-slate transition-all hover:border-accent/30 hover:text-accent active:scale-[0.98]"
+        >
+          <Plus size={16} />
+          Add to Playlist
+        </button>
+
+        {user && (
+          <button
+            onClick={() => setShowEditModal(true)}
+            className="inline-flex items-center gap-2 rounded-lg border border-divider px-4 py-2.5 text-sm text-slate transition-all hover:border-accent/30 hover:text-accent active:scale-[0.98]"
+          >
+            <Pencil size={16} />
+            Edit Song
+          </button>
+        )}
+      </div>
 
       {showPlaylistModal && (
         <AddToPlaylistModal
           song={song}
           onClose={() => setShowPlaylistModal(false)}
+        />
+      )}
+
+      {showEditModal && (
+        <EditSongModal
+          song={song}
+          onClose={() => setShowEditModal(false)}
         />
       )}
     </div>
