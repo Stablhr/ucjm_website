@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import ScrollToTop from '../ui/ScrollToTop'
 import useAuthStore from '../../store/authStore'
 
 export default function Layout() {
@@ -20,6 +21,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   )
 }
