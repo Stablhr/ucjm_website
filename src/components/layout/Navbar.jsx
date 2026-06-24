@@ -44,12 +44,15 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-3">
           <img
             src="/images/logo.jpg"
-            alt="UCJM Church"
+            alt="UNITY IN CHRIST JESUS MINISTRIES"
             className="h-10 w-auto"
           />
+          <span className="hidden text-lg font-semibold sm:inline" style={{ color: '#0a1db0' }}>
+            UNITY IN CHRIST JESUS MINISTRIES
+          </span>
         </Link>
 
         <button

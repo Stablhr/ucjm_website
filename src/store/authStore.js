@@ -30,6 +30,19 @@ const useAuthStore = create((set) => ({
           .eq('id', user.id)
           .maybeSingle()
         set({ user, profile: profile ?? null, isLoggedIn: true })
+        if (!profile) {
+          const { data: newProfile } = await supabase
+            .from('profiles')
+            .upsert({
+              id: user.id,
+              email: user.email,
+              full_name: user.user_metadata?.full_name || '',
+              role: 'member',
+            })
+            .select()
+            .single()
+          if (newProfile) set({ profile: newProfile })
+        }
       } catch {
         set({ user, isLoggedIn: true })
       }
@@ -46,6 +59,19 @@ const useAuthStore = create((set) => ({
             .eq('id', u.id)
             .maybeSingle()
           set({ user: u, profile: profile ?? null, isLoggedIn: true })
+          if (!profile) {
+            const { data: newProfile } = await supabase
+              .from('profiles')
+              .upsert({
+                id: u.id,
+                email: u.email,
+                full_name: u.user_metadata?.full_name || '',
+                role: 'member',
+              })
+              .select()
+              .single()
+            if (newProfile) set({ profile: newProfile })
+          }
         } catch {
           set({ user: u, isLoggedIn: true })
         }
@@ -95,7 +121,21 @@ const useAuthStore = create((set) => ({
       .select('*')
       .eq('id', user.id)
       .maybeSingle()
-    if (data) set({ profile: data })
+    if (data) {
+      set({ profile: data })
+    } else {
+      const { data: newProfile } = await supabase
+        .from('profiles')
+        .upsert({
+          id: user.id,
+          email: user.email,
+          full_name: user.user_metadata?.full_name || '',
+          role: 'member',
+        })
+        .select()
+        .single()
+      if (newProfile) set({ profile: newProfile })
+    }
   },
 
   updateProfile: async (updates) => {

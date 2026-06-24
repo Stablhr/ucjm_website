@@ -23,12 +23,15 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-12 md:flex-row md:justify-between">
           <div>
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-3">
               <img
                 src="/images/logo.jpg"
-                alt="UCJM Church"
+                alt="UNITY IN CHRIST JESUS MINISTRIES"
                 className="h-10 w-auto"
               />
+              <span className="text-lg font-semibold text-charcoal">
+                UNITY IN CHRIST JESUS MINISTRIES
+              </span>
             </Link>
           </div>
 
@@ -86,7 +89,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 border-t border-divider pt-8 text-center text-sm text-slate">
-          &copy; {new Date().getFullYear()} UCJM Church. All rights reserved.
+          &copy; {new Date().getFullYear()} UNITY IN CHRIST JESUS MINISTRIES. All rights reserved.
         </div>
       </div>
     </footer>
