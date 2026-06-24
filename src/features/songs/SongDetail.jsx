@@ -140,22 +140,22 @@ export default function SongDetail({ song, onBack }) {
       <div className="mb-8 rounded-lg border border-divider bg-white p-6 sm:p-8">
         {renderedLines.map((line, i) => {
           if (line.type === 'empty') {
-            return <div key={i} className="h-4" />
+            return <div key={i} className="h-5" />
           }
 
           return (
-            <div key={i} className="flex flex-wrap items-baseline leading-7">
+            <div key={i} className="flex flex-wrap items-baseline leading-9 gap-x-1">
               {line.segments.map((seg, j) => {
                 if (seg.chord) {
                   return (
                     <span
                       key={j}
-                      className="inline-flex flex-col items-baseline leading-tight"
+                      className="inline-flex flex-col items-baseline gap-0.5"
                     >
-                      <span className="font-mono text-xs text-accent leading-none">
+                      <span className="font-mono text-sm font-bold text-accent leading-none">
                         {seg.chord}
                       </span>
-                      <span>{seg.text || '\u00A0'}</span>
+                      <span className="leading-snug">{seg.text || '\u00A0'}</span>
                     </span>
                   )
                 }
