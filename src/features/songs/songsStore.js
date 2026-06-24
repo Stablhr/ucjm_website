@@ -57,7 +57,12 @@ const useSongsStore = create((set, get) => ({
         ? supabaseSongs.map((s) => ({ ...s, _source: 'user' }))
         : []
 
-      set({ songs: [...builtIn, ...userSongs], userSongs })
+      const builtInKeys = new Set(builtIn.map((s) => `${s.title.toLowerCase()}|${s.artist.toLowerCase()}`))
+      const uniqueUserSongs = userSongs.filter(
+        (s) => !builtInKeys.has(`${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`)
+      )
+
+      set({ songs: [...builtIn, ...uniqueUserSongs], userSongs: uniqueUserSongs })
     } catch {
       set({ songs: [] })
     } finally {

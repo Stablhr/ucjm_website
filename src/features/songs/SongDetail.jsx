@@ -5,7 +5,7 @@ import { transposeLyrics } from './chordParser'
 import ChordTransposer from './ChordTransposer'
 import AddToPlaylistModal from './AddToPlaylistModal'
 
-const CHORD_REGEX = /\[([A-G][#b]?(?:m|dim|aug|sus[24]|add[0-9]|[0-9])?)\]/g
+const CHORD_REGEX = /\[([A-G][#b]?(?:m|dim|aug|sus[24]|add[0-9]|[0-9])?(?:\/[A-G][#b]?)?)\]/g
 
 function parseSegments(line) {
   const segments = []
@@ -167,7 +167,7 @@ export default function SongDetail({ song, onBack }) {
       </div>
 
       {/* YouTube Video */}
-      {song.youtube_url && (
+      {song.youtube_url && extractYoutubeId(song.youtube_url) && (
         <div className="mb-8 overflow-hidden rounded-lg border border-divider">
           <div className="flex items-center gap-2 border-b border-divider bg-ivory px-4 py-2.5">
             <Youtube size={16} className="text-red-500" />

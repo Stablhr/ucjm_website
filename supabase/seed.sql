@@ -166,4 +166,265 @@ $$[D]My Jesus, my [A]Savior
 [D]My comfort, my [A]shelter
 [G]Tower of refuge and [D]strength
 [D]Let every [A]breath, all that [G]I am
-[A]Never cease to [D]worship [A]You$$);
+[A]Never cease to [D]worship [A]You$$),
+
+('Praise', 'Elevation Worship', 'A', 'Praise', 'English',
+$$[A]Let everything that has breath
+Praise the Lord, Praise the Lord
+
+[A]I'll praise in the valley
+[D]Praise on the [A]mountain
+[E]I'll praise when I'm sure
+[D]Praise when I'm [A]doubting
+[A]I'll praise when outnumbered
+[D]Praise when [A]surrounded
+[E]'Cause praise is the [D]waters
+My [A]enemies drown in
+
+[E]As long as I'm breathing
+[D]I've got a reason to
+
+[F#m]Praise the [D]Lord, oh my [A]soul
+[F#m]Praise the [D]Lord, oh my [A]soul
+[F#m]I won't be [D]quiet, my [A]God is a[E]live
+How could I keep it inside
+Praise the Lord oh my soul
+
+[A]I'll praise when I feel it
+[D]I'll praise when I [A]don't
+[E]I'll praise 'cause I [D]know
+You're still in con[A]trol
+[A]'Cause my praise is a weapon
+[D]It's more than a [A]sound
+[E]My praise is the [D]shout
+That brings [A]Jericho down
+
+[A]I'll praise 'cause You're sovereign
+[Bm]Praise 'cause You reign
+[C#m]Praise 'cause You rose
+[D]And defeated the grave
+[A]I'll praise 'cause You're faithful
+[Bm]Praise 'cause You're true
+[C#m]Praise 'cause there's [D]nobody
+Greater than [A]You$$),
+
+('I Thank God', 'Maverick City Music & UPPERROOM', 'Db', 'Praise', 'English',
+$$[Db]Wandering into the night
+[Db]Wanting a place to hide
+[Gb]This weary soul, this [Db]bag of bones
+[Db]I try with all my might
+[Db]But I just can't win the fight
+[Gb]I'm slowly drifting, a [Db]vagabond
+
+[Ab]Just when I [Bbm]ran out of road
+[Gb]I met a Man I [Db]didn't know
+[Ab]And He told me [Db]I was not a[Gb]lone
+
+[Db]He picked me up
+[Ebm]Turned me around
+[Db]Placed my [Gb]feet on solid ground
+[Bbm]I thank the Master
+[Gb]I thank the Savior
+[Db]Because He healed my heart
+[Ebm]He changed my name
+[Db]Forever [Gb]free, I'm not the same
+[Bbm]I thank the Master
+[Gb]I thank the Savior
+[Db]I thank God
+
+[Db]I cannot deny what I see
+[Db]Got no choice but to believe
+[Gb]My doubts are burning, like [Db]ashes in the wind
+[Db]So long to my old friends
+[Db]Burden and bitterness
+[Gb]You can just keep moving, you [Db]ain't welcome here
+
+[Ab]From now till I [Bbm]walk streets of gold
+[Gb]I'll sing of how You [Db]saved my soul
+[Ab]This wayward [Db]son has found his [Gb]way back home
+
+[Db]Hell lost another one
+I am free, I am free, I am free$$),
+
+('Gratitude', 'Brandon Lake', 'B', 'Worship', 'English',
+$$[B]All my words fall short
+[G]I got nothing new
+[F#]How could I express
+[E]All my gratitude
+
+[B]I could sing these songs
+[G]As I often do
+[F#]But every song must end
+[E]And You never do
+
+[B]So I throw up my hands
+[F#]And praise You again and again
+'Cause all that I have is a
+[E]Hallelujah, [G]halle[F#]lujah
+[B]And I know it's not much
+[F#]But I've nothing else fit for a King
+Except for a heart singing
+[E]Hallelujah, [G]halle[F#]lu[B]jah
+
+[B]I've got one response
+[G]I've got just one move
+[F#]With my arms stretched wide
+[E]I will worship You
+
+[B]So come on my soul, don't you get shy on me
+[B]Lift up your song, you've got a lion inside
+[B]Get up and praise the Lord
+[F#]Come on my soul, don't you get shy on me
+[E]Lift up your song, you've got a lion inside
+Get up and praise the [B]Lord$$),
+
+('Jireh', 'Elevation Worship & Maverick City Music', 'Eb', 'Worship', 'English',
+$$[Cm]I'll never be more loved than I am right now
+[Cm]Wasn't holding You up so there's nothing I
+[Bb]Can do to let You [Ab]down
+[Eb]Doesn't take a trophy to make You proud
+[Cm]I'll never be [Bb]more loved than I am
+[Fm]Right [Eb]now
+
+[Cm]Going through a storm but I won't go down
+[Cm]I hear Your voice carried in the rhythm
+[Bb]Of the wind to call me [Ab]out
+[Eb]You would cross an ocean so I wouldn't drown
+[Cm]You've never been [Bb]closer than You are
+[Fm]Right [Eb]now
+
+[Bb]Jireh, [Cm]You are e[Ab]nough
+[Eb]Jireh, [Bb]You are e[Cm]nough
+[Ab]I will be [Eb]content in every [Bb]circumstance
+[Cm]Jireh, [Bb]You are e[Ab]nough
+
+[Cm]I'm already loved
+[Bb]I'm already chosen
+[Ab]I know who I am
+[Eb]I know what You've spoken
+[Cm]I'm already loved
+[Bb]More than I could imagine
+[Fm]And that is e[Eb]nough$$),
+
+('Goodness of God', 'Bethel Music', 'G', 'Worship', 'English',
+$$[G]I love You, Lord
+[C]For Your mercy never [G]fails me
+[D/F#]All my [Em]days, I've been [C]held in Your [D]hands
+[Em]From the moment that I [C]wake up
+[G]Until I [D/F#]lay my [Em]head
+[C]I will sing of the [D]goodness of [G]God
+
+[C]All my life You have been [G]faithful
+[C]All my life You have been [G]so, so [D]good
+[C]With every breath that I am [G]able
+[D/F#]I will [Em]sing of the [C]goodness of [D]God
+
+[G]I love Your voice
+[C]You have led me through the [G]fire
+[D/F#]In [Em]darkest night You are [C]close like no [D]other
+[Em]I've known You as a [C]Father
+[G]I've known You as a [D/F#]friend
+[Em]I have [C]lived in the [D]goodness of [G]God
+
+[G/B]Your goodness is running [C]after
+[D]It's running after [G]me
+[G/B]Your goodness is running [C]after
+[D]It's running after [G]me
+[G/B]With my life laid down
+[C]I'm surrendered now
+[D]I give You every[Em]thing
+[G/B]Your goodness is running [C]after
+[D]It's running after [G]me$$),
+
+('Battle Belongs', 'Phil Wickham', 'Db', 'Worship', 'English',
+$$[Db]When all I see is the battle
+[Gb]You see my victory
+[Bbm]When all I see is the [Ab]mountain
+[Gb]You see a mountain moved
+[Db]And as I walk through the shadow
+[Gb]Your love surrounds me
+[Bbm]There's nothing to fear now
+[Ab]For I am safe with [Db]You
+
+[Gb]So when I fight, I'll [Db]fight on my knees
+[Ab]With my hands lifted [Bbm]high
+[Gb]Oh God, the battle be[Db]longs to [Ab]You
+[Gb]And every fear I [Db]lay at Your feet
+[Ab]I'll sing through the [Bbm]night
+[Gb]Oh God, the battle be[Db]longs to [Ab]You
+
+[Db]And if You are for me
+[Gb]Who can be against me?
+[Bbm]For Jesus there's nothing [Ab]impossible for [Gb]You
+[Db]When all I see are the ashes
+[Gb]You see the beauty
+[Bbm]When all I see is a cross
+[Ab]You see the empty [Db]tomb
+
+[Gb]Almighty fortress
+[Db]You go before us
+[Ab]Nothing can stand against the [Bbm]power of our God
+[Gb]You shine in the shadow
+[Db]You win every battle
+[Ab]Nothing can stand against the [Bbm]power of our God$$),
+
+('Holy Forever', 'Chris Tomlin', 'Db', 'Worship', 'English',
+$$[Db]A thousand generations
+[Gb]Falling down in [Db]worship
+[Bbm]To sing the song of [Ab]ages to the [Gb]Lamb
+[Db]And all who've gone before us
+[Gb]And all who will be[Db]lieve
+[Bbm]Will sing the song of [Ab]ages to the [Gb]Lamb
+
+[Gb]Your name is the highest
+[Bbm]Your name is the greatest
+[Ab]Your name stands above them [Gb]all
+[Gb]All thrones and dominions
+[Bbm]All powers and positions
+[Ab]Your name stands above them [Ebm]all
+
+[Gb]And the angels cry: [Bbm]Holy
+[Ab]All creation cries: [Db]Holy
+[Bbm]You are lifted [Ebm]high
+[Ab]Holy for[Db]ever
+
+[Db]If you've been forgiven
+[Gb]And if you've been re[Db]deemed
+[Bbm]Sing the song for[Ab]ever to the [Gb]Lamb
+[Db]If you walk in freedom
+[Gb]And if you bear His [Db]name
+[Bbm]Sing the song for[Ab]ever to the [Gb]Lamb
+[Bbm]We'll sing the song for[Ab]ever and a[Gb]men$$),
+
+('Firm Foundation (He Won''t)', 'Cody Carnes', 'Db', 'Worship', 'English',
+$$[Db]Christ is my firm foundation
+[Bbm]The rock on which I [Ab]stand
+[Db]When everything around me is shaken
+[Bbm]I've never been more [Ab]glad
+[Gb]That I put my faith in [Db]Jesus
+[Bbm]'Cause He's never let me [Ab]down
+[Gb]He's faithful through gener[Db]ations
+[Bbm]So why would He fail [Ab]now?
+
+[Db]He won't, He won't
+[Gb]He won't [Db]fail
+[Gb]He won't [Db]fail
+
+[Db]I've still got joy in chaos
+[Bbm]I've got peace that makes no [Ab]sense
+[Db]I won't be going under
+[Bbm]I'm not held by my own [Ab]strength
+[Gb]'Cause I build my life on [Db]Jesus
+[Bbm]He's never let me [Ab]down
+[Gb]He's faithful in every [Db]season
+[Bbm]So why would He fail [Ab]now?
+
+[Gb]Rain came and [Ab]wind blew
+[Db]But my house was built on [Bbm]You
+[Gb]I'm safe with [Ab]You
+[Db]I'm gonna make it through
+
+[Gb]I'm gonna make it through
+[Db]'Cause I'm standing strong on [Bbm]You
+[Gb]I'm gonna make it through
+[Db]'Cause my house is built on [Bbm]You$$);
