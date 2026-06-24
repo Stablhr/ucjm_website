@@ -243,8 +243,47 @@ $$[Db]Wandering into the night
 [Gb]I'll sing of how You [Db]saved my soul
 [Ab]This wayward [Db]son has found his [Gb]way back home
 
+[Db]He picked me up
+[Ebm]Turned me around
+[Db]Placed my [Gb]feet on solid ground
+[Bbm]I thank the Master
+[Gb]I thank the Savior
+[Db]Because He healed my heart
+[Ebm]He changed my name
+[Db]Forever [Gb]free, I'm not the same
+[Bbm]I thank the Master
+[Gb]I thank the Savior
+[Db]I thank God
+
 [Db]Hell lost another one
-I am free, I am free, I am free$$),
+I am free, I am free, I am free
+[Gb]Get up, get up, get up out of that grave
+I am free, I am free, I am free
+[Ab]Hell lost another one
+[Bbm]I am free, I am free, I am free
+[Gb]Get up, get up, get up out of that grave
+I am free, I am free, I am free
+
+Oh, I thank God
+Oh, I thank God
+Oh, I thank God
+Oh, I thank God
+
+[Db]He picked me up
+[Ebm]Turned me around
+[Db]Placed my [Gb]feet on solid ground
+[Bbm]I thank the Master
+[Gb]I thank the Savior
+[Db]Because He healed my heart
+[Ebm]He changed my name
+[Db]Forever [Gb]free, I'm not the same
+[Bbm]I thank the Master
+[Gb]I thank the Savior
+[Db]I thank God
+
+Oh, I thank God
+Oh, I thank God
+Oh, I thank God$$),
 
 ('Gratitude', 'Brandon Lake', 'B', 'Worship', 'English',
 $$[B]All my words fall short
@@ -304,7 +343,27 @@ $$[Cm]I'll never be more loved than I am right now
 [Eb]I know what You've spoken
 [Cm]I'm already loved
 [Bb]More than I could imagine
-[Fm]And that is e[Eb]nough$$),
+[Fm]And that is e[Eb]nough
+
+[Eb]Forever e[Bb]nough
+[Ab]Always e[Eb]nough
+[Bb]More than e[Cm]nough
+[Ab]Forever e[Eb]nough
+[Bb]Always e[Ab]nough
+[Eb]More than e[Bb]nough
+[Ab]Forever e[Eb]nough
+[Bb]Always e[Ab]nough
+[Eb]More than e[Bb]nough
+[Ab]You are e[Eb]nough
+
+[Bb]If He dresses the [Cm]lilies with beauty and [Ab]splendor
+[Eb]How much more will He [Bb]clothe you
+[Cm]If He watches over [Ab]every sparrow
+[Eb]How much more does He [Bb]love you
+[Cm]If He dresses the [Ab]lilies with beauty and [Bb]splendor
+[Eb]How much more will He [Bb]clothe you
+[Ab]How much more does He [Bb]love you
+[Eb]You are e[Bb]nough$$),
 
 ('Goodness of God', 'Bethel Music', 'G', 'Worship', 'English',
 $$[G]I love You, Lord
@@ -388,13 +447,25 @@ $$[Db]A thousand generations
 [Bbm]You are lifted [Ebm]high
 [Ab]Holy for[Db]ever
 
+[Gb]Hear Your people [Bbm]sing: Holy
+[Ab]To the King of [Db]kings: Holy
+[Bbm]You will always [Ebm]be
+[Ab]Holy for[Db]ever
+
 [Db]If you've been forgiven
 [Gb]And if you've been re[Db]deemed
 [Bbm]Sing the song for[Ab]ever to the [Gb]Lamb
 [Db]If you walk in freedom
 [Gb]And if you bear His [Db]name
 [Bbm]Sing the song for[Ab]ever to the [Gb]Lamb
-[Bbm]We'll sing the song for[Ab]ever and a[Gb]men$$),
+[Bbm]We'll sing the song for[Ab]ever and a[Gb]men
+
+[Db]Forever, [Gb]forever
+[Ab]You will always be [Bbm]holy
+[Db]Forever, [Gb]forever
+[Ab]You will always be [Db]holy
+[Bbm]Holy for[Ebm]ever
+[Ab]Holy for[Db]ever$$),
 
 ('Firm Foundation (He Won''t)', 'Cody Carnes', 'Db', 'Worship', 'English',
 $$[Db]Christ is my firm foundation
@@ -427,4 +498,8 @@ $$[Db]Christ is my firm foundation
 [Gb]I'm gonna make it through
 [Db]'Cause I'm standing strong on [Bbm]You
 [Gb]I'm gonna make it through
-[Db]'Cause my house is built on [Bbm]You$$);
+[Db]'Cause my house is built on [Bbm]You
+
+[Db]He won't, He won't
+[Gb]He won't [Db]fail
+[Gb]He won't [Db]fail$$);
