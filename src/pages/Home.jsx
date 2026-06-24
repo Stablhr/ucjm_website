@@ -47,7 +47,7 @@ export default function Home() {
           </p>
           <a
             href="/signup"
-            className="mt-8 inline-flex items-center gap-2 bg-accent px-8 py-3 text-sm font-medium text-white transition hover:bg-accent/90 hover:gap-3"
+            className="mt-8 inline-flex items-center gap-2 bg-[#0a1db0] px-8 py-3 text-sm font-medium text-white transition hover:bg-[#0a1db0]/90 hover:gap-3"
           >
             Join Us <ArrowRight size={16} />
           </a>
@@ -95,10 +95,10 @@ export default function Home() {
             </p>
             <a
               href="/signup"
-              className="mt-8 inline-flex items-center gap-2 border border-white px-8 py-3 text-sm font-medium text-white transition hover:bg-white hover:text-accent hover:gap-3"
+              className="mt-8 inline-flex items-center gap-2 border border-white px-8 py-3 text-sm font-medium text-white transition hover:bg-white hover:text-black hover:gap-3"
             >
               Sign Up Today <ArrowRight size={16} />
-            </a>
+            </a>  
           </FadeSection>
         </div>
       </section>

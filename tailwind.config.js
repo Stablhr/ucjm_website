@@ -10,7 +10,7 @@ export default {
         ivory: '#FAF9F7',
         charcoal: '#1C1C1C',
         slate: '#4A4A4A',
-        accent: '#2D5E40',
+        accent: '#0a1db0',
         'accent-warm': '#C4892A',
         divider: '#E4E0D8',
         surface: '#FFFFFF',

@@ -71,11 +71,11 @@ export default function Navbar() {
                 key={link.label}
                 to={link.to}
                 onClick={link.action}
-                className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-accent"
+                className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-[#0a1db0]"
               >
                 <Icon size={16} className="transition-transform group-hover:scale-110" />
                 {link.label}
-                <span className="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-accent transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-[#0a1db0] transition-all duration-300 group-hover:w-full" />
               </Link>
             )
           })}
@@ -100,7 +100,7 @@ export default function Navbar() {
                     if (link.action) link.action()
                     setIsOpen(false)
                   }}
-                  className="flex items-center gap-2 text-sm font-medium text-charcoal transition-colors hover:text-accent"
+                  className="flex items-center gap-2 text-sm font-medium text-charcoal transition-colors hover:text-[#0a1db0]"
                 >
                   <Icon size={16} />
                   {link.label}

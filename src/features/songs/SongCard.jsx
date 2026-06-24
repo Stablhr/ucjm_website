@@ -1,4 +1,4 @@
-import { Music } from 'lucide-react'
+import { Music, Youtube } from 'lucide-react'
 
 const CATEGORY_COLORS = {
   Praise: 'from-amber-400 to-orange-500',
@@ -63,6 +63,11 @@ export default function SongCard({ song, onClick, viewMode }) {
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
+          {song.youtube_url && (
+            <span className="text-red-500">
+              <Youtube size={14} />
+            </span>
+          )}
           <span className="rounded-lg bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
             {song.key}
           </span>
@@ -108,7 +113,12 @@ export default function SongCard({ song, onClick, viewMode }) {
             {song.key}
           </span>
         </div>
-        <div className="absolute right-2 top-2">
+        <div className="absolute right-2 top-2 flex gap-1">
+          {song.youtube_url && (
+            <span className="inline-flex items-center gap-0.5 rounded-lg bg-red-500/80 px-1.5 py-0.5 font-mono text-[10px] text-white shadow-sm">
+              <Youtube size={10} />
+            </span>
+          )}
           <span className="inline-block rounded-lg bg-white/80 px-1.5 py-0.5 font-mono text-[10px] uppercase text-slate shadow-sm">
             {LANG_LABELS[song.language] || song.language}
           </span>

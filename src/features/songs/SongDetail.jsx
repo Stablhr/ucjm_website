@@ -1,4 +1,4 @@
-import { ArrowLeft, Plus } from 'lucide-react'
+import { ArrowLeft, Plus, Youtube } from 'lucide-react'
 import { useState, useMemo } from 'react'
 import useSongsStore from './songsStore'
 import { transposeLyrics } from './chordParser'
@@ -41,6 +41,11 @@ function parseSegments(line) {
   }
 
   return merged
+}
+
+function extractYoutubeId(url) {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/)
+  return match ? match[1] : ''
 }
 
 const CATEGORY_GRADIENTS = {
@@ -160,6 +165,25 @@ export default function SongDetail({ song, onBack }) {
           )
         })}
       </div>
+
+      {/* YouTube Video */}
+      {song.youtube_url && (
+        <div className="mb-8 overflow-hidden rounded-lg border border-divider">
+          <div className="flex items-center gap-2 border-b border-divider bg-ivory px-4 py-2.5">
+            <Youtube size={16} className="text-red-500" />
+            <span className="text-sm font-medium text-charcoal">Original Song</span>
+          </div>
+          <div className="aspect-video w-full">
+            <iframe
+              src={`https://www.youtube.com/embed/${extractYoutubeId(song.youtube_url)}`}
+              title={song.title}
+              className="h-full w-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
 
       {/* Actions */}
       <button

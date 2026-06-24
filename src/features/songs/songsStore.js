@@ -75,6 +75,7 @@ const useSongsStore = create((set, get) => ({
         category: songData.category || 'Worship',
         language: songData.language || 'English',
         lyrics_with_chords: songData.lyrics_with_chords || '',
+        youtube_url: songData.youtube_url || '',
         album: songData.album || '',
         album_year: songData.album_year || null,
         image_url: songData.image_url || '',
