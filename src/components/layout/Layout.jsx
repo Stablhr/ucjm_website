@@ -20,7 +20,7 @@ export default function Layout() {
       <main className="flex-1 pt-20">
         <Outlet />
       </main>
-      <Footer />
+      {location.pathname !== '/login' && location.pathname !== '/bible' && <Footer />}
       <ScrollToTop />
     </div>
   )
