@@ -168,18 +168,18 @@ export default function SongDetail({ song, onBack }) {
           }
 
           return (
-            <div key={i} className="flex flex-wrap items-baseline leading-8 gap-x-1">
+            <div key={i} className="flex flex-wrap items-baseline gap-x-1.5 py-1 min-h-[2.75rem]">
               {line.segments.map((seg, j) => {
                 if (seg.chord) {
                   return (
                     <span
                       key={j}
-                      className="inline-flex flex-col items-baseline gap-0.5"
+                      className="inline-flex flex-col items-center gap-1"
                     >
                       <span className="font-mono text-sm font-bold text-accent leading-none">
                         {seg.chord}
                       </span>
-                      <span className="leading-snug">{seg.text || '\u00A0'}</span>
+                      <span className="leading-tight">{seg.text || '\u00A0'}</span>
                     </span>
                   )
                 }

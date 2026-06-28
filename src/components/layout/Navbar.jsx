@@ -51,7 +51,7 @@ export default function Navbar() {
             className="h-10 w-auto"
           />
           <span className="hidden text-lg font-semibold sm:inline" style={{ color: '#0a1db0' }}>
-            UNITY IN CHRIST JESUS MINISTRIES
+            UCJM
           </span>
         </Link>
 
