@@ -1,26 +1,26 @@
 import { Minus, Plus } from 'lucide-react'
 import useSongsStore from './songsStore'
 
-export default function ChordTransposer() {
+const keyLabels = [
+  'C',
+  'C#',
+  'D',
+  'D#',
+  'E',
+  'F',
+  'F#',
+  'G',
+  'G#',
+  'A',
+  'A#',
+  'B',
+]
+
+export default function ChordTransposer({ songKey }) {
   const transposeOffset = useSongsStore((s) => s.transposeOffset)
   const setTransposeOffset = useSongsStore((s) => s.setTransposeOffset)
 
-  const keyLabels = [
-    'C',
-    'C#',
-    'D',
-    'D#',
-    'E',
-    'F',
-    'F#',
-    'G',
-    'G#',
-    'A',
-    'A#',
-    'B',
-  ]
-
-  const displayKey = keyLabels[(transposeOffset + 12) % 12]
+  const displayKey = keyLabels[(keyLabels.indexOf(songKey) + transposeOffset + 12) % 12]
 
   return (
     <div className="inline-flex items-center gap-3 rounded-lg border border-divider bg-white px-3 py-2">

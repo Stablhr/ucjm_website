@@ -99,7 +99,7 @@ const useSongsStore = create((set, get) => ({
         album: songData.album || '',
         album_year: songData.album_year || null,
         image_url: songData.image_url || '',
-        image_color: songData.image_color || 'from-accent/20 to-accent/5',
+        image_color: songData.image_color || 'from-gray-300 to-gray-100',
       })
       .select()
       .single()
@@ -126,7 +126,7 @@ const useSongsStore = create((set, get) => ({
           album: fields.album || '',
           album_year: fields.album_year || null,
           image_url: fields.image_url || '',
-          image_color: fields.image_color || 'from-accent/20 to-accent/5',
+          image_color: fields.image_color || 'from-gray-300 to-gray-100',
         })
         .eq('id', song.id)
       if (error) throw error
@@ -152,7 +152,7 @@ const useSongsStore = create((set, get) => ({
         album: fields.album !== undefined ? fields.album : song.album || '',
         album_year: fields.album_year !== undefined ? fields.album_year : song.album_year || null,
         image_url: fields.image_url !== undefined ? fields.image_url : song.image_url || '',
-        image_color: fields.image_color !== undefined ? fields.image_color : song.image_color || 'from-accent/20 to-accent/5',
+        image_color: fields.image_color !== undefined ? fields.image_color : song.image_color || 'from-gray-300 to-gray-100',
       })
       .select()
       .single()

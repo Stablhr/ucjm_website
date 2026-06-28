@@ -17,7 +17,7 @@ const GRADIENT_PRESETS = [
   { label: 'Teal', value: 'from-teal-500 to-cyan-600' },
 ]
 
-export default function EditSongModal({ song, onClose }) {
+export default function EditSongModal({ song, onClose, onSaved }) {
   const [title, setTitle] = useState(song.title || '')
   const [artist, setArtist] = useState(song.artist || '')
   const [key, setKey] = useState(song.key || 'G')
@@ -101,6 +101,7 @@ export default function EditSongModal({ song, onClose }) {
         lyrics_with_chords: lyrics.trim(),
       })
       toast.success('Song updated!')
+      onSaved?.()
       onClose()
     } catch (err) {
       toast.error(err.message || 'Failed to update song')

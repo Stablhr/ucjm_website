@@ -14,33 +14,31 @@ const LANG_LABELS = {
 
 function getGradient(song) {
   if (song.image_color) return song.image_color
-  return CATEGORY_COLORS[song.category] || 'from-accent/20 to-accent/5'
+  return CATEGORY_COLORS[song.category] || 'from-gray-300 to-gray-100'
 }
 
 function Monogram({ song, className }) {
   const gradient = getGradient(song)
 
-  if (song.image_url) {
-    return (
-      <img
-        src={song.image_url}
-        alt={song.title}
-        className={`object-cover ${className}`}
-      />
-    )
-  }
-
   return (
     <div
       className={`flex items-center justify-center bg-gradient-to-br ${gradient} ${className}`}
     >
-      <Music size={24} className="text-white/40" />
+      {song.image_url ? (
+        <img
+          src={song.image_url}
+          alt={song.title}
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <Music size={24} className="text-white/40" />
+      )}
     </div>
   )
 }
 
 export default function SongCard({ song, onClick, viewMode }) {
-  const catColor = CATEGORY_COLORS[song.category] || 'from-accent/10 to-accent/5'
+  const catColor = CATEGORY_COLORS[song.category] || 'from-gray-300 to-gray-100'
 
   if (viewMode === 'list') {
     return (

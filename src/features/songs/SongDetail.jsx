@@ -75,7 +75,7 @@ export default function SongDetail({ song, onBack }) {
     })
   }, [transposedLyrics])
 
-  const gradient = song.image_color || CATEGORY_GRADIENTS[song.category] || 'from-accent/20 to-accent/5'
+  const gradient = song.image_color || CATEGORY_GRADIENTS[song.category] || 'from-gray-300 to-gray-100'
 
   if (!song) return null
 
@@ -91,7 +91,7 @@ export default function SongDetail({ song, onBack }) {
           Back to songs
         </button>
 
-        <ChordTransposer />
+        <ChordTransposer songKey={song.key} />
       </div>
 
       {/* Hero banner */}
@@ -221,6 +221,7 @@ export default function SongDetail({ song, onBack }) {
         <EditSongModal
           song={song}
           onClose={() => setShowEditModal(false)}
+          onSaved={onBack}
         />
       )}
     </div>
