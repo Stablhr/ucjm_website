@@ -9,6 +9,12 @@ import EditSongModal from './EditSongModal'
 
 const CHORD_REGEX = /\[([A-G][#b]?(?:m|dim|aug|sus[24]|add[0-9]|[0-9])?(?:\/[A-G][#b]?)?)\]/g
 
+const SECTION_REGEX = /^\[(VERSE|PRE-CHORUS|CHORUS|BRIDGE|INTRO|OUTRO|TAG|INSTRUMENTAL|INTERLUDE)( [0-9])?\]$/i
+
+function isSectionLine(text) {
+  return SECTION_REGEX.test(text.trim())
+}
+
 function parseSegments(line) {
   const segments = []
   const regex = new RegExp(CHORD_REGEX.source, 'g')
@@ -69,7 +75,11 @@ export default function SongDetail({ song, onBack }) {
 
   const renderedLines = useMemo(() => {
     return transposedLyrics.split('\n').map((line) => {
-      if (!line.trim()) return { type: 'empty' }
+      const trimmed = line.trim()
+      if (!trimmed) return { type: 'empty' }
+      if (isSectionLine(trimmed)) {
+        return { type: 'section', label: trimmed.replace(/^\[|\]$/g, '') }
+      }
       const segments = parseSegments(line)
       return { type: 'line', segments }
     })
@@ -144,11 +154,21 @@ export default function SongDetail({ song, onBack }) {
       <div className="mb-8 rounded-lg border border-divider bg-white p-6 sm:p-8">
         {renderedLines.map((line, i) => {
           if (line.type === 'empty') {
-            return <div key={i} className="h-5" />
+            return <div key={i} className="h-4" />
+          }
+
+          if (line.type === 'section') {
+            return (
+              <div key={i} className="mb-3 mt-6 first:mt-0">
+                <span className="inline-block rounded-md bg-accent/10 px-3 py-1 font-mono text-[11px] font-bold tracking-wider text-accent">
+                  {line.label}
+                </span>
+              </div>
+            )
           }
 
           return (
-            <div key={i} className="flex flex-wrap items-baseline leading-9 gap-x-1">
+            <div key={i} className="flex flex-wrap items-baseline leading-8 gap-x-1">
               {line.segments.map((seg, j) => {
                 if (seg.chord) {
                   return (

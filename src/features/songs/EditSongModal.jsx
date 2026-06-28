@@ -310,7 +310,19 @@ export default function EditSongModal({ song, onClose, onSaved }) {
               <code className="rounded-lg bg-accent/5 px-1 font-mono text-accent">
                 [G]
               </code>{' '}
-              for chords. Separate verses with blank lines.
+              for chords. Use{' '}
+              <code className="rounded-lg bg-accent/5 px-1 font-mono text-accent">
+                [VERSE]
+              </code>
+              ,{' '}
+              <code className="rounded-lg bg-accent/5 px-1 font-mono text-accent">
+                [CHORUS]
+              </code>
+              ,{' '}
+              <code className="rounded-lg bg-accent/5 px-1 font-mono text-accent">
+                [BRIDGE]
+              </code>{' '}
+              etc. to label sections.
             </p>
             <textarea
               value={lyrics}
