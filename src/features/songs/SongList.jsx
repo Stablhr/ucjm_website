@@ -1,9 +1,13 @@
-import { Search, Music, Grid3X3, List } from 'lucide-react'
-import { useEffect } from 'react'
+import { Search, Music, Grid3X3, List, ChevronDown } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import useSongsStore from './songsStore'
 import SongCard from './SongCard'
 
+const ITEMS_PER_PAGE = 12
+
 export default function SongList({ onSelectSong }) {
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
+
   const searchQuery = useSongsStore((s) => s.searchQuery)
   const setSearchQuery = useSongsStore((s) => s.setSearchQuery)
   const activeCategory = useSongsStore((s) => s.activeCategory)
@@ -27,6 +31,13 @@ export default function SongList({ onSelectSong }) {
   useEffect(() => {
     fetchSongs()
   }, [fetchSongs])
+
+  useEffect(() => {
+    setVisibleCount(ITEMS_PER_PAGE)
+  }, [searchQuery, activeCategory, activeArtist, activeAlbum, activeLanguage])
+
+  const visibleSongs = filteredSongs.slice(0, visibleCount)
+  const hasMore = visibleCount < filteredSongs.length
 
   if (loading) {
     return (
@@ -164,7 +175,7 @@ export default function SongList({ onSelectSong }) {
         </div>
       ) : viewMode === 'grid' ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredSongs.map((song) => (
+          {visibleSongs.map((song) => (
             <SongCard
               key={song.id}
               song={song}
@@ -175,7 +186,7 @@ export default function SongList({ onSelectSong }) {
         </div>
       ) : (
         <div className="space-y-2">
-          {filteredSongs.map((song) => (
+          {visibleSongs.map((song) => (
             <SongCard
               key={song.id}
               song={song}
@@ -183,6 +194,19 @@ export default function SongList({ onSelectSong }) {
               viewMode={viewMode}
             />
           ))}
+        </div>
+      )}
+
+      {/* Load More */}
+      {hasMore && (
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => setVisibleCount((c) => c + ITEMS_PER_PAGE)}
+            className="inline-flex items-center gap-2 rounded-lg border border-divider px-6 py-3 text-sm text-slate transition-colors hover:border-accent/30 hover:text-accent"
+          >
+            <ChevronDown size={16} />
+            Show More ({filteredSongs.length - visibleCount} remaining)
+          </button>
         </div>
       )}
     </div>

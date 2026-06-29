@@ -9,6 +9,7 @@ import {
   CheckCircle,
   ArrowRight,
 } from 'lucide-react'
+import useAuthStore from '../../store/authStore'
 import useGuideStore from './guideStore'
 
 const iconMap = {
@@ -38,6 +39,7 @@ const colorMap = {
 }
 
 export default function GuidePlanCard({ plan }) {
+  const isLoggedIn = useAuthStore((s) => s.isLoggedIn)
   const setActivePlan = useGuideStore((s) => s.setActivePlan)
   const progress = useGuideStore((s) => s.progress)
 
@@ -75,24 +77,26 @@ export default function GuidePlanCard({ plan }) {
           : `Start with "${plan.days[0].title}"`}
       </p>
 
-      <div className="mt-4 flex w-full items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div
-            className="h-1.5 flex-1 rounded-full bg-white/60"
-            style={{ width: 120 }}
-          >
+      {isLoggedIn && (
+        <div className="mt-4 flex w-full items-center justify-between">
+          <div className="flex items-center gap-2">
             <div
-              className="h-full rounded-full bg-current transition-all"
-              style={{ width: `${pct}%` }}
-            />
+              className="h-1.5 flex-1 rounded-full bg-white/60"
+              style={{ width: 120 }}
+            >
+              <div
+                className="h-full rounded-full bg-current transition-all"
+                style={{ width: `${pct}%` }}
+              />
+            </div>
+            <span className="font-mono text-xs opacity-60">
+              {completedDays}/{plan.days.length}
+            </span>
           </div>
-          <span className="font-mono text-xs opacity-60">
-            {completedDays}/{plan.days.length}
-          </span>
-        </div>
 
-        {isComplete && <CheckCircle size={16} className="shrink-0" />}
-      </div>
+          {isComplete && <CheckCircle size={16} className="shrink-0" />}
+        </div>
+      )}
 
       <div className="mt-4 flex w-full items-center justify-end gap-1.5 text-xs font-medium opacity-0 transition-opacity group-hover:opacity-100">
         {isComplete ? 'Review Plan' : hasStarted ? 'Continue' : 'Start Plan'}

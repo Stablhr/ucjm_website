@@ -67,6 +67,7 @@ export default function SongDetail({ song, onBack }) {
   const user = useAuthStore((s) => s.user)
   const [showPlaylistModal, setShowPlaylistModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
+  const [imgError, setImgError] = useState(false)
 
   const transposedLyrics = useMemo(
     () => transposeLyrics(song.lyrics_with_chords, transposeOffset),
@@ -85,7 +86,7 @@ export default function SongDetail({ song, onBack }) {
     })
   }, [transposedLyrics])
 
-  const gradient = song.image_color || CATEGORY_GRADIENTS[song.category] || 'from-gray-300 to-gray-100'
+  const gradient = song.image_color || CATEGORY_GRADIENTS[song.category] || 'from-gray-400 to-gray-600'
 
   if (!song) return null
 
@@ -109,11 +110,12 @@ export default function SongDetail({ song, onBack }) {
         <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-end sm:p-8">
           {/* Art thumbnail */}
           <div className="h-28 w-28 shrink-0 overflow-hidden rounded-lg shadow-lg sm:h-36 sm:w-36">
-            {song.image_url ? (
+            {song.image_url && !imgError ? (
               <img
                 src={song.image_url}
                 alt={song.title}
                 className="h-full w-full object-cover"
+                onError={() => setImgError(true)}
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-white/10">
@@ -168,7 +170,7 @@ export default function SongDetail({ song, onBack }) {
           }
 
           return (
-            <div key={i} className="flex flex-wrap items-baseline gap-x-1.5 py-1 min-h-[2.75rem]">
+            <div key={i} className="flex flex-wrap items-baseline gap-x-1.5 gap-y-1.5 py-1.5 min-h-[3rem]">
               {line.segments.map((seg, j) => {
                 if (seg.chord) {
                   return (

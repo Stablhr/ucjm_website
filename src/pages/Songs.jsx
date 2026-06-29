@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Music, ListMusic, Plus } from 'lucide-react'
+import SEO from '../components/ui/SEO'
 import useSongsStore from '../features/songs/songsStore'
 import SongList from '../features/songs/SongList'
 import SongDetail from '../features/songs/SongDetail'
@@ -37,34 +38,39 @@ export default function Songs() {
     setSelectedPlaylist(null)
   }
 
-  // Song detail view
   if (selectedSong) {
     return (
-      <section className="py-16">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <SongDetail song={selectedSong} onBack={handleBackToLibrary} />
-        </div>
-      </section>
+      <>
+        <SEO title={selectedSong.title} />
+        <section className="py-16">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <SongDetail song={selectedSong} onBack={handleBackToLibrary} />
+          </div>
+        </section>
+      </>
     )
   }
 
-  // Playlist detail view
   if (selectedPlaylist) {
     return (
-      <section className="py-16">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <PlaylistDetail
-            playlist={selectedPlaylist}
-            onBack={handleBackToPlaylists}
-          />
-        </div>
-      </section>
+      <>
+        <SEO title={selectedPlaylist.title} />
+        <section className="py-16">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <PlaylistDetail
+              playlist={selectedPlaylist}
+              onBack={handleBackToPlaylists}
+            />
+          </div>
+        </section>
+      </>
     )
   }
 
-  // Main view: tabs
   return (
-    <section className="py-16">
+    <>
+      <SEO title="Songs" />
+      <section className="py-16">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="font-display text-4xl font-bold text-charcoal">
@@ -117,5 +123,6 @@ export default function Songs() {
 
       {showAddSong && <AddSongModal onClose={() => setShowAddSong(false)} />}
     </section>
+    </>
   )
 }

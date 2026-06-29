@@ -89,6 +89,20 @@ const usePlaylistStore = create((set, get) => ({
     if (error) throw error
   },
 
+  reorderSongs: async (playlistId, songIds) => {
+    const updates = songIds.map((songId, idx) => ({
+      playlist_id: playlistId,
+      song_id: songId,
+      position: idx,
+    }))
+
+    const { error } = await supabase.from('playlist_songs').upsert(updates, {
+      onConflict: 'playlist_id,song_id',
+    })
+
+    if (error) throw error
+  },
+
   getPlaylistSongs: async (playlistId) => {
     const { data, error } = await supabase
       .from('playlist_songs')

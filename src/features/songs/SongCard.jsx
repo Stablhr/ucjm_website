@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Music, Youtube } from 'lucide-react'
 
 const CATEGORY_COLORS = {
@@ -14,21 +15,24 @@ const LANG_LABELS = {
 
 function getGradient(song) {
   if (song.image_color) return song.image_color
-  return CATEGORY_COLORS[song.category] || 'from-gray-300 to-gray-100'
+  return CATEGORY_COLORS[song.category] || 'from-gray-400 to-gray-600'
 }
 
 function Monogram({ song, className }) {
   const gradient = getGradient(song)
+  const [imgError, setImgError] = useState(false)
+  const showImg = song.image_url && !imgError
 
   return (
     <div
       className={`flex items-center justify-center bg-gradient-to-br ${gradient} ${className}`}
     >
-      {song.image_url ? (
+      {showImg ? (
         <img
           src={song.image_url}
           alt={song.title}
           className="h-full w-full object-cover"
+          onError={() => setImgError(true)}
         />
       ) : (
         <Music size={24} className="text-white/40" />
@@ -38,7 +42,7 @@ function Monogram({ song, className }) {
 }
 
 export default function SongCard({ song, onClick, viewMode }) {
-  const catColor = CATEGORY_COLORS[song.category] || 'from-gray-300 to-gray-100'
+  const catColor = CATEGORY_COLORS[song.category] || 'from-gray-400 to-gray-600'
 
   if (viewMode === 'list') {
     return (

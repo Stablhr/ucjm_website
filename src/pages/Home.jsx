@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Heart, ArrowRight } from 'lucide-react'
+import SEO from '../components/ui/SEO'
 import useScrollReveal from '../hooks/useScrollReveal'
 import useHomeStore from '../features/home/homeStore'
 import AnnouncementsSection from '../features/home/AnnouncementsSection'
@@ -30,6 +31,7 @@ export default function Home() {
 
   return (
     <>
+      <SEO title="Home" />
       {/* Hero */}
       <section className="relative flex h-screen items-center justify-center overflow-hidden -mt-20">
         <img

@@ -2,6 +2,7 @@ import { KeyRound, Cross, Mail, ArrowLeft, CheckCircle } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
+import SEO from '../components/ui/SEO'
 import useAuthStore from '../store/authStore'
 
 export default function ForgotPassword() {
@@ -25,7 +26,9 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-5rem)]">
+    <>
+      <SEO title="Forgot Password" />
+      <div className="flex min-h-[calc(100vh-5rem)]">
       <div className="relative hidden w-1/2 overflow-hidden lg:block">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/60 to-charcoal/80 z-10" />
         <img
@@ -101,5 +104,6 @@ export default function ForgotPassword() {
         </div>
       </div>
     </div>
+    </>
   )
 }
