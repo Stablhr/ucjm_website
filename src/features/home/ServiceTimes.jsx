@@ -3,9 +3,7 @@ import useScrollReveal from '../../hooks/useScrollReveal'
 
 const services = [
   { day: 'Sunday', label: 'Morning Worship', time: '9:00 AM' },
-  { day: 'Sunday', label: 'Afternoon Service', time: '2:00 PM' },
-  { day: 'Wednesday', label: 'Midweek Prayer Meeting', time: '6:30 PM' },
-  { day: 'Friday', label: 'Youth Fellowship', time: '6:00 PM' },
+  { day: 'Wednesday', label: 'Midweek Prayer Meeting', time: '7:00 PM' },
 ]
 
 export default function ServiceTimes() {
