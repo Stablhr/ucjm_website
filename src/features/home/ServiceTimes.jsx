@@ -6,6 +6,12 @@ const services = [
   { day: 'Wednesday', label: 'Midweek Prayer Meeting', time: '7:00 PM' },
 ]
 
+const locations = [
+  { name: 'Main Church', address: 'Imus, Philippines, 4103' },
+  { name: 'UCJM Castillon', address: 'General Trias, Philippines, 4107' },
+  { name: 'UCJM Ternate', address: 'Poblacion 1-A, 9012 Gov. Drive, Ternate, Cavite, Philippines, 4103' },
+]
+
 export default function ServiceTimes() {
   const [ref, isVisible] = useScrollReveal()
 
@@ -41,12 +47,16 @@ export default function ServiceTimes() {
             ))}
           </div>
 
-          <div className="mt-8 flex items-start gap-3 rounded-lg bg-ivory p-4">
-            <MapPin size={18} className="mt-0.5 shrink-0 text-accent-warm" />
-            <div>
-              <p className="text-sm font-medium text-charcoal">UCJM Church</p>
-              <p className="mt-0.5 text-xs text-slate">123 Church Street, Your City</p>
-            </div>
+          <div className="mt-8 space-y-3">
+            {locations.map((loc) => (
+              <div key={loc.name} className="flex items-start gap-3 rounded-lg bg-ivory p-4">
+                <MapPin size={18} className="mt-0.5 shrink-0 text-accent-warm" />
+                <div>
+                  <p className="text-sm font-medium text-charcoal">{loc.name}</p>
+                  <p className="mt-0.5 text-xs text-slate">{loc.address}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
