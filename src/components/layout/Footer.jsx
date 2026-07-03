@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Cross, BookOpen, Music, Compass, User, ExternalLink } from 'lucide-react'
+import useAuthStore from '../../store/authStore'
 
 const iconMap = {
   Home: Cross,
@@ -7,17 +8,23 @@ const iconMap = {
   Songs: Music,
   'Reading Guide': Compass,
   Login: User,
+  Profile: User,
 }
 
-const quickLinks = [
+const baseLinks = [
   { to: '/', label: 'Home' },
   { to: '/bible', label: 'Bible' },
   { to: '/songs', label: 'Songs' },
   { to: '/guide', label: 'Reading Guide' },
-  { to: '/login', label: 'Login' },
 ]
 
 export default function Footer() {
+  const user = useAuthStore((s) => s.user)
+  const quickLinks = [
+    ...baseLinks,
+    { to: user ? '/profile' : '/login', label: user ? 'Profile' : 'Login' },
+  ]
+
   return (
     <footer className="border-t border-divider bg-ivory">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

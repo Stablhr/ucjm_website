@@ -1,5 +1,6 @@
 import { Search, Music, Grid3X3, List, ChevronDown } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { Skeleton } from '../../components/ui/Skeleton'
 import useSongsStore from './songsStore'
 import SongCard from './SongCard'
 
@@ -46,11 +47,9 @@ export default function SongList({ onSelectSong }) {
         : 'space-y-3'
       }>
         {Array.from({ length: 6 }).map((_, i) => (
-          <div
+          <Skeleton
             key={i}
-            className={`animate-pulse rounded-lg bg-slate/5 ${
-              viewMode === 'grid' ? 'aspect-[2/1.4]' : 'h-16'
-            }`}
+            className={viewMode === 'grid' ? 'aspect-[2/1.4]' : 'h-16'}
           />
         ))}
       </div>

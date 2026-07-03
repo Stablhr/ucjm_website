@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import SEO from '../components/ui/SEO'
+import Button from '../components/ui/Button'
 import useAuthStore from '../store/authStore'
 
 export default function ForgotPassword() {
@@ -85,13 +86,9 @@ export default function ForgotPassword() {
                 Reset link sent! Check your email.
               </div>
             ) : (
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full rounded-lg bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98] disabled:opacity-60"
-              >
-                {loading ? 'Sending...' : 'Send Reset Link'}
-              </button>
+              <Button type="submit" loading={loading} className="w-full justify-center py-3">
+                Send Reset Link
+              </Button>
             )}
           </form>
 

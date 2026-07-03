@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import SEO from '../components/ui/SEO'
+import Button from '../components/ui/Button'
 import { supabase } from '../services/supabase'
 import useAuthStore from '../store/authStore'
 
@@ -201,14 +202,10 @@ export default function Profile() {
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={saving}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98] disabled:opacity-60"
-            >
+            <Button type="submit" loading={saving} className="w-full justify-center py-3">
               <Save size={16} />
-              {saving ? 'Saving...' : 'Save Changes'}
-            </button>
+              Save Changes
+            </Button>
           </form>
 
           <div className="mt-8 border-t border-divider pt-6">

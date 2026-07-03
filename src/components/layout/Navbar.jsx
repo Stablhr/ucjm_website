@@ -82,8 +82,13 @@ export default function Navbar() {
         </div>
       </div>
 
-      {isOpen && (
-        <div className="border-t border-divider bg-white px-4 pb-4">
+      {/* Mobile menu with slide animation */}
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        } border-t border-divider bg-white`}
+      >
+        <div className="px-4 pb-4">
           <div className="flex flex-col gap-4 pt-4">
             {user && (
               <div className="border-b border-divider pb-3 text-sm text-slate">
@@ -109,7 +114,7 @@ export default function Navbar() {
             })}
           </div>
         </div>
-      )}
+      </div>
     </nav>
   )
 }

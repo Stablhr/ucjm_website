@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
@@ -10,6 +10,18 @@ export default function Layout() {
   const loading = useAuthStore((s) => s.loading)
   const refreshProfile = useAuthStore((s) => s.refreshProfile)
   const user = useAuthStore((s) => s.user)
+  const prevPath = useRef(location.pathname)
+  const [transitioning, setTransitioning] = useState(false)
+
+  useEffect(() => {
+    if (prevPath.current !== location.pathname) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      prevPath.current = location.pathname
+      setTransitioning(true)
+      const t = setTimeout(() => setTransitioning(false), 300)
+      return () => clearTimeout(t)
+    }
+  }, [location.pathname])
 
   useEffect(() => {
     if (user) refreshProfile()
@@ -30,7 +42,9 @@ export default function Layout() {
     <div className="flex min-h-screen flex-col">
       <Navbar />
       <main className="flex-1 pt-20">
-        <Outlet />
+        <div className={`transition-opacity duration-300 ${transitioning ? 'opacity-0' : 'opacity-100'}`}>
+          <Outlet />
+        </div>
       </main>
       {location.pathname !== '/login' && location.pathname !== '/bible' && <Footer />}
       <ScrollToTop />

@@ -1,4 +1,5 @@
 import { Image } from 'lucide-react'
+import { Skeleton } from '../../components/ui/Skeleton'
 import useHomeStore from './homeStore'
 
 export default function PhotoGallery() {
@@ -18,10 +19,7 @@ export default function PhotoGallery() {
         {loading ? (
           <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div
-                key={i}
-                className="aspect-square animate-pulse rounded-lg bg-divider"
-              />
+              <Skeleton key={i} className="aspect-square" />
             ))}
           </div>
         ) : photos.length === 0 ? (

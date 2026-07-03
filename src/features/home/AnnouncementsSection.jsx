@@ -1,4 +1,5 @@
 import { Megaphone } from 'lucide-react'
+import { SkeletonCard } from '../../components/ui/Skeleton'
 import useHomeStore from './homeStore'
 
 export default function AnnouncementsSection() {
@@ -18,11 +19,7 @@ export default function AnnouncementsSection() {
         {loading ? (
           <div className="mt-8 grid gap-8 md:grid-cols-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="rounded-lg border border-divider p-6">
-                <div className="mb-3 h-40 animate-pulse rounded-lg bg-divider" />
-                <div className="mb-2 h-6 w-3/4 animate-pulse rounded-lg bg-divider" />
-                <div className="h-4 w-full animate-pulse rounded-lg bg-divider" />
-              </div>
+              <SkeletonCard key={i} />
             ))}
           </div>
         ) : announcements.length === 0 ? (

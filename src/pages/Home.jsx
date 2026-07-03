@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Heart, ArrowRight } from 'lucide-react'
 import SEO from '../components/ui/SEO'
+import Button from '../components/ui/Button'
 import useScrollReveal from '../hooks/useScrollReveal'
 import useHomeStore from '../features/home/homeStore'
 import AnnouncementsSection from '../features/home/AnnouncementsSection'
@@ -47,12 +49,11 @@ export default function Home() {
           <p className="mx-auto mt-6 max-w-xl text-lg text-white/80">
             A community of faith, hope, and love.
           </p>
-          <a
-            href="/signup"
-            className="mt-8 inline-flex items-center gap-2 bg-[#0a1db0] px-8 py-3 text-sm font-medium text-white transition hover:bg-[#0a1db0]/90 hover:gap-3"
-          >
-            Join Us <ArrowRight size={16} />
-          </a>
+          <Link to="/signup" className="mt-8 inline-block">
+            <Button>
+              Join Us <ArrowRight size={16} />
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -95,12 +96,11 @@ export default function Home() {
             <p className="mx-auto mt-4 max-w-lg text-white/80">
               Become part of our church family.
             </p>
-            <a
-              href="/signup"
-              className="mt-8 inline-flex items-center gap-2 border border-white px-8 py-3 text-sm font-medium text-white transition hover:bg-white hover:text-black hover:gap-3"
-            >
-              Sign Up Today <ArrowRight size={16} />
-            </a>  
+            <Link to="/signup" className="mt-8 inline-block">
+              <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+                Sign Up Today <ArrowRight size={16} />
+              </Button>
+            </Link>
           </FadeSection>
         </div>
       </section>

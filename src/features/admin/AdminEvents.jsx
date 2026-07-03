@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Plus, Edit3, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { Skeleton } from '../../components/ui/Skeleton'
 import { supabase } from '../../services/supabase'
 
 export default function AdminEvents() {
@@ -54,7 +55,7 @@ export default function AdminEvents() {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-16 animate-pulse rounded-lg bg-divider" />
+            <Skeleton key={i} className="h-16" />
           ))}
         </div>
       ) : events.length === 0 ? (

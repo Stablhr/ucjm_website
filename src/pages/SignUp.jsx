@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import SEO from '../components/ui/SEO'
+import Button from '../components/ui/Button'
 import useAuthStore from '../store/authStore'
 
 export default function SignUp() {
@@ -152,13 +153,9 @@ export default function SignUp() {
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full rounded-lg bg-accent py-3 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98] disabled:opacity-60"
-            >
-              {loading ? 'Creating account...' : 'Create Account'}
-            </button>
+            <Button type="submit" loading={loading} className="w-full justify-center py-3">
+              Create Account
+            </Button>
           </form>
 
           <p className="mt-8 text-center text-sm text-slate">

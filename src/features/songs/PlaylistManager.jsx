@@ -8,6 +8,7 @@ import {
   ChevronRight,
 } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { Skeleton } from '../../components/ui/Skeleton'
 import usePlaylistStore from './playlistStore'
 
 export default function PlaylistManager({ onSelectPlaylist }) {
@@ -63,7 +64,7 @@ export default function PlaylistManager({ onSelectPlaylist }) {
     return (
       <div className="space-y-3">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-20 animate-pulse rounded-lg bg-slate/5" />
+          <Skeleton key={i} className="h-20" />
         ))}
       </div>
     )

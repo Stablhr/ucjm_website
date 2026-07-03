@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Compass, ArrowLeft, LogIn } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/ui/SEO'
+import { Skeleton } from '../components/ui/Skeleton'
 import useAuthStore from '../store/authStore'
 import useGuideStore from '../features/guide/guideStore'
 import GuidePlanCard from '../features/guide/GuidePlanCard'
@@ -13,6 +14,7 @@ export default function Guide() {
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn)
   const activePlanId = useGuideStore((s) => s.activePlanId)
   const currentDay = useGuideStore((s) => s.currentDay)
+  const loading = useGuideStore((s) => s.loading)
   const setActivePlan = useGuideStore((s) => s.setActivePlan)
   const setCurrentDay = useGuideStore((s) => s.setCurrentDay)
   const loadProgress = useGuideStore((s) => s.loadProgress)
@@ -92,9 +94,20 @@ export default function Guide() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {plans.map((plan) => (
-            <GuidePlanCard key={plan.id} plan={plan} />
-          ))}
+          {loading ? (
+            Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="rounded-lg border border-divider p-6">
+                <Skeleton className="mb-3 h-10 w-10 rounded-full" />
+                <Skeleton className="mb-2 h-5 w-3/4" />
+                <Skeleton className="mb-1 h-4 w-full" />
+                <Skeleton className="h-4 w-1/2" />
+              </div>
+            ))
+          ) : (
+            plans.map((plan) => (
+              <GuidePlanCard key={plan.id} plan={plan} />
+            ))
+          )}
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import toast from 'react-hot-toast'
+import Button from '../../components/ui/Button'
 import { supabase } from '../../services/supabase'
 
 export default function AdminEventForm() {
@@ -198,13 +199,9 @@ export default function AdminEventForm() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-accent px-6 py-2.5 text-sm font-medium text-white transition hover:bg-accent/90 disabled:opacity-60"
-          >
-            {loading ? 'Saving...' : isEdit ? 'Update Event' : 'Create Event'}
-          </button>
+          <Button type="submit" loading={loading}>
+            {isEdit ? 'Update Event' : 'Create Event'}
+          </Button>
           <button
             type="button"
             onClick={() => navigate('/admin/events')}

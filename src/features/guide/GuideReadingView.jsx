@@ -1,6 +1,7 @@
 import { ArrowLeft, CheckCircle, Flame, BookOpen, Heart, Target, LogIn } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { BibleTextView } from '@youversion/platform-react-ui'
+import Button from '../../components/ui/Button'
 import useAuthStore from '../../store/authStore'
 import useGuideStore from './guideStore'
 import plans from './plans'
@@ -122,23 +123,19 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
 
         <div className="flex items-center gap-3">
           {!isLoggedIn && !completed && (
-            <Link
-              to="/login"
-              className="inline-flex items-center gap-2 rounded-lg border border-accent px-5 py-2.5 text-sm font-medium text-accent transition hover:bg-accent/5 active:scale-[0.98]"
-            >
-              <LogIn size={16} />
-              Sign in to track progress
+            <Link to="/login">
+              <Button variant="outline">
+                <LogIn size={16} />
+                Sign in to track progress
+              </Button>
             </Link>
           )}
 
           {isLoggedIn && !completed && (
-            <button
-              onClick={handleComplete}
-              className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-accent/90 active:scale-[0.98]"
-            >
+            <Button onClick={handleComplete}>
               <CheckCircle size={16} />
               Mark Complete
-            </button>
+            </Button>
           )}
 
           {completed && nextDay && (
