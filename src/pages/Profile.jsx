@@ -66,7 +66,13 @@ export default function Profile() {
       await updateProfile({ avatar_url: publicUrl })
       toast.success('Avatar updated')
     } catch (err) {
-      toast.error(err.message || 'Failed to upload avatar')
+      const msg = err.message || ''
+      console.error('Avatar upload error:', msg)
+      if (msg.includes('bucket') || msg.includes('not found')) {
+        toast.error('Storage not configured. Ask the admin to create the "avatars" storage bucket.')
+      } else {
+        toast.error(msg)
+      }
     } finally {
       setUploading(false)
     }

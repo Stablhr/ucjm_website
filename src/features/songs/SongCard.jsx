@@ -1,6 +1,26 @@
 import { useState } from 'react'
 import { Music, Youtube } from 'lucide-react'
 
+const FALLBACK_GRADIENTS = [
+  'from-rose-500 to-pink-600',
+  'from-sky-500 to-cyan-600',
+  'from-fuchsia-500 to-purple-600',
+  'from-lime-500 to-green-600',
+  'from-orange-400 to-red-500',
+  'from-teal-500 to-cyan-600',
+  'from-indigo-500 to-violet-600',
+  'from-amber-500 to-yellow-600',
+  'from-emerald-500 to-teal-600',
+  'from-blue-500 to-indigo-600',
+  'from-rose-400 to-red-500',
+  'from-violet-500 to-fuchsia-600',
+]
+
+function pickFallbackGradient(id) {
+  const hash = String(id).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
+  return FALLBACK_GRADIENTS[hash % FALLBACK_GRADIENTS.length]
+}
+
 const CATEGORY_COLORS = {
   Praise: 'from-amber-400 to-orange-500',
   Worship: 'from-emerald-500 to-teal-600',
@@ -15,7 +35,8 @@ const LANG_LABELS = {
 
 function getGradient(song) {
   if (song.image_color) return song.image_color
-  return CATEGORY_COLORS[song.category] || 'from-gray-400 to-gray-600'
+  if (CATEGORY_COLORS[song.category]) return CATEGORY_COLORS[song.category]
+  return pickFallbackGradient(song.id)
 }
 
 function Monogram({ song, className }) {
@@ -42,7 +63,7 @@ function Monogram({ song, className }) {
 }
 
 export default function SongCard({ song, onClick, viewMode }) {
-  const catColor = CATEGORY_COLORS[song.category] || 'from-gray-400 to-gray-600'
+  const catColor = CATEGORY_COLORS[song.category] || pickFallbackGradient(song.id)
 
   if (viewMode === 'list') {
     return (

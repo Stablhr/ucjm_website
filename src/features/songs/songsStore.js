@@ -8,10 +8,13 @@ function slugify(text) {
     .replace(/^-|-$/g, '')
 }
 
+let _loaded = false
+
 const useSongsStore = create((set, get) => ({
   songs: [],
   userSongs: [],
   loading: false,
+  loaded: false,
   searchQuery: '',
   activeCategory: 'All',
   activeArtist: 'All',
@@ -38,6 +41,7 @@ const useSongsStore = create((set, get) => ({
   setCurrentSongId: (id) => set({ currentSongId: id }),
 
   fetchSongs: async () => {
+    if (_loaded) return
     set({ loading: true })
     try {
       const res = await fetch('/songs.json')
@@ -77,7 +81,8 @@ const useSongsStore = create((set, get) => ({
         (s) => !builtInKeys.has(`${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`)
       )
 
-      set({ songs: [...mergedBuiltIn, ...uniqueUserSongs], userSongs: [...uniqueUserSongs] })
+      _loaded = true
+      set({ songs: [...mergedBuiltIn, ...uniqueUserSongs], userSongs: [...uniqueUserSongs], loaded: true })
     } catch {
       set({ songs: [] })
     } finally {
@@ -238,7 +243,8 @@ const useSongsStore = create((set, get) => ({
     return ['All', ...langs]
   },
 
-  reset: () =>
+  reset: () => {
+    _loaded = false
     set({
       songs: [],
       userSongs: [],
@@ -250,7 +256,8 @@ const useSongsStore = create((set, get) => ({
       viewMode: 'grid',
       transposeOffset: 0,
       currentSongId: null,
-    }),
+    })
+  },
 }))
 
 export default useSongsStore

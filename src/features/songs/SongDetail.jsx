@@ -56,6 +56,26 @@ function extractYoutubeId(url) {
   return match ? match[1] : ''
 }
 
+const FALLBACK_GRADIENTS = [
+  'from-rose-500 to-pink-600',
+  'from-sky-500 to-cyan-600',
+  'from-fuchsia-500 to-purple-600',
+  'from-lime-500 to-green-600',
+  'from-orange-400 to-red-500',
+  'from-teal-500 to-cyan-600',
+  'from-indigo-500 to-violet-600',
+  'from-amber-500 to-yellow-600',
+  'from-emerald-500 to-teal-600',
+  'from-blue-500 to-indigo-600',
+  'from-rose-400 to-red-500',
+  'from-violet-500 to-fuchsia-600',
+]
+
+function pickFallbackGradient(id) {
+  const hash = String(id).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
+  return FALLBACK_GRADIENTS[hash % FALLBACK_GRADIENTS.length]
+}
+
 const CATEGORY_GRADIENTS = {
   Praise: 'from-amber-400 to-orange-500',
   Worship: 'from-emerald-500 to-teal-600',
@@ -86,7 +106,7 @@ export default function SongDetail({ song, onBack }) {
     })
   }, [transposedLyrics])
 
-  const gradient = song.image_color || CATEGORY_GRADIENTS[song.category] || 'from-gray-400 to-gray-600'
+  const gradient = song.image_color || CATEGORY_GRADIENTS[song.category] || pickFallbackGradient(song.id)
 
   if (!song) return null
 

@@ -37,6 +37,7 @@ const useAuthStore = create((set) => ({
               id: user.id,
               email: user.email,
               full_name: user.user_metadata?.full_name || '',
+              avatar_url: '',
               role: 'member',
             })
             .select()
@@ -66,6 +67,7 @@ const useAuthStore = create((set) => ({
                 id: u.id,
                 email: u.email,
                 full_name: u.user_metadata?.full_name || '',
+                avatar_url: '',
                 role: 'member',
               })
               .select()
@@ -130,6 +132,7 @@ const useAuthStore = create((set) => ({
           id: user.id,
           email: user.email,
           full_name: user.user_metadata?.full_name || '',
+          avatar_url: '',
           role: 'member',
         })
         .select()
