@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Skeleton } from '../../components/ui/Skeleton'
+import ConfirmModal from '../../components/ui/ConfirmModal'
 import usePlaylistStore from './playlistStore'
 
 export default function PlaylistManager({ onSelectPlaylist }) {
@@ -17,6 +18,10 @@ export default function PlaylistManager({ onSelectPlaylist }) {
   const [newDate, setNewDate] = useState('')
   const [newCreator, setNewCreator] = useState('')
   const [creating, setCreating] = useState(false)
+
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [confirmId, setConfirmId] = useState(null)
+  const [confirmTitle, setConfirmTitle] = useState('')
 
   const playlists = usePlaylistStore((s) => s.playlists)
   const loading = usePlaylistStore((s) => s.loading)
@@ -50,14 +55,22 @@ export default function PlaylistManager({ onSelectPlaylist }) {
     }
   }
 
-  const handleDelete = async (id, title) => {
-    if (!window.confirm(`Delete "${title}"?`)) return
+  const handleDelete = (id, title) => {
+    setConfirmId(id)
+    setConfirmTitle(title)
+    setConfirmOpen(true)
+  }
+
+  const handleConfirmDelete = async () => {
     try {
-      await deletePlaylist(id)
+      await deletePlaylist(confirmId)
       toast.success('Playlist deleted')
     } catch (err) {
       toast.error(err.message)
     }
+    setConfirmOpen(false)
+    setConfirmId(null)
+    setConfirmTitle('')
   }
 
   if (loading) {
@@ -189,6 +202,14 @@ export default function PlaylistManager({ onSelectPlaylist }) {
           ))}
         </div>
       )}
+
+      <ConfirmModal
+        open={confirmOpen}
+        onClose={() => { setConfirmOpen(false); setConfirmId(null); setConfirmTitle('') }}
+        onConfirm={handleConfirmDelete}
+        title="Delete Playlist"
+        message={`Are you sure you want to delete "${confirmTitle}"? This action cannot be undone.`}
+      />
     </div>
   )
 }

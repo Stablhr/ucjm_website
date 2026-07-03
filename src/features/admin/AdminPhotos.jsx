@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Plus, Edit3, Trash2, Upload } from 'lucide-react'
+import { Plus, Edit3, Trash2, Upload, Check, X } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Skeleton } from '../../components/ui/Skeleton'
 import Modal from '../../components/ui/Modal'
@@ -15,6 +15,8 @@ export default function AdminPhotos() {
   const [editOpen, setEditOpen] = useState(false)
   const [editing, setEditing] = useState(null)
   const [editForm, setEditForm] = useState({ image_url: '', alt_text: '' })
+
+  const [confirmingId, setConfirmingId] = useState(null)
 
   const [uploading, setUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState('')
@@ -99,13 +101,17 @@ export default function AdminPhotos() {
     else { toast.success('Photo updated'); load(); setEditOpen(false) }
   }
 
-  async function handleDelete(id) {
-    if (!confirm('Delete this photo?')) return
-    setDeleting(id)
-    const { error } = await supabase.from('photos').delete().eq('id', id)
+  function handleDelete(photo) {
+    setConfirmingId(photo.id)
+  }
+
+  async function handleConfirmDelete(photo) {
+    setDeleting(photo.id)
+    const { error } = await supabase.from('photos').delete().eq('id', photo.id)
     if (error) { toast.error('Failed to delete') }
-    else { toast.success('Photo deleted'); setPhotos((prev) => prev.filter((p) => p.id !== id)) }
+    else { toast.success('Photo deleted'); setPhotos((prev) => prev.filter((p) => p.id !== photo.id)) }
     setDeleting(null)
+    setConfirmingId(null)
   }
 
   return (
@@ -231,25 +237,56 @@ export default function AdminPhotos() {
                   e.target.style.display = 'none'
                 }}
               />
-              <div className="absolute inset-0 flex items-end justify-end gap-1 bg-gradient-to-t from-black/50 to-transparent p-2 opacity-0 transition-opacity group-hover:opacity-100">
-                <button
-                  onClick={() => openEdit(photo)}
-                  className="rounded-lg bg-white/90 p-1.5 text-slate shadow-sm backdrop-blur-sm transition-colors hover:bg-white hover:text-accent"
-                >
-                  <Edit3 size={14} />
-                </button>
-                <button
-                  onClick={() => handleDelete(photo.id)}
-                  disabled={deleting === photo.id}
-                  className="rounded-lg bg-white/90 p-1.5 text-slate shadow-sm backdrop-blur-sm transition-colors hover:bg-white hover:text-red-500 disabled:opacity-50"
-                >
-                  <Trash2 size={14} />
-                </button>
-              </div>
+
+              {confirmingId === photo.id ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/70 p-2">
+                  <p className="text-center text-xs font-medium text-white/90">
+                    Delete this photo?
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleConfirmDelete(photo)}
+                      disabled={deleting === photo.id}
+                      className="inline-flex items-center gap-1 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-red-700 disabled:opacity-60"
+                    >
+                      {deleting === photo.id ? (
+                        <span className="h-3 w-3 animate-spin rounded-full border border-white border-t-transparent" />
+                      ) : (
+                        <Check size={12} />
+                      )}
+                      Confirm
+                    </button>
+                    <button
+                      onClick={() => setConfirmingId(null)}
+                      disabled={deleting === photo.id}
+                      className="inline-flex items-center gap-1 rounded-lg bg-white/20 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm transition hover:bg-white/30 disabled:opacity-60"
+                    >
+                      <X size={12} />
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="absolute inset-0 flex items-end justify-end gap-1 bg-gradient-to-t from-black/50 to-transparent p-2 opacity-0 transition-opacity group-hover:opacity-100">
+                  <button
+                    onClick={() => openEdit(photo)}
+                    className="rounded-lg bg-white/90 p-1.5 text-slate shadow-sm backdrop-blur-sm transition-colors hover:bg-white hover:text-accent"
+                  >
+                    <Edit3 size={14} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(photo)}
+                    className="rounded-lg bg-white/90 p-1.5 text-slate shadow-sm backdrop-blur-sm transition-colors hover:bg-white hover:text-red-500"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
       )}
+
     </div>
   )
 }

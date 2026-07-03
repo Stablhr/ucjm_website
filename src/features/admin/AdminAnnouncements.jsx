@@ -3,6 +3,7 @@ import { Plus, Edit3, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Skeleton } from '../../components/ui/Skeleton'
 import Modal from '../../components/ui/Modal'
+import ConfirmModal from '../../components/ui/ConfirmModal'
 import Button from '../../components/ui/Button'
 import ImageUpload from '../../components/ui/ImageUpload'
 import { supabase } from '../../services/supabase'
@@ -16,6 +17,9 @@ export default function AdminAnnouncements() {
   const [editing, setEditing] = useState(null)
   const [form, setForm] = useState({ title: '', description: '', image_url: '', is_published: true })
   const [saving, setSaving] = useState(false)
+
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [confirmId, setConfirmId] = useState(null)
 
   useEffect(() => { load() }, [])
 
@@ -74,13 +78,19 @@ export default function AdminAnnouncements() {
     setSaving(false)
   }
 
-  async function handleDelete(id) {
-    if (!confirm('Delete this announcement?')) return
-    setDeleting(id)
-    const { error } = await supabase.from('announcements').delete().eq('id', id)
+  function handleDelete(id) {
+    setConfirmId(id)
+    setConfirmOpen(true)
+  }
+
+  async function handleConfirmDelete() {
+    setDeleting(confirmId)
+    const { error } = await supabase.from('announcements').delete().eq('id', confirmId)
     if (error) { toast.error('Failed to delete') }
-    else { toast.success('Announcement deleted'); setAnnouncements((prev) => prev.filter((a) => a.id !== id)) }
+    else { toast.success('Announcement deleted'); setAnnouncements((prev) => prev.filter((a) => a.id !== confirmId)) }
     setDeleting(null)
+    setConfirmOpen(false)
+    setConfirmId(null)
   }
 
   return (
@@ -225,6 +235,15 @@ export default function AdminAnnouncements() {
           </table>
         </div>
       )}
+
+      <ConfirmModal
+        open={confirmOpen}
+        onClose={() => { setConfirmOpen(false); setConfirmId(null) }}
+        onConfirm={handleConfirmDelete}
+        title="Delete Announcement"
+        message="Are you sure you want to delete this announcement? This action cannot be undone."
+        loading={deleting !== null}
+      />
     </div>
   )
 }

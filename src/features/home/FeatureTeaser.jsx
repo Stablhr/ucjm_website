@@ -35,43 +35,42 @@ const features = [
   },
 ]
 
-function TeaserRow({ feature, index }) {
+function FeatureCard({ feature, index }) {
   const [ref, isVisible] = useScrollReveal()
-  const isReversed = index % 2 === 1
   const Icon = feature.icon
 
   return (
     <div
       ref={ref}
-      className={`flex flex-col items-center gap-12 lg:flex-row ${
-        isReversed ? 'lg:flex-row-reverse' : ''
-      } ${isVisible ? 'animate-fade-up' : 'opacity-0'}`}
+      className={`group flex flex-col overflow-hidden rounded-xl border border-divider bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
+        isVisible ? 'animate-fade-up' : 'opacity-0'
+      }`}
+      style={{ animationDelay: `${index * 150}ms` }}
     >
-      <div className="w-full lg:w-1/2">
-        <div className="overflow-hidden rounded-lg">
-          <img
-            src={feature.image}
-            alt={feature.alt}
-            className="h-72 w-full object-cover transition duration-500 hover:scale-105"
-          />
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <img
+          src={feature.image}
+          alt={feature.alt}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+        <div className="absolute bottom-3 left-3 inline-flex items-center justify-center rounded-lg bg-white/90 p-2.5 text-accent shadow-sm backdrop-blur-sm">
+          <Icon size={20} />
         </div>
       </div>
-      <div className="w-full lg:w-1/2 lg:px-8">
-        <div className="mb-4 inline-flex items-center justify-center rounded-lg bg-accent/10 p-2.5 text-accent">
-          <Icon size={22} />
-        </div>
-        <h3 className="font-display text-3xl font-bold text-charcoal">
+      <div className="flex flex-1 flex-col px-5 py-6">
+        <h3 className="font-display text-xl font-bold text-charcoal">
           {feature.title}
         </h3>
-        <p className="mt-4 text-sm leading-relaxed text-slate">
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-slate">
           {feature.description}
         </p>
         <Link
           to={feature.link}
-          className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent transition-colors hover:text-accent/70"
+          className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-accent transition-colors group-hover:text-accent/70"
         >
           {feature.linkLabel}
-          <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+          <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
     </div>
@@ -91,9 +90,9 @@ export default function FeatureTeaser() {
           </p>
         </div>
 
-        <div className="space-y-24">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, i) => (
-            <TeaserRow key={feature.title} feature={feature} index={i} />
+            <FeatureCard key={feature.title} feature={feature} index={i} />
           ))}
         </div>
       </div>
