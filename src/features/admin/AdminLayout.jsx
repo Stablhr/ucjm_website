@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { LayoutDashboard, Megaphone, Calendar, Menu, X, User, Cross } from 'lucide-react'
+import { LayoutDashboard, Megaphone, Calendar, Image, Menu, X, User, Cross } from 'lucide-react'
 import useAuthStore from '../../store/authStore'
 
 const adminLinks = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/admin/announcements', label: 'Announcements', icon: Megaphone },
   { to: '/admin/events', label: 'Events', icon: Calendar },
+  { to: '/admin/photos', label: 'Photos', icon: Image },
 ]
 
 export default function AdminLayout() {

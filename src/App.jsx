@@ -16,6 +16,7 @@ import AdminAnnouncements from './features/admin/AdminAnnouncements'
 import AdminAnnouncementForm from './features/admin/AdminAnnouncementForm'
 import AdminEvents from './features/admin/AdminEvents'
 import AdminEventForm from './features/admin/AdminEventForm'
+import AdminPhotos from './features/admin/AdminPhotos'
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/admin/events" element={<AdminEvents />} />
           <Route path="/admin/events/new" element={<AdminEventForm />} />
           <Route path="/admin/events/:id/edit" element={<AdminEventForm />} />
+          <Route path="/admin/photos" element={<AdminPhotos />} />
         </Route>
       </Route>
     </Routes>

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import toast from 'react-hot-toast'
 import Button from '../../components/ui/Button'
+import ImageUpload from '../../components/ui/ImageUpload'
 import { supabase } from '../../services/supabase'
 
 export default function AdminEventForm() {
@@ -174,16 +175,10 @@ export default function AdminEventForm() {
           />
         </div>
 
-        <div>
-          <label className="mb-1.5 block text-sm font-medium text-charcoal">Image URL</label>
-          <input
-            type="url"
-            value={form.image_url}
-            onChange={(e) => handleChange('image_url', e.target.value)}
-            placeholder="https://example.com/event-photo.jpg"
-            className="w-full rounded-lg border border-divider px-4 py-2.5 text-sm text-charcoal outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/20"
-          />
-        </div>
+        <ImageUpload
+          value={form.image_url}
+          onChange={(val) => handleChange('image_url', val)}
+        />
 
         <div className="flex items-center gap-3">
           <label className="relative inline-flex cursor-pointer items-center">
