@@ -73,10 +73,10 @@ export default function PhotoGallery() {
 
       {/* Lightbox */}
       {index !== null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[60] flex animate-fade-in items-center justify-center bg-black/90">
           <button
             onClick={() => setIndex(null)}
-            className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+            className="absolute right-5 top-5 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
           >
             <X size={22} />
           </button>
@@ -85,29 +85,29 @@ export default function PhotoGallery() {
             <>
               <button
                 onClick={goPrev}
-                className="absolute left-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+                className="absolute left-5 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
               >
-                <ChevronLeft size={28} />
+                <ChevronLeft size={30} />
               </button>
               <button
                 onClick={goNext}
-                className="absolute right-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+                className="absolute right-5 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
               >
-                <ChevronRight size={28} />
+                <ChevronRight size={30} />
               </button>
             </>
           )}
 
-          <div className="flex h-full w-full items-center justify-center p-4" onClick={() => setIndex(null)}>
+          <div className="flex h-full w-full items-center justify-center" onClick={() => setIndex(null)}>
             <img
               src={photos[index].image_url}
               alt={photos[index].alt_text ?? ''}
-              className="max-h-full max-w-full rounded-lg object-contain shadow-2xl"
+              className="max-h-screen max-w-full object-contain p-12"
               onClick={(e) => e.stopPropagation()}
             />
           </div>
 
-          <div className="absolute bottom-6 text-xs text-white/60">
+          <div className="absolute bottom-6 rounded-full bg-white/10 px-3 py-1 text-sm text-white/70 backdrop-blur-sm">
             {index + 1} / {photos.length}
           </div>
         </div>
