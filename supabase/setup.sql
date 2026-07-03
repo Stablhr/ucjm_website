@@ -15,15 +15,21 @@ CREATE TABLE IF NOT EXISTS profiles (
 
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 
+-- Helper: SECURITY DEFINER function to check admin role (avoids infinite recursion)
+-- https://supabase.com/docs/guides/auth/row-level-security#use-security-definer-functions
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS boolean
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = 'public'
+AS $$
+  SELECT EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin');
+$$;
+
 -- RLS: users can read own profile; admins can read all
 CREATE POLICY "profiles_select_own" ON profiles
   FOR SELECT USING (
-    auth.uid() = id
-    OR (
-      EXISTS (
-        SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin'
-      )
-    )
+    auth.uid() = id OR public.is_admin()
   );
 
 -- RLS: users can update own profile
@@ -71,19 +77,13 @@ CREATE POLICY "announcements_select_public" ON announcements
 
 -- RLS: admins can CRUD all
 CREATE POLICY "announcements_insert_admin" ON announcements
-  FOR INSERT WITH CHECK (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  FOR INSERT WITH CHECK (public.is_admin());
 
 CREATE POLICY "announcements_update_admin" ON announcements
-  FOR UPDATE USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  FOR UPDATE USING (public.is_admin());
 
 CREATE POLICY "announcements_delete_admin" ON announcements
-  FOR DELETE USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  FOR DELETE USING (public.is_admin());
 
 -- 4. Events table
 CREATE TABLE IF NOT EXISTS events (
@@ -104,19 +104,13 @@ CREATE POLICY "events_select_public" ON events
   FOR SELECT USING (is_published = true);
 
 CREATE POLICY "events_insert_admin" ON events
-  FOR INSERT WITH CHECK (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  FOR INSERT WITH CHECK (public.is_admin());
 
 CREATE POLICY "events_update_admin" ON events
-  FOR UPDATE USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  FOR UPDATE USING (public.is_admin());
 
 CREATE POLICY "events_delete_admin" ON events
-  FOR DELETE USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  FOR DELETE USING (public.is_admin());
 
 -- 5. Photos table (for home page gallery)
 CREATE TABLE IF NOT EXISTS photos (
@@ -133,19 +127,13 @@ CREATE POLICY "photos_select_public" ON photos
   FOR SELECT USING (true);
 
 CREATE POLICY "photos_insert_admin" ON photos
-  FOR INSERT WITH CHECK (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  FOR INSERT WITH CHECK (public.is_admin());
 
 CREATE POLICY "photos_update_admin" ON photos
-  FOR UPDATE USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  FOR UPDATE USING (public.is_admin());
 
 CREATE POLICY "photos_delete_admin" ON photos
-  FOR DELETE USING (
-    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  FOR DELETE USING (public.is_admin());
 
 -- ============================================================
 -- After running this, set your first admin manually:
