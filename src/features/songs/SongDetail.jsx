@@ -263,7 +263,7 @@ export default function SongDetail({ song, onBack }) {
         <EditSongModal
           song={song}
           onClose={() => setShowEditModal(false)}
-          onSaved={onBack}
+          onSaved={() => {}}
         />
       )}
     </div>

@@ -24,6 +24,8 @@ export default function Navbar() {
     if (user) refreshProfile()
   }, [user, refreshProfile])
 
+  const hasAvatar = !!profile?.avatar_url
+
   const navLinks = [
     { to: '/', label: 'Home', icon: Cross },
     { to: '/bible', label: 'Bible', icon: BookOpen },
@@ -31,7 +33,7 @@ export default function Navbar() {
     { to: '/guide', label: 'Guide', icon: Compass },
     ...(isAdmin ? [{ to: '/admin', label: 'Admin', icon: Shield }] : []),
     ...(user
-      ? [{ to: '/profile', label: firstName, icon: User }]
+      ? [{ to: '/profile', label: firstName, icon: User, isProfile: true }]
       : [{ to: '/login', label: 'Sign In', icon: LogIn }]),
   ]
 
@@ -67,6 +69,24 @@ export default function Navbar() {
         <div className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => {
             const Icon = link.icon
+            if (link.isProfile && hasAvatar) {
+              return (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  onClick={link.action}
+                  className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-[#0a1db0]"
+                  title={profile?.full_name || firstName}
+                >
+                  <img
+                    src={profile.avatar_url}
+                    alt={firstName}
+                    className="h-7 w-7 rounded-full object-cover ring-2 ring-transparent transition-all group-hover:ring-[#0a1db0]/30"
+                  />
+                  <span className="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-[#0a1db0] transition-all duration-300 group-hover:w-full" />
+                </Link>
+              )
+            }
             return (
               <Link
                 key={link.label}
@@ -92,7 +112,16 @@ export default function Navbar() {
         <div className="px-4 pb-4">
           <div className="flex flex-col gap-4 pt-4">
             {user && (
-              <div className="border-b border-divider pb-3 text-sm text-slate">
+              <div className="flex items-center gap-2 border-b border-divider pb-3 text-sm text-slate">
+                {hasAvatar ? (
+                  <img
+                    src={profile.avatar_url}
+                    alt=""
+                    className="h-6 w-6 rounded-full object-cover"
+                  />
+                ) : (
+                  <User size={14} className="text-slate/50" />
+                )}
                 {profile?.full_name || user.email}
               </div>
             )}
@@ -108,7 +137,15 @@ export default function Navbar() {
                   }}
                   className="flex items-center gap-2 text-sm font-medium text-charcoal transition-colors hover:text-[#0a1db0]"
                 >
-                  <Icon size={16} />
+                  {link.isProfile && hasAvatar ? (
+                    <img
+                      src={profile.avatar_url}
+                      alt=""
+                      className="h-5 w-5 rounded-full object-cover"
+                    />
+                  ) : (
+                    <Icon size={16} />
+                  )}
                   {link.label}
                 </Link>
               )
