@@ -1,10 +1,12 @@
-import { Megaphone } from 'lucide-react'
+import { Megaphone, X } from 'lucide-react'
+import { useState } from 'react'
 import { SkeletonCard } from '../../components/ui/Skeleton'
 import useHomeStore from './homeStore'
 
 export default function AnnouncementsSection() {
   const announcements = useHomeStore((s) => s.announcements)
   const loading = useHomeStore((s) => s.loading)
+  const [selected, setSelected] = useState(null)
 
   return (
     <section className="border-t border-divider py-24">
@@ -31,29 +33,25 @@ export default function AnnouncementsSection() {
             {announcements.map((a) => (
               <div
                 key={a.id}
-                className="group rounded-lg border border-divider p-6 transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-sm"
+                onClick={() => setSelected(a)}
+                className="cursor-pointer rounded-lg border border-divider p-6 transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-sm"
               >
-                {a.image_url && (
+                {a.image_url ? (
                   <img
                     src={a.image_url}
                     alt={a.title}
                     className="mb-3 h-40 w-full rounded-lg object-cover transition group-hover:brightness-95"
                   />
-                )}
-                {!a.image_url && (
+                ) : (
                   <div className="mb-3 h-40 rounded-lg bg-divider transition group-hover:brightness-95" />
                 )}
                 <h3 className="font-display text-xl font-bold text-charcoal">
                   {a.title}
                 </h3>
-                <p className="mt-2 text-sm text-slate">
-                  {a.description}
-                </p>
+                <p className="mt-2 text-sm text-slate line-clamp-3">{a.description}</p>
                 <p className="mt-3 text-xs text-slate/60">
                   {new Date(a.posted_at).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
+                    year: 'numeric', month: 'long', day: 'numeric',
                   })}
                 </p>
               </div>
@@ -61,6 +59,38 @@ export default function AnnouncementsSection() {
           </div>
         )}
       </div>
+
+      {/* Detail modal */}
+      {selected && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto pt-10 pb-10">
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSelected(null)} />
+          <div className="relative z-10 w-full max-w-2xl animate-fade-up rounded-xl border border-divider bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-divider px-6 py-4">
+              <h2 className="font-display text-xl font-bold text-charcoal">{selected.title}</h2>
+              <button onClick={() => setSelected(null)} className="rounded-lg p-1.5 text-slate transition-colors hover:bg-accent/5 hover:text-charcoal">
+                <X size={18} />
+              </button>
+            </div>
+            <div className="px-6 py-5 space-y-4">
+              {selected.image_url && (
+                <img
+                  src={selected.image_url}
+                  alt={selected.title}
+                  className="w-full max-h-80 rounded-lg object-cover"
+                />
+              )}
+              <p className="text-xs text-slate/60">
+                {new Date(selected.posted_at).toLocaleDateString('en-US', {
+                  year: 'numeric', month: 'long', day: 'numeric',
+                })}
+              </p>
+              <p className="text-sm text-slate leading-relaxed whitespace-pre-wrap">
+                {selected.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
