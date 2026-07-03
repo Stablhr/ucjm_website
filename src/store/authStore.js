@@ -106,7 +106,10 @@ const useAuthStore = create((set) => ({
   },
 
   signInWithOAuth: async (provider, options = {}) => {
-    const { error } = await supabase.auth.signInWithOAuth({ provider, options })
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: { ...options, redirectTo: window.location.origin },
+    })
     if (error) throw error
   },
 

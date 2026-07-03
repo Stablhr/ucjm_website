@@ -13,9 +13,7 @@ import AdminRoute from './components/layout/AdminRoute'
 import AdminLayout from './features/admin/AdminLayout'
 import AdminDashboard from './features/admin/AdminDashboard'
 import AdminAnnouncements from './features/admin/AdminAnnouncements'
-import AdminAnnouncementForm from './features/admin/AdminAnnouncementForm'
 import AdminEvents from './features/admin/AdminEvents'
-import AdminEventForm from './features/admin/AdminEventForm'
 import AdminPhotos from './features/admin/AdminPhotos'
 
 export default function App() {
@@ -38,11 +36,7 @@ export default function App() {
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/announcements" element={<AdminAnnouncements />} />
-          <Route path="/admin/announcements/new" element={<AdminAnnouncementForm />} />
-          <Route path="/admin/announcements/:id/edit" element={<AdminAnnouncementForm />} />
           <Route path="/admin/events" element={<AdminEvents />} />
-          <Route path="/admin/events/new" element={<AdminEventForm />} />
-          <Route path="/admin/events/:id/edit" element={<AdminEventForm />} />
           <Route path="/admin/photos" element={<AdminPhotos />} />
         </Route>
       </Route>
