@@ -50,8 +50,9 @@ export default function Navbar() {
             alt="UNITY IN CHRIST JESUS MINISTRIES"
             className="h-10 w-auto"
           />
-          <span className="hidden text-lg font-semibold sm:inline" style={{ color: '#0a1db0' }}>
-            UNITY IN CHRIST JESUS MINISTRIES
+          <span className="text-xs font-semibold sm:text-lg" style={{ color: '#0a1db0' }}>
+            <span className="sm:hidden">UCJM</span>
+            <span className="hidden sm:inline">UNITY IN CHRIST JESUS MINISTRIES</span>
           </span>
         </Link>
 
