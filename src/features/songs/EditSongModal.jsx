@@ -53,17 +53,16 @@ export default function EditSongModal({ song, onClose, onSaved }) {
     try {
       const ext = file.name.split('.').pop()
       const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-      const filePath = `public/${fileName}`
 
       const { error: uploadError } = await supabase.storage
-        .from('song-images')
-        .upload(filePath, file)
+        .from('admin-images')
+        .upload(fileName, file)
 
       if (uploadError) throw uploadError
 
       const { data: { publicUrl } } = supabase.storage
-        .from('song-images')
-        .getPublicUrl(filePath)
+        .from('admin-images')
+        .getPublicUrl(fileName)
 
       setImageUrl(publicUrl)
       toast.success('Image uploaded')
