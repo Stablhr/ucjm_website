@@ -232,11 +232,13 @@ const useSongsStore = create((set, get) => ({
   },
 
   deleteSong: async (song) => {
+    const isBuiltInEdit = song._source === 'user' && song.id && song.id.startsWith('edit-')
+
     if (song._source === 'user') {
       if (song.id && !song.id.startsWith('edit-')) {
         const { error } = await supabase.from('songs').delete().eq('id', song.id)
         if (error) throw error
-      } else if (song.id && song.id.startsWith('edit-')) {
+      } else if (isBuiltInEdit) {
         const { error } = await supabase
           .from('songs')
           .delete()
@@ -246,8 +248,8 @@ const useSongsStore = create((set, get) => ({
       }
     }
 
-    // Built-in song: insert cross-device deletion marker
-    if (song._source !== 'user') {
+    // Cross-device deletion marker for all songs backed by a built-in
+    if (song._source !== 'user' || isBuiltInEdit) {
       const { error: markerError } = await supabase
         .from('songs')
         .insert({ title: song.title, artist: song.artist || '', image_color: '__DELETED__' })
