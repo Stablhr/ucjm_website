@@ -1,6 +1,18 @@
 import { create } from 'zustand'
 import { supabase } from '../../services/supabase'
 
+const STORAGE_KEY = 'ucjm_hiddenSongIds'
+
+function getHiddenIds() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+  } catch { return [] }
+}
+
+function saveHiddenIds(ids) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(ids)) } catch {}
+}
+
 function slugify(text) {
   return text
     .toLowerCase()
@@ -99,8 +111,8 @@ const useSongsStore = create((set, get) => ({
         (s) => !builtInKeys.has(`${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`)
       )
 
-      const hidden = get().hiddenSongIds || []
-      set({ songs: [...mergedBuiltIn, ...uniqueUserSongs].filter((s) => !hidden.includes(s.id)), userSongs: [...uniqueUserSongs].filter((s) => !hidden.includes(s.id)), loaded: true })
+      const hidden = getHiddenIds()
+      set({ songs: [...mergedBuiltIn, ...uniqueUserSongs].filter((s) => !hidden.includes(s.id.replace(/^edit-/, ''))), userSongs: [...uniqueUserSongs].filter((s) => !hidden.includes(s.id)), loaded: true })
     } catch (e) {
       console.error('fetchSongs error:', e)
       set({ songs: [] })
@@ -236,11 +248,14 @@ const useSongsStore = create((set, get) => ({
       }
     }
 
-    // Also mark built-in songs as hidden so they don't reappear on reload
+    // Persist hidden songs in localStorage so deletions survive page refresh
+    const baseId = song.id.replace(/^edit-/, '')
+    const updatedHidden = [...new Set([...getHiddenIds(), baseId])]
+    saveHiddenIds(updatedHidden)
     set((state) => ({
       songs: state.songs.filter((s) => s.id !== song.id),
       userSongs: state.userSongs.filter((s) => s.id !== song.id),
-      hiddenSongIds: [...(state.hiddenSongIds || []), song.id],
+      hiddenSongIds: updatedHidden,
     }))
   },
 
@@ -315,8 +330,9 @@ const useSongsStore = create((set, get) => ({
       transposeOffset: 0,
       currentSongId: null,
       recentlyViewed: [],
-      hiddenSongIds: [],
+  hiddenSongIds: getHiddenIds(),
     })
+    saveHiddenIds([])
   },
 }))
 
