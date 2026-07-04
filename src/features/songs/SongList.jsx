@@ -138,7 +138,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div className="text-center sm:text-left">
               <div className="mb-2 flex items-center justify-center gap-2 sm:justify-start">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-surface/10 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider text-white/60 backdrop-blur-sm">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-surface/10 px-3 py-1 font-mono text-xs font-medium uppercase tracking-wider text-white/60 backdrop-blur-sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   {filteredSongs.length > 0 ? `${filteredSongs.length} songs` : 'Loading...'}
                 </span>
@@ -205,7 +205,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
             {/* Mobile filter button */}
             <button
               onClick={() => setShowMobileFilters(true)}
-              className="flex items-center gap-1.5 rounded-lg border border-divider px-3 py-1.5 text-xs text-slate transition-colors hover:border-accent/30 hover:text-accent sm:hidden"
+              className="flex items-center gap-1.5 rounded-lg border border-divider px-4 py-2.5 text-xs text-slate transition-colors hover:border-accent/30 hover:text-accent sm:hidden"
             >
               <SlidersHorizontal size={14} />
               Filters

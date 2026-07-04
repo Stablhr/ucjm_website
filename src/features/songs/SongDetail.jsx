@@ -239,7 +239,7 @@ export default function SongDetail({ song, onBack }) {
               if (line.type === 'section') {
                 return (
                   <div key={i} className="mb-4 mt-8 first:mt-0">
-                    <span className="inline-block rounded-md bg-accent/10 px-3 py-1 font-mono text-[11px] font-bold tracking-wider text-accent">
+                    <span className="inline-block rounded-md bg-accent/10 px-3 py-1 font-mono text-xs font-bold tracking-wider text-accent">
                       {line.label}
                     </span>
                   </div>

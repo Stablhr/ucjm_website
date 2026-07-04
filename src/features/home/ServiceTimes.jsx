@@ -24,7 +24,7 @@ export default function ServiceTimes() {
         >
           <div className="mb-4 flex items-center gap-2 text-accent">
             <Clock size={24} />
-            <h2 className="font-display text-4xl font-bold text-charcoal">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-charcoal">
               Service Times
             </h2>
           </div>

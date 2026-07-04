@@ -12,7 +12,7 @@ export default function UpcomingEvents() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-4 flex items-center gap-2 text-accent-warm">
           <Calendar size={24} />
-          <h2 className="font-display text-4xl font-bold text-charcoal">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-charcoal">
             Upcoming Events
           </h2>
         </div>

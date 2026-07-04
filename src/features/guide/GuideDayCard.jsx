@@ -70,7 +70,7 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[11px] text-slate/50">
+              <span className="font-mono text-xs text-slate/50">
                 Day {dayNumber}/{plan?.days?.length}
               </span>
               {completed && (

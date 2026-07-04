@@ -114,7 +114,7 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
           )}
         </div>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2 flex-wrap">
           <span className={`h-1.5 w-1.5 rounded-full ${catDot}`} />
           {song.youtube_url && (
             <span className="text-red-500">
@@ -171,11 +171,11 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
 
         <div className="absolute right-2 top-2 flex gap-1">
           {song.youtube_url && (
-            <span className="inline-flex items-center gap-0.5 rounded-lg bg-red-500/80 px-1.5 py-0.5 font-mono text-[10px] text-white shadow-sm">
+            <span className="inline-flex items-center gap-0.5 rounded-lg bg-red-500/80 px-1.5 py-0.5 font-mono text-[11px] text-white shadow-sm">
               <Youtube size={10} />
             </span>
           )}
-          <span className="inline-block rounded-lg bg-surface/80 px-1.5 py-0.5 font-mono text-[10px] uppercase text-slate shadow-sm">
+          <span className="inline-block rounded-lg bg-surface/80 px-1.5 py-0.5 font-mono text-[11px] uppercase text-slate shadow-sm">
             {LANG_LABELS[song.language] || song.language}
           </span>
         </div>
@@ -216,11 +216,11 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
         </div>
 
         <div className="mt-2.5 flex items-center gap-2">
-          <span className={`rounded-lg bg-gradient-to-br ${catColor} px-2 py-0.5 font-mono text-[10px] text-white`}>
+          <span className={`rounded-lg bg-gradient-to-br ${catColor} px-2 py-0.5 font-mono text-[11px] text-white`}>
             {song.category}
           </span>
           {song.album && (
-            <span className="truncate font-mono text-[10px] text-slate/50">
+            <span className="truncate font-mono text-[11px] text-slate/50">
               {song.album}
             </span>
           )}

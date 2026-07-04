@@ -120,7 +120,7 @@ export default function GuidePlanCard({ plan }) {
     >
       <div className={`relative bg-gradient-to-br ${colors.bg} px-6 pb-12 pt-8`}>
         <div className="absolute right-3 top-3">
-          <span className={`inline-block rounded-full ${colors.badge} px-2.5 py-0.5 font-mono text-[11px] font-bold`}>
+          <span className={`inline-block rounded-full ${colors.badge} px-2.5 py-0.5 font-mono text-xs font-bold`}>
             {plan.days.length} {plan.days.length === 1 ? 'day' : 'days'}
           </span>
         </div>

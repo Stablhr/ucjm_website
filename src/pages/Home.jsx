@@ -35,7 +35,7 @@ export default function Home() {
     <>
       <SEO title="Home" />
       {/* Hero */}
-      <section className="relative flex h-screen items-center justify-center overflow-hidden -mt-20">
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden -mt-20">
         <img
           src="/images/hero-bg.png"
           alt=""
@@ -43,7 +43,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 px-4 text-center text-white animate-fade-up">
-          <h1 className="font-display text-5xl font-bold tracking-tight md:text-7xl">
+          <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight md:text-7xl">
             Welcome to UCJM Church
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg text-white/80">

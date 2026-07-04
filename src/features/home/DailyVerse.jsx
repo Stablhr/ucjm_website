@@ -15,7 +15,7 @@ export default function DailyVerse() {
         >
           <div className="mb-4 flex items-center gap-2 text-accent">
             <BookOpen size={24} />
-            <h2 className="font-display text-4xl font-bold text-charcoal">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-charcoal">
               Daily Verse
             </h2>
           </div>

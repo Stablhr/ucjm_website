@@ -158,22 +158,22 @@ export default function Guide() {
                 <div className="rounded-lg border border-divider bg-surface p-4 text-center">
                   <Flame size={18} className="mx-auto mb-1.5 text-accent-warm" />
                   <p className="font-display text-2xl font-bold text-charcoal">{streak}</p>
-                  <p className="font-mono text-[11px] text-slate/60">Day Streak</p>
+                  <p className="font-mono text-xs text-slate/60">Day Streak</p>
                 </div>
                 <div className="rounded-lg border border-divider bg-surface p-4 text-center">
                   <CheckCircle size={18} className="mx-auto mb-1.5 text-emerald-500" />
                   <p className="font-display text-2xl font-bold text-charcoal">{stats.totalCompleted}</p>
-                  <p className="font-mono text-[11px] text-slate/60">Days Read</p>
+                  <p className="font-mono text-xs text-slate/60">Days Read</p>
                 </div>
                 <div className="rounded-lg border border-divider bg-surface p-4 text-center">
                   <TrendingUp size={18} className="mx-auto mb-1.5 text-accent" />
                   <p className="font-display text-2xl font-bold text-charcoal">{stats.plansCompleted}/{stats.totalPlans}</p>
-                  <p className="font-mono text-[11px] text-slate/60">Plans Done</p>
+                  <p className="font-mono text-xs text-slate/60">Plans Done</p>
                 </div>
                 <div className="rounded-lg border border-divider bg-surface p-4 text-center">
                   <BookOpen size={18} className="mx-auto mb-1.5 text-slate" />
                   <p className="font-display text-2xl font-bold text-charcoal">{stats.pct}%</p>
-                  <p className="font-mono text-[11px] text-slate/60">Overall</p>
+                  <p className="font-mono text-xs text-slate/60">Overall</p>
                 </div>
               </div>
             </div>

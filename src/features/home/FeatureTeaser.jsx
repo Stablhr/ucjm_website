@@ -82,7 +82,7 @@ export default function FeatureTeaser() {
     <section className="border-t border-divider py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
-          <h2 className="font-display text-4xl font-bold text-charcoal">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-charcoal">
             Explore Our Spiritual Tools
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm text-slate">
