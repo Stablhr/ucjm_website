@@ -53,7 +53,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
   const languages = useSongsStore((s) => s.getLanguages())
 
   useEffect(() => {
-    fetchSongs()
+    fetchSongs(true)
   }, [fetchSongs])
 
   useEffect(() => {

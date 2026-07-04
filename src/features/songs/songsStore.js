@@ -50,12 +50,12 @@ const useSongsStore = create((set, get) => ({
       }
     }),
 
-  fetchSongs: async () => {
-    const { loaded } = get()
-    if (loaded) return
-    set({ loading: true })
+  fetchSongs: async (force = false) => {
+    const { loaded, songs } = get()
+    if (loaded && !force) return
+    if (!loaded) set({ loading: true })
     try {
-      const res = await fetch('/songs.json')
+      const res = await fetch(`/songs.json?t=${Date.now()}`)
       const jsonSongs = await res.json()
       const builtIn = jsonSongs.map((s, i) => ({
         ...s,
