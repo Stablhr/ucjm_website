@@ -97,7 +97,7 @@ export default function Home() {
               Become part of our church family.
             </p>
             <Link to="/signup" className="mt-8 inline-block">
-              <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+              <Button variant="outline" className="border-white text-white hover:bg-surface hover:text-black">
                 Sign Up Today <ArrowRight size={16} />
               </Button>
             </Link>

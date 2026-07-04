@@ -42,7 +42,7 @@ function FeatureCard({ feature, index }) {
   return (
     <div
       ref={ref}
-      className={`group flex flex-col overflow-hidden rounded-xl border border-divider bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
+      className={`group flex flex-col overflow-hidden rounded-xl border border-divider bg-surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
         isVisible ? 'animate-fade-up' : 'opacity-0'
       }`}
       style={{ animationDelay: `${index * 150}ms` }}
@@ -54,7 +54,7 @@ function FeatureCard({ feature, index }) {
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        <div className="absolute bottom-3 left-3 inline-flex items-center justify-center rounded-lg bg-white/90 p-2.5 text-accent shadow-sm backdrop-blur-sm">
+        <div className="absolute bottom-3 left-3 inline-flex items-center justify-center rounded-lg bg-surface/90 p-2.5 text-accent shadow-sm backdrop-blur-sm">
           <Icon size={20} />
         </div>
       </div>

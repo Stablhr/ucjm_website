@@ -63,7 +63,7 @@ export default function ImageUpload({ value, onChange, bucket = 'admin-images', 
           <button
             type="button"
             onClick={handleRemove}
-            className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-white/80 text-slate shadow-sm backdrop-blur-sm transition-colors hover:bg-white hover:text-red-500"
+            className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-surface/80 text-slate shadow-sm backdrop-blur-sm transition-colors hover:bg-surface hover:text-red-500"
           >
             <X size={14} />
           </button>

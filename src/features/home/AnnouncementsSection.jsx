@@ -64,7 +64,7 @@ export default function AnnouncementsSection() {
       {selected && (
         <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto pt-10 pb-10">
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSelected(null)} />
-          <div className="relative z-10 w-full max-w-2xl animate-fade-up rounded-xl border border-divider bg-white shadow-xl">
+          <div className="relative z-10 w-full max-w-2xl animate-fade-up rounded-xl border border-divider bg-surface shadow-xl">
             <div className="flex items-center justify-between border-b border-divider px-6 py-4">
               <h2 className="font-display text-xl font-bold text-charcoal">{selected.title}</h2>
               <button onClick={() => setSelected(null)} className="rounded-lg p-1.5 text-slate transition-colors hover:bg-accent/5 hover:text-charcoal">

@@ -23,7 +23,7 @@ export default function ChordTransposer({ songKey }) {
   const displayKey = keyLabels[(keyLabels.indexOf(songKey) + transposeOffset + 12) % 12]
 
   return (
-    <div className="inline-flex items-center gap-3 rounded-lg border border-divider bg-white px-3 py-2">
+    <div className="inline-flex items-center gap-3 rounded-lg border border-divider bg-surface px-3 py-2">
       <span className="font-mono text-xs text-slate">Key</span>
 
       <button

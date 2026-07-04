@@ -142,7 +142,7 @@ export default function AdminAnnouncementForm() {
               onChange={(e) => handleChange('is_published', e.target.checked)}
               className="peer sr-only"
             />
-            <div className="h-5 w-9 rounded-full bg-divider after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:shadow-sm after:transition-all peer-checked:bg-accent peer-checked:after:translate-x-full" />
+            <div className="h-5 w-9 rounded-full bg-divider after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:bg-surface after:shadow-sm after:transition-all peer-checked:bg-accent peer-checked:after:translate-x-full" />
           </label>
           <span className="text-sm text-slate">Published</span>
         </div>

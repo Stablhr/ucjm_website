@@ -96,7 +96,7 @@ export default function PlaylistManager({ onSelectPlaylist }) {
       ) : (
         <form
           onSubmit={handleCreate}
-          className="mb-5 rounded-lg border border-divider bg-white p-4"
+          className="mb-5 rounded-lg border border-divider bg-surface p-4"
         >
           <h4 className="mb-3 font-display text-sm font-bold text-charcoal">
             New Playlist
@@ -158,7 +158,7 @@ export default function PlaylistManager({ onSelectPlaylist }) {
           {playlists.map((p) => (
             <div
               key={p.id}
-              className="group flex items-center gap-4 rounded-lg border border-divider bg-white p-4 transition-all hover:border-accent/30"
+              className="group flex items-center gap-4 rounded-lg border border-divider bg-surface p-4 transition-all hover:border-accent/30"
             >
               <button
                 onClick={() => onSelectPlaylist(p)}

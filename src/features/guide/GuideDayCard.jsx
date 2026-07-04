@@ -45,7 +45,7 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
               ? `${colors.bg} border-transparent text-white`
               : isActive
                 ? `border-accent bg-accent text-white`
-                : 'border-slate/30 bg-white text-slate'
+                : 'border-slate/30 bg-surface text-slate'
           }`}
         >
           {completed ? (
@@ -64,7 +64,7 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
             ? 'border-accent bg-accent/5 shadow-sm'
             : completed
               ? `${colors.light} ${colors.border}`
-              : 'border-divider bg-white hover:border-accent/30 hover:bg-accent/[0.02]'
+              : 'border-divider bg-surface hover:border-accent/30 hover:bg-accent/[0.02]'
         }`}
       >
         <div className="flex items-center justify-between gap-3">

@@ -18,7 +18,7 @@ export default function Modal({ open, onClose, title, children }) {
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto pt-10 pb-10">
       <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-lg animate-fade-up rounded-xl border border-divider bg-white shadow-xl">
+      <div className="relative z-10 w-full max-w-lg animate-fade-up rounded-xl border border-divider bg-surface shadow-xl">
         <div className="flex items-center justify-between border-b border-divider px-6 py-4">
           <h2 className="font-display text-lg font-bold text-charcoal">{title}</h2>
           <button

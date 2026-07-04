@@ -73,7 +73,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
       <select
         value={activeArtist}
         onChange={(e) => setActiveArtist(e.target.value)}
-        className="rounded-lg border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+        className="rounded-lg border border-divider bg-surface px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
       >
         {artists.map((a) => (
           <option key={a} value={a}>
@@ -85,7 +85,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
       <select
         value={activeAlbum}
         onChange={(e) => setActiveAlbum(e.target.value)}
-        className="rounded-lg border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+        className="rounded-lg border border-divider bg-surface px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
       >
         {albums.map((a) => (
           <option key={a} value={a}>
@@ -97,7 +97,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
       <select
         value={activeLanguage}
         onChange={(e) => setActiveLanguage(e.target.value)}
-        className="rounded-lg border border-divider bg-white px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+        className="rounded-lg border border-divider bg-surface px-3 py-1.5 font-mono text-xs text-slate outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
       >
         {languages.map((l) => (
           <option key={l} value={l}>
@@ -132,13 +132,13 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
-        <div className="absolute -bottom-6 left-1/2 h-32 w-[120%] -translate-x-1/2 rounded-[50%] bg-white/[0.02] blur-2xl" />
+        <div className="absolute -bottom-6 left-1/2 h-32 w-[120%] -translate-x-1/2 rounded-[50%] bg-surface/[0.02] blur-2xl" />
 
         <div className="relative mx-auto max-w-5xl">
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div className="text-center sm:text-left">
               <div className="mb-2 flex items-center justify-center gap-2 sm:justify-start">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider text-white/60 backdrop-blur-sm">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-surface/10 px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider text-white/60 backdrop-blur-sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   {filteredSongs.length > 0 ? `${filteredSongs.length} songs` : 'Loading...'}
                 </span>
@@ -154,7 +154,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
             <div className="hidden shrink-0 sm:block">
               <button
                 onClick={onShowPlaylists}
-                className="flex items-center gap-2 rounded-xl bg-white/5 px-4 py-3 backdrop-blur-sm ring-1 ring-white/10 transition-all hover:bg-white/10 hover:ring-white/20"
+                className="flex items-center gap-2 rounded-xl bg-surface/5 px-4 py-3 backdrop-blur-sm ring-1 ring-white/10 transition-all hover:bg-surface/10 hover:ring-white/20"
               >
                 <ListMusic size={18} className="text-white/50" />
                 <span className="text-sm font-medium text-white/70">Playlists</span>
@@ -172,7 +172,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search songs, artists, albums..."
-              className="w-full rounded-xl border border-white/20 bg-white/10 py-3.5 pl-11 pr-3 text-sm text-white outline-none backdrop-blur-sm placeholder:text-white/40 transition-all focus:border-white/40 focus:bg-white/[0.15] focus:ring-2 focus:ring-white/10"
+              className="w-full rounded-xl border border-white/20 bg-surface/10 py-3.5 pl-11 pr-3 text-sm text-white outline-none backdrop-blur-sm placeholder:text-white/40 transition-all focus:border-white/40 focus:bg-surface/[0.15] focus:ring-2 focus:ring-white/10"
             />
           </div>
         </div>
@@ -194,7 +194,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
                       : 'bg-accent/5 text-slate hover:bg-accent/10 hover:text-charcoal'
                   }`}
                 >
-                  <span className={`h-1.5 w-1.5 rounded-full ${style.dot} ${activeCategory === cat ? 'bg-white/70' : ''}`} />
+                  <span className={`h-1.5 w-1.5 rounded-full ${style.dot} ${activeCategory === cat ? 'bg-surface/70' : ''}`} />
                   {cat}
                 </button>
               )
@@ -212,7 +212,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
             </button>
 
             {/* View toggle - hidden on very small screens */}
-            <div className="hidden items-center gap-1 rounded-lg border border-divider bg-white p-0.5 xs:flex">
+            <div className="hidden items-center gap-1 rounded-lg border border-divider bg-surface p-0.5 xs:flex">
               <button
                 onClick={() => setViewMode('grid')}
                 className={`rounded-lg p-1.5 transition-colors ${
@@ -255,7 +255,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
                 <button
                   key={song.id}
                   onClick={() => handleSelectSong(song)}
-                  className="flex shrink-0 items-center gap-2 rounded-lg border border-divider bg-white px-3 py-2 text-left text-xs transition-all hover:border-accent/30 hover:shadow-sm"
+                  className="flex shrink-0 items-center gap-2 rounded-lg border border-divider bg-surface px-3 py-2 text-left text-xs transition-all hover:border-accent/30 hover:shadow-sm"
                 >
                   <div className={`h-8 w-8 shrink-0 overflow-hidden rounded-md bg-gradient-to-br ${CATEGORY_COLORS[song.category] || 'from-accent to-blue-700'}`}>
                     {song.image_url ? (

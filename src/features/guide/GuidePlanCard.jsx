@@ -116,7 +116,7 @@ export default function GuidePlanCard({ plan }) {
   return (
     <button
       onClick={() => setActivePlan(plan.id)}
-      className="group relative flex flex-col overflow-hidden rounded-xl border border-divider bg-white text-left transition-all hover:-translate-y-1 hover:shadow-lg"
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-divider bg-surface text-left transition-all hover:-translate-y-1 hover:shadow-lg"
     >
       <div className={`relative bg-gradient-to-br ${colors.bg} px-6 pb-12 pt-8`}>
         <div className="absolute right-3 top-3">
@@ -125,7 +125,7 @@ export default function GuidePlanCard({ plan }) {
           </span>
         </div>
 
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-surface/20 backdrop-blur-sm">
           <Icon size={28} className="text-white" />
         </div>
 
@@ -137,7 +137,7 @@ export default function GuidePlanCard({ plan }) {
         </p>
       </div>
 
-      <div className="relative z-10 -mt-4 rounded-t-2xl bg-white px-6 pb-6 pt-4">
+      <div className="relative z-10 -mt-4 rounded-t-2xl bg-surface px-6 pb-6 pt-4">
         {isLoggedIn && (
           <div className="mb-3">
             <div className="flex items-center justify-between gap-3">

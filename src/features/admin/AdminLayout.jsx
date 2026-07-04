@@ -27,7 +27,7 @@ export default function AdminLayout() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 transform border-r border-divider bg-white transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 transform border-r border-divider bg-surface transition-transform duration-300 lg:translate-x-0 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -83,7 +83,7 @@ export default function AdminLayout() {
       {/* Main area */}
       <div className="lg:pl-64">
         {/* Top bar */}
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-divider bg-white/80 px-6 backdrop-blur-xl">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-divider bg-surface/80 px-6 backdrop-blur-xl">
           <button
             className="text-slate hover:text-charcoal lg:hidden"
             onClick={() => setSidebarOpen(true)}

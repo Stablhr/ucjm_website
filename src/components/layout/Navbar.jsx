@@ -41,8 +41,8 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 z-50 w-full animate-slide-down transition-all duration-500 ${
         scrolled
-          ? 'border-b border-white/20 bg-white/50 shadow-sm shadow-black/5 backdrop-blur-xl'
-          : 'border-b border-divider bg-white/80'
+          ? 'border-b border-white/20 bg-surface/50 shadow-sm shadow-black/5 backdrop-blur-xl'
+          : 'border-b border-divider bg-surface/80'
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -107,7 +107,7 @@ export default function Navbar() {
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out ${
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        } border-t border-divider bg-white`}
+        } border-t border-divider bg-surface`}
       >
         <div className="px-4 pb-4">
           <div className="flex flex-col gap-4 pt-4">

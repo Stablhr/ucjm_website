@@ -187,7 +187,7 @@ export default function AdminEvents() {
                 onChange={(e) => handleChange('is_published', e.target.checked)}
                 className="peer sr-only"
               />
-              <div className="h-5 w-9 rounded-full bg-divider after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:shadow-sm after:transition-all peer-checked:bg-accent peer-checked:after:translate-x-full" />
+              <div className="h-5 w-9 rounded-full bg-divider after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:bg-surface after:shadow-sm after:transition-all peer-checked:bg-accent peer-checked:after:translate-x-full" />
             </label>
             <span className="text-sm text-slate">Published</span>
           </div>
@@ -243,7 +243,7 @@ export default function AdminEvents() {
             </thead>
             <tbody className="divide-y divide-divider">
               {events.map((e) => (
-                <tr key={e.id} className="bg-white transition-colors hover:bg-ivory/50">
+                <tr key={e.id} className="bg-surface transition-colors hover:bg-ivory/50">
                   <td className="px-4 py-3 font-medium text-charcoal">{e.title}</td>
                   <td className="hidden px-4 py-3 text-slate md:table-cell">
                     {new Date(e.date).toLocaleDateString()}

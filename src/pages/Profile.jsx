@@ -151,7 +151,7 @@ export default function Profile() {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border border-divider bg-white text-slate shadow-sm transition-colors hover:text-accent"
+                  className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border border-divider bg-surface text-slate shadow-sm transition-colors hover:text-accent"
                 >
                   <Camera size={14} />
                 </button>

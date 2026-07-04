@@ -13,7 +13,7 @@ export default {
         accent: '#0a1db0',
         'accent-warm': '#C4892A',
         divider: '#E4E0D8',
-        surface: '#FFFFFF',
+        surface: '#F5F4F2',
       },
       fontFamily: {
         display: ['Playfair Display', 'serif'],

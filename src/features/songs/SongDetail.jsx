@@ -147,7 +147,7 @@ export default function SongDetail({ song, onBack }) {
                 onError={() => setImgError(true)}
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-white/10">
+              <div className="flex h-full w-full items-center justify-center bg-surface/10">
                 <span className="font-display text-5xl font-bold text-white/60">
                   {song.title.charAt(0)}
                 </span>
@@ -161,13 +161,13 @@ export default function SongDetail({ song, onBack }) {
             </h1>
             <p className="mt-1 text-sm text-white/80">{song.artist}</p>
             <div className="mt-3 flex flex-wrap items-center gap-3">
-              <span className="rounded-lg bg-white/20 px-2.5 py-0.5 font-mono text-xs font-bold">
+              <span className="rounded-lg bg-surface/20 px-2.5 py-0.5 font-mono text-xs font-bold">
                 {song.key}
               </span>
-              <span className="rounded-lg bg-white/15 px-2.5 py-0.5 font-mono text-xs">
+              <span className="rounded-lg bg-surface/15 px-2.5 py-0.5 font-mono text-xs">
                 {song.category}
               </span>
-              <span className="rounded-lg bg-white/15 px-2.5 py-0.5 font-mono text-xs uppercase">
+              <span className="rounded-lg bg-surface/15 px-2.5 py-0.5 font-mono text-xs uppercase">
                 {song.language}
               </span>
               {song.album && (
@@ -207,7 +207,7 @@ export default function SongDetail({ song, onBack }) {
 
       {/* Tab Content */}
       {activeTab === 'lyrics' && (
-        <div className="mb-8 rounded-lg border border-divider bg-white p-6 sm:p-8">
+        <div className="mb-8 rounded-lg border border-divider bg-surface p-6 sm:p-8">
           {renderedLines.length === 0 ? (
             <p className="text-center text-sm text-slate/60">No lyrics available</p>
           ) : (
@@ -270,7 +270,7 @@ export default function SongDetail({ song, onBack }) {
       )}
 
       {activeTab === 'info' && (
-        <div className="mb-8 space-y-4 rounded-lg border border-divider bg-white p-6 sm:p-8">
+        <div className="mb-8 space-y-4 rounded-lg border border-divider bg-surface p-6 sm:p-8">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <p className="font-mono text-xs uppercase tracking-wider text-slate/50">Key</p>

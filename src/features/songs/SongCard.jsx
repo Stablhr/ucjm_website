@@ -98,7 +98,7 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
       <button
         onClick={() => onClick?.(song)}
         style={{ animationDelay: `${index * 30}ms` }}
-        className="group flex w-full items-center gap-4 rounded-lg border border-divider bg-white p-3 text-left transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-sm animate-fade-up opacity-0 [animation-fill-mode:forwards]"
+        className="group flex w-full items-center gap-4 rounded-lg border border-divider bg-surface p-3 text-left transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-sm animate-fade-up opacity-0 [animation-fill-mode:forwards]"
       >
         <div className={`h-12 w-12 shrink-0 overflow-hidden rounded-lg`}>
           <Monogram song={song} className="h-full w-full" />
@@ -157,14 +157,14 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
       style={{ animationDelay: `${index * 50}ms` }}
-      className="group relative flex w-full flex-col overflow-hidden rounded-xl border border-divider bg-white text-left transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 animate-fade-up opacity-0 [animation-fill-mode:forwards]"
+      className="group relative flex w-full flex-col overflow-hidden rounded-xl border border-divider bg-surface text-left transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 animate-fade-up opacity-0 [animation-fill-mode:forwards]"
     >
       <div className="relative aspect-[2/1.2] w-full overflow-hidden">
         <Monogram song={song} className="h-full w-full" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
 
         <div className="absolute bottom-2 left-2">
-          <span className="inline-block rounded-lg bg-white/90 px-2.5 py-1 font-mono text-xs font-bold text-accent shadow-sm">
+          <span className="inline-block rounded-lg bg-surface/90 px-2.5 py-1 font-mono text-xs font-bold text-accent shadow-sm">
             {song.key}
           </span>
         </div>
@@ -175,7 +175,7 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
               <Youtube size={10} />
             </span>
           )}
-          <span className="inline-block rounded-lg bg-white/80 px-1.5 py-0.5 font-mono text-[10px] uppercase text-slate shadow-sm">
+          <span className="inline-block rounded-lg bg-surface/80 px-1.5 py-0.5 font-mono text-[10px] uppercase text-slate shadow-sm">
             {LANG_LABELS[song.language] || song.language}
           </span>
         </div>
@@ -185,7 +185,7 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
             {onAddToPlaylist && (
               <span
                 onClick={handleAddToPlaylist}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-accent shadow-sm transition-transform hover:scale-110 hover:bg-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-surface/90 text-accent shadow-sm transition-transform hover:scale-110 hover:bg-surface"
               >
                 <Plus size={16} />
               </span>
@@ -193,7 +193,7 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
             {song.youtube_url && (
               <span
                 onClick={handlePlayPreview}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-red-500 shadow-sm transition-transform hover:scale-110 hover:bg-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-surface/90 text-red-500 shadow-sm transition-transform hover:scale-110 hover:bg-surface"
               >
                 <Play size={16} />
               </span>

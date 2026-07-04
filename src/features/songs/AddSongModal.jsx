@@ -161,7 +161,7 @@ export default function AddSongModal({ onClose }) {
               )}
               {imageUrl && (
                 <div className="absolute inset-0 flex items-center justify-center bg-charcoal/40 opacity-0 transition-opacity group-hover:opacity-100">
-                  <span className="rounded-lg bg-white px-3 py-1 text-xs font-medium text-charcoal shadow-sm">
+                  <span className="rounded-lg bg-surface px-3 py-1 text-xs font-medium text-charcoal shadow-sm">
                     Change Image
                   </span>
                 </div>

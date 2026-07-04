@@ -116,7 +116,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
       </div>
 
       {/* Scripture */}
-      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-white">
+      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-surface">
         <div className="border-b border-divider bg-gradient-to-r from-accent/5 to-transparent px-6 py-3">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
             <BookOpen size={14} />
@@ -136,7 +136,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
       </div>
 
       {/* Reflection */}
-      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-white">
+      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-surface">
         <div className="border-b border-divider bg-gradient-to-r from-amber-50 to-transparent px-6 py-3">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-amber-700">
             <Heart size={14} />
@@ -151,7 +151,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
       </div>
 
       {/* Prayer */}
-      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-white">
+      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-surface">
         <div className="border-b border-divider bg-gradient-to-r from-sky-50 to-transparent px-6 py-3">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-sky-700">
             <Target size={14} />

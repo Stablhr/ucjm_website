@@ -194,7 +194,7 @@ export default function PlaylistDetail({ playlist, onBack }) {
                 onDragStart={(e) => handleDragStart(e, origIdx)}
                 onDragOver={(e) => handleDragOver(e, origIdx)}
                 onDragEnd={handleDragEnd}
-                className={`flex items-center gap-3 rounded-lg border bg-white px-3 py-3 transition-all ${
+                className={`flex items-center gap-3 rounded-lg border bg-surface px-3 py-3 transition-all ${
                   dragIndex === origIdx
                     ? 'border-accent opacity-50 shadow-sm'
                     : 'border-divider hover:border-accent/20'
