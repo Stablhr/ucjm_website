@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Music, Youtube } from 'lucide-react'
+import { Music, Youtube, Plus, Play } from 'lucide-react'
+import useSongsStore from './songsStore'
 
 const FALLBACK_GRADIENTS = [
   'from-rose-500 to-pink-600',
@@ -27,6 +28,12 @@ const CATEGORY_COLORS = {
   Hymn: 'from-violet-500 to-purple-700',
 }
 
+const CATEGORY_DOTS = {
+  Praise: 'bg-amber-400',
+  Worship: 'bg-emerald-500',
+  Hymn: 'bg-violet-500',
+}
+
 const LANG_LABELS = {
   Filipino: 'FIL',
   English: 'ENG',
@@ -37,6 +44,11 @@ function getGradient(song) {
   if (song.image_color) return song.image_color
   if (CATEGORY_COLORS[song.category]) return CATEGORY_COLORS[song.category]
   return pickFallbackGradient(song.id)
+}
+
+function extractYoutubeId(url) {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/)
+  return match ? match[1] : ''
 }
 
 function Monogram({ song, className }) {
@@ -56,22 +68,39 @@ function Monogram({ song, className }) {
           onError={() => setImgError(true)}
         />
       ) : (
-        <Music size={24} className="text-white/40" />
+        <span className="font-display text-3xl font-bold text-white/30">
+          {song.title.charAt(0)}
+        </span>
       )}
     </div>
   )
 }
 
-export default function SongCard({ song, onClick, viewMode }) {
+export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPlaylist }) {
   const catColor = CATEGORY_COLORS[song.category] || pickFallbackGradient(song.id)
+  const catDot = CATEGORY_DOTS[song.category] || 'bg-accent'
+  const [showActions, setShowActions] = useState(false)
+
+  const handleAddToPlaylist = (e) => {
+    e.stopPropagation()
+    onAddToPlaylist?.(song)
+  }
+
+  const handlePlayPreview = (e) => {
+    e.stopPropagation()
+    if (song.youtube_url) {
+      window.open(song.youtube_url, '_blank', 'noopener,noreferrer')
+    }
+  }
 
   if (viewMode === 'list') {
     return (
       <button
         onClick={() => onClick?.(song)}
-        className="group flex w-full items-center gap-4 rounded-lg border border-divider bg-white p-3 text-left transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-sm"
+        style={{ animationDelay: `${index * 30}ms` }}
+        className="group flex w-full items-center gap-4 rounded-lg border border-divider bg-white p-3 text-left transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-sm animate-fade-up opacity-0 [animation-fill-mode:forwards]"
       >
-        <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg">
+        <div className={`h-12 w-12 shrink-0 overflow-hidden rounded-lg`}>
           <Monogram song={song} className="h-full w-full" />
         </div>
 
@@ -86,6 +115,7 @@ export default function SongCard({ song, onClick, viewMode }) {
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
+          <span className={`h-1.5 w-1.5 rounded-full ${catDot}`} />
           {song.youtube_url && (
             <span className="text-red-500">
               <Youtube size={14} />
@@ -94,9 +124,7 @@ export default function SongCard({ song, onClick, viewMode }) {
           <span className="rounded-lg bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
             {song.key}
           </span>
-          <span
-            className={`hidden rounded-lg bg-gradient-to-br ${catColor} px-2 py-0.5 font-mono text-xs text-white sm:inline-block`}
-          >
+          <span className={`hidden rounded-lg bg-gradient-to-br ${catColor} px-2 py-0.5 font-mono text-xs text-white sm:inline-block`}>
             {song.category}
           </span>
           <span className="font-mono text-xs text-slate/60">
@@ -126,16 +154,21 @@ export default function SongCard({ song, onClick, viewMode }) {
   return (
     <button
       onClick={() => onClick?.(song)}
-      className="group flex w-full flex-col overflow-hidden rounded-lg border border-divider bg-white text-left transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-md"
+      onMouseEnter={() => setShowActions(true)}
+      onMouseLeave={() => setShowActions(false)}
+      style={{ animationDelay: `${index * 50}ms` }}
+      className="group relative flex w-full flex-col overflow-hidden rounded-xl border border-divider bg-white text-left transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 animate-fade-up opacity-0 [animation-fill-mode:forwards]"
     >
-      {/* Art area */}
-      <div className="relative aspect-[2/1] w-full overflow-hidden">
+      <div className="relative aspect-[2/1.2] w-full overflow-hidden">
         <Monogram song={song} className="h-full w-full" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+
         <div className="absolute bottom-2 left-2">
-          <span className="inline-block rounded-lg bg-white/90 px-2 py-0.5 font-mono text-xs font-bold text-accent shadow-sm">
+          <span className="inline-block rounded-lg bg-white/90 px-2.5 py-1 font-mono text-xs font-bold text-accent shadow-sm">
             {song.key}
           </span>
         </div>
+
         <div className="absolute right-2 top-2 flex gap-1">
           {song.youtube_url && (
             <span className="inline-flex items-center gap-0.5 rounded-lg bg-red-500/80 px-1.5 py-0.5 font-mono text-[10px] text-white shadow-sm">
@@ -146,21 +179,44 @@ export default function SongCard({ song, onClick, viewMode }) {
             {LANG_LABELS[song.language] || song.language}
           </span>
         </div>
+
+        {showActions && (
+          <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/20 opacity-0 transition-opacity group-hover:opacity-100">
+            {onAddToPlaylist && (
+              <span
+                onClick={handleAddToPlaylist}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-accent shadow-sm transition-transform hover:scale-110 hover:bg-white"
+              >
+                <Plus size={16} />
+              </span>
+            )}
+            {song.youtube_url && (
+              <span
+                onClick={handlePlayPreview}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-red-500 shadow-sm transition-transform hover:scale-110 hover:bg-white"
+              >
+                <Play size={16} />
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Info area */}
-      <div className="flex flex-1 flex-col justify-between p-3">
+      <div className="flex flex-1 flex-col justify-between p-3.5">
         <div>
-          <h3 className="line-clamp-1 font-display text-base font-bold text-charcoal group-hover:text-accent">
-            {song.title}
-          </h3>
-          <p className="mt-0.5 line-clamp-1 text-sm text-slate">{song.artist}</p>
+          <div className="flex items-start gap-2">
+            <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${catDot}`} />
+            <div className="min-w-0 flex-1">
+              <h3 className="line-clamp-1 font-display text-base font-bold text-charcoal group-hover:text-accent">
+                {song.title}
+              </h3>
+              <p className="mt-0.5 line-clamp-1 text-sm text-slate">{song.artist}</p>
+            </div>
+          </div>
         </div>
 
-        <div className="mt-2 flex items-center gap-2">
-          <span
-            className={`rounded-lg bg-gradient-to-br ${catColor} px-2 py-0.5 font-mono text-[10px] text-white`}
-          >
+        <div className="mt-2.5 flex items-center gap-2">
+          <span className={`rounded-lg bg-gradient-to-br ${catColor} px-2 py-0.5 font-mono text-[10px] text-white`}>
             {song.category}
           </span>
           {song.album && (

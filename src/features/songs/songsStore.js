@@ -8,8 +8,6 @@ function slugify(text) {
     .replace(/^-|-$/g, '')
 }
 
-let _loaded = false
-
 const useSongsStore = create((set, get) => ({
   songs: [],
   userSongs: [],
@@ -40,8 +38,20 @@ const useSongsStore = create((set, get) => ({
 
   setCurrentSongId: (id) => set({ currentSongId: id }),
 
+  recentlyViewed: [],
+  addRecentlyViewed: (song) =>
+    set((state) => {
+      const filtered = state.recentlyViewed.filter(
+        (s) => s.id !== song.id
+      )
+      return {
+        recentlyViewed: [song, ...filtered].slice(0, 6),
+      }
+    }),
+
   fetchSongs: async () => {
-    if (_loaded) return
+    const { loaded } = get()
+    if (loaded) return
     set({ loading: true })
     try {
       const res = await fetch('/songs.json')
@@ -57,14 +67,21 @@ const useSongsStore = create((set, get) => ({
         .select('*')
         .order('created_at', { ascending: false })
 
+      if (error) {
+        console.error('Failed to load songs from Supabase:', error)
+      }
+
       const userSongs = !error && supabaseSongs
         ? supabaseSongs.map((s) => ({ ...s, _source: 'user' }))
         : []
 
+      // Build edits map: newest user song wins per title+artist
       const editsMap = new Map()
       userSongs.forEach((s) => {
         const key = `${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`
-        editsMap.set(key, s)
+        if (!editsMap.has(key)) {
+          editsMap.set(key, s)
+        }
       })
 
       const mergedBuiltIn = builtIn.map((s) => {
@@ -81,9 +98,9 @@ const useSongsStore = create((set, get) => ({
         (s) => !builtInKeys.has(`${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`)
       )
 
-      _loaded = true
       set({ songs: [...mergedBuiltIn, ...uniqueUserSongs], userSongs: [...uniqueUserSongs], loaded: true })
-    } catch {
+    } catch (e) {
+      console.error('fetchSongs error:', e)
       set({ songs: [] })
     } finally {
       set({ loading: false })
@@ -144,32 +161,60 @@ const useSongsStore = create((set, get) => ({
       return updated
     }
 
-    const { data, error } = await supabase
-      .from('songs')
-      .insert({
-        title: fields.title || song.title,
-        artist: fields.artist || song.artist || '',
-        key: fields.key || song.key || 'G',
-        category: fields.category || song.category || 'Worship',
-        language: fields.language || song.language || 'English',
-        lyrics_with_chords: fields.lyrics_with_chords || song.lyrics_with_chords || '',
-        youtube_url: fields.youtube_url !== undefined ? fields.youtube_url : song.youtube_url || '',
-        album: fields.album !== undefined ? fields.album : song.album || '',
-        album_year: fields.album_year !== undefined ? fields.album_year : song.album_year || null,
-        image_url: fields.image_url !== undefined ? fields.image_url : song.image_url || '',
-        image_color: fields.image_color !== undefined ? fields.image_color : song.image_color || 'from-gray-300 to-gray-100',
-      })
-      .select()
-      .single()
+    // For built-in songs: upsert an edit record keyed by title+artist
+    const keyTitle = fields.title || song.title
+    const keyArtist = fields.artist || song.artist || ''
 
-    if (error) throw error
+    const { data: existing } = await supabase
+      .from('songs')
+      .select('id')
+      .eq('title', keyTitle)
+      .eq('artist', keyArtist)
+      .maybeSingle()
+
+    const payload = {
+      title: keyTitle,
+      artist: keyArtist,
+      key: fields.key || song.key || 'G',
+      category: fields.category || song.category || 'Worship',
+      language: fields.language || song.language || 'English',
+      lyrics_with_chords: fields.lyrics_with_chords || song.lyrics_with_chords || '',
+      youtube_url: fields.youtube_url !== undefined ? fields.youtube_url : song.youtube_url || '',
+      album: fields.album !== undefined ? fields.album : song.album || '',
+      album_year: fields.album_year !== undefined ? fields.album_year : song.album_year || null,
+      image_url: fields.image_url !== undefined ? fields.image_url : song.image_url || '',
+      image_color: fields.image_color !== undefined ? fields.image_color : song.image_color || 'from-gray-300 to-gray-100',
+    }
+
+    let data
+    if (existing) {
+      const { error } = await supabase
+        .from('songs')
+        .update(payload)
+        .eq('id', existing.id)
+      if (error) throw error
+      data = { ...payload, id: existing.id, created_at: song.created_at }
+    } else {
+      const { data: inserted, error } = await supabase
+        .from('songs')
+        .insert(payload)
+        .select()
+        .single()
+      if (error) throw error
+      data = inserted
+    }
 
     const newSong = { ...data, _source: 'user' }
     set((state) => ({
       songs: state.songs.map((s) =>
         s.id === song.id ? { ...newSong, id: `edit-${s.id}` } : s
       ),
-      userSongs: [newSong, ...state.userSongs],
+      userSongs: [
+        ...state.userSongs.filter(
+          (s) => s.title !== keyTitle || s.artist !== keyArtist
+        ),
+        newSong,
+      ],
     }))
     return { ...newSong, id: `edit-${song.id}` }
   },
@@ -256,6 +301,7 @@ const useSongsStore = create((set, get) => ({
       viewMode: 'grid',
       transposeOffset: 0,
       currentSongId: null,
+      recentlyViewed: [],
     })
   },
 }))

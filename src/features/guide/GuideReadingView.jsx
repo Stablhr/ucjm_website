@@ -1,4 +1,5 @@
-import { ArrowLeft, CheckCircle, Flame, BookOpen, Heart, Target, LogIn } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowLeft, CheckCircle, Flame, BookOpen, Heart, Target, LogIn, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { BibleTextView } from '@youversion/platform-react-ui'
 import Button from '../../components/ui/Button'
@@ -12,6 +13,10 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
   const markDayComplete = useGuideStore((s) => s.markDayComplete)
   const isDayComplete = useGuideStore((s) => s.isDayComplete)
   const streak = useGuideStore((s) => s.streak)
+  const progress = useGuideStore((s) => s.progress)
+
+  const [completing, setCompleting] = useState(false)
+  const [justCompleted, setJustCompleted] = useState(false)
 
   const plan = plans.find((p) => p.id === planId)
   const day = plan?.days?.find((d) => d.day === dayNumber)
@@ -22,42 +27,80 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
   const prevDay = plan.days.find((d) => d.day === dayNumber - 1)
   const nextDay = plan.days.find((d) => d.day === dayNumber + 1)
 
+  const completedDaysCount = plan.days.filter((d) =>
+    progress[`${plan.id}-${d.day}`]?.completed
+  ).length
+
+  const allComplete = completed && plan.days.every((d) =>
+    progress[`${plan.id}-${d.day}`]?.completed
+  )
+
   const handleComplete = async () => {
+    setCompleting(true)
     await markDayComplete(planId, dayNumber)
+    setCompleting(false)
+    setJustCompleted(true)
+    setTimeout(() => setJustCompleted(false), 2000)
     if (onComplete) onComplete()
   }
 
   return (
     <div className="animate-fade-up">
-      <div className="mb-6 flex items-center justify-between">
-        <button
-          onClick={onBack}
-          className="inline-flex items-center gap-1.5 text-sm text-slate transition-colors hover:text-charcoal"
-        >
-          <ArrowLeft size={16} />
-          Back to {plan.title}
-        </button>
-
-        {streak > 0 && (
-          <div className="flex items-center gap-1.5 font-mono text-sm text-accent-warm">
-            <Flame
-              size={16}
-              className="animate-fire"
-            />
-            <span>{streak} day streak</span>
+      {/* Completion toast */}
+      {justCompleted && (
+        <div className="fixed left-1/2 top-4 z-50 -translate-x-1/2 animate-slide-down">
+          <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-3 shadow-lg">
+            <CheckCircle size={20} className="text-emerald-500" />
+            <div>
+              <p className="text-sm font-medium text-emerald-800">Day {dayNumber} Complete!</p>
+              <p className="text-xs text-emerald-600">Streak: {streak} day{streak !== 1 ? 's' : ''}</p>
+            </div>
+            <Sparkles size={16} className="text-emerald-400" />
           </div>
-        )}
+        </div>
+      )}
+
+      {/* Sticky progress header */}
+      <div className="sticky top-0 z-10 -mx-4 -mt-4 mb-6 rounded-t-none border-b border-divider bg-ivory/90 px-4 pb-3 pt-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={onBack}
+            className="inline-flex items-center gap-1.5 text-sm text-slate transition-colors hover:text-charcoal"
+          >
+            <ArrowLeft size={16} />
+            {plan.title}
+          </button>
+
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-xs text-slate/60">
+              Day {day.day} of {plan.days.length}
+            </span>
+            {streak > 0 && (
+              <div className="flex items-center gap-1 font-mono text-xs text-accent-warm">
+                <Flame size={14} className="animate-fire" />
+                <span>{streak}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Progress bar */}
+        <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-slate/10">
+          <div
+            className="h-full rounded-full bg-accent transition-all duration-500"
+            style={{ width: `${(completedDaysCount / plan.days.length) * 100}%` }}
+          />
+        </div>
       </div>
 
+      {/* Day header */}
       <div className="mb-8">
-        <span className="font-mono text-xs text-slate">
-          Day {day.day} of {plan.days.length}
-        </span>
         <h2 className="font-display text-2xl font-bold text-charcoal">
           {day.title}
         </h2>
       </div>
 
+      {/* Flow steps */}
       <div className="mb-6 flex items-center gap-6 border-b border-divider pb-4 text-xs font-medium text-slate">
         <span className="flex items-center gap-1.5 text-accent">
           <BookOpen size={14} /> Read
@@ -72,43 +115,59 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
         </span>
       </div>
 
-      <div className="mb-8 rounded-lg border border-divider bg-white p-6">
-        <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
-          <BookOpen size={14} />
-          Scripture
+      {/* Scripture */}
+      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-white">
+        <div className="border-b border-divider bg-gradient-to-r from-accent/5 to-transparent px-6 py-3">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
+            <BookOpen size={14} />
+            Scripture
+          </div>
         </div>
-        <BibleTextView
-          versionId={3034}
-          references={[day.verseRef]}
-          className="[&_p]:leading-relaxed [&_p]:text-charcoal [&_sup]:text-accent"
-        />
-        <p className="mt-4 text-right font-mono text-xs text-slate">
-          {day.verseRef.replace(/\./g, ' ')}
-        </p>
+        <div className="px-6 py-5">
+          <BibleTextView
+            versionId={3034}
+            references={[day.verseRef]}
+            className="[&_p]:leading-relaxed [&_p]:text-charcoal [&_sup]:text-accent [&_p]:text-base"
+          />
+          <p className="mt-4 text-right font-mono text-xs text-slate">
+            {day.verseRef.replace(/\./g, ' ')}
+          </p>
+        </div>
       </div>
 
-      <div className="mb-8 rounded-lg border border-divider bg-white p-6">
-        <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
-          <Heart size={14} />
-          Reflection
+      {/* Reflection */}
+      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-white">
+        <div className="border-b border-divider bg-gradient-to-r from-amber-50 to-transparent px-6 py-3">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-amber-700">
+            <Heart size={14} />
+            Reflection
+          </div>
         </div>
-        <p className="font-display text-lg leading-relaxed text-charcoal/85">
-          {day.reflection}
-        </p>
+        <div className="px-6 py-5">
+          <p className="font-display text-lg leading-relaxed text-charcoal/85">
+            {day.reflection}
+          </p>
+        </div>
       </div>
 
-      <div className="mb-8 rounded-lg border border-divider bg-white p-6">
-        <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
-          <Target size={14} />
-          Prayer
+      {/* Prayer */}
+      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-white">
+        <div className="border-b border-divider bg-gradient-to-r from-sky-50 to-transparent px-6 py-3">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-sky-700">
+            <Target size={14} />
+            Prayer
+          </div>
         </div>
-        <p className="italic leading-relaxed text-charcoal/70">
-          Lord, thank You for Your Word. Help me to live out what I've learned today.
-          Let this truth take root in my heart and transform the way I think, speak, and act. Amen.
-        </p>
+        <div className="px-6 py-5">
+          <p className="italic leading-relaxed text-charcoal/70">
+            Lord, thank You for Your Word. Help me to live out what I've learned today.
+            Let this truth take root in my heart and transform the way I think, speak, and act. Amen.
+          </p>
+        </div>
       </div>
 
-      <div className="flex items-center justify-between border-t border-divider pt-6">
+      {/* Navigation */}
+      <div className="flex items-center justify-between gap-4 border-t border-divider pt-6">
         <div>
           {prevDay && (
             <button
@@ -116,7 +175,8 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
               className="inline-flex items-center gap-1 text-sm text-slate transition-colors hover:text-charcoal"
             >
               <ArrowLeft size={14} />
-              Day {prevDay.day}: {prevDay.title}
+              <span className="hidden sm:inline">Day {prevDay.day}: {prevDay.title}</span>
+              <span className="sm:hidden">Previous</span>
             </button>
           )}
         </div>
@@ -126,13 +186,13 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
             <Link to="/login">
               <Button variant="outline">
                 <LogIn size={16} />
-                Sign in to track progress
+                Sign in to track
               </Button>
             </Link>
           )}
 
           {isLoggedIn && !completed && (
-            <Button onClick={handleComplete}>
+            <Button onClick={handleComplete} loading={completing}>
               <CheckCircle size={16} />
               Mark Complete
             </Button>
@@ -143,13 +203,16 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
               Great job!
             </p>
           )}
+        </div>
 
+        <div>
           {nextDay && (
             <button
               onClick={() => setCurrentDay(nextDay.day)}
               className="inline-flex items-center gap-1 text-sm text-slate transition-colors hover:text-charcoal"
             >
-              Day {nextDay.day}: {nextDay.title}
+              <span className="hidden sm:inline">Day {nextDay.day}: {nextDay.title}</span>
+              <span className="sm:hidden">Next</span>
               <svg width="14" height="14" viewBox="0 0 16 16" className="shrink-0">
                 <path
                   d="M6 3l5 5-5 5"
@@ -164,6 +227,25 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
           )}
         </div>
       </div>
+
+      {/* Plan completion celebration */}
+      {allComplete && (
+        <div className="mt-8 rounded-xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-emerald-100/50 p-6 text-center">
+          <CheckCircle size={32} className="mx-auto text-emerald-500" />
+          <h3 className="mt-3 font-display text-xl font-bold text-emerald-800">
+            {plan.title} Complete!
+          </h3>
+          <p className="mt-1 text-sm text-emerald-600">
+            You've completed all {plan.days.length} days. Well done!
+          </p>
+          <button
+            onClick={() => { onBack() }}
+            className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700"
+          >
+            Back to {plan.title}
+          </button>
+        </div>
+      )}
     </div>
   )
 }

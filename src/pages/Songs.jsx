@@ -70,59 +70,52 @@ export default function Songs() {
   return (
     <>
       <SEO title="Songs" />
-      <section className="py-16">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="font-display text-4xl font-bold text-charcoal">
-            Songs
-          </h1>
-          <p className="mt-2 text-slate">
-            Browse worship songs and manage Sunday service playlists.
-          </p>
-        </div>
-
+      <section className="">
         {/* Tabs + Add Song button */}
-        <div className="mb-6 flex items-end justify-between border-b border-divider">
-          <div className="flex gap-1">
-            {TABS.map((tab) => {
-              const Icon = tab.icon
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition-all ${
-                    activeTab === tab.id
-                      ? 'border-accent text-accent'
-                      : 'border-transparent text-slate hover:border-divider hover:text-charcoal'
-                  }`}
-                >
-                  <Icon size={16} />
-                  {tab.label}
-                </button>
-              )
-            })}
+        <div className="border-b border-divider bg-ivory/80 backdrop-blur-sm">
+          <div className="mx-auto flex max-w-5xl items-end justify-between px-4 sm:px-6 lg:px-8">
+            <div className="flex gap-1">
+              {TABS.map((tab) => {
+                const Icon = tab.icon
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition-all ${
+                      activeTab === tab.id
+                        ? 'border-accent text-accent'
+                        : 'border-transparent text-slate hover:border-divider hover:text-charcoal'
+                    }`}
+                  >
+                    <Icon size={16} />
+                    {tab.label}
+                  </button>
+                )
+              })}
+            </div>
+            {activeTab === 'library' && (
+              <button
+                onClick={() => setShowAddSong(true)}
+                className="mb-2 inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-white transition hover:bg-accent/90 active:scale-[0.97]"
+              >
+                <Plus size={14} />
+                Add Song
+              </button>
+            )}
           </div>
-          {activeTab === 'library' && (
-            <button
-              onClick={() => setShowAddSong(true)}
-              className="mb-2 inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-white transition hover:bg-accent/90 active:scale-[0.97]"
-            >
-              <Plus size={14} />
-              Add Song
-            </button>
-          )}
         </div>
 
         {/* Tab content */}
         {activeTab === 'library' ? (
           <SongList onSelectSong={handleSelectSong} />
         ) : (
-          <PlaylistManager onSelectPlaylist={handleSelectPlaylist} />
+          <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+            <PlaylistManager onSelectPlaylist={handleSelectPlaylist} />
+          </div>
         )}
-      </div>
+      </section>
 
       {showAddSong && <AddSongModal onClose={() => setShowAddSong(false)} />}
-    </section>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { ArrowLeft, Plus, Youtube, Pencil } from 'lucide-react'
+import { ArrowLeft, Plus, Youtube, Pencil, Info, Music, Film } from 'lucide-react'
 import { useState, useMemo } from 'react'
 import useSongsStore from './songsStore'
 import useAuthStore from '../../store/authStore'
@@ -82,12 +82,20 @@ const CATEGORY_GRADIENTS = {
   Hymn: 'from-violet-500 to-purple-700',
 }
 
+const DETAIL_TABS = [
+  { id: 'lyrics', label: 'Lyrics', icon: Music },
+  { id: 'video', label: 'Video', icon: Film },
+  { id: 'info', label: 'Info', icon: Info },
+]
+
 export default function SongDetail({ song, onBack }) {
   const transposeOffset = useSongsStore((s) => s.transposeOffset)
   const user = useAuthStore((s) => s.user)
+  const addRecentlyViewed = useSongsStore((s) => s.addRecentlyViewed)
   const [showPlaylistModal, setShowPlaylistModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
   const [imgError, setImgError] = useState(false)
+  const [activeTab, setActiveTab] = useState('lyrics')
 
   const transposedLyrics = useMemo(
     () => transposeLyrics(song.lyrics_with_chords, transposeOffset),
@@ -95,6 +103,7 @@ export default function SongDetail({ song, onBack }) {
   )
 
   const renderedLines = useMemo(() => {
+    if (!transposedLyrics) return []
     return transposedLyrics.split('\n').map((line) => {
       const trimmed = line.trim()
       if (!trimmed) return { type: 'empty' }
@@ -111,24 +120,24 @@ export default function SongDetail({ song, onBack }) {
   if (!song) return null
 
   return (
-    <div>
-      {/* Back button row */}
-      <div className="mb-6 flex items-center justify-between">
-        <button
-          onClick={onBack}
-          className="inline-flex items-center gap-1.5 text-sm text-slate transition-colors hover:text-charcoal"
-        >
-          <ArrowLeft size={16} />
-          Back to songs
-        </button>
-
-        <ChordTransposer songKey={song.key} />
+    <div className="animate-fade-up">
+      {/* Sticky top bar */}
+      <div className="sticky top-0 z-10 -mx-4 -mt-4 mb-6 rounded-t-none border-b border-divider bg-ivory/90 px-4 pb-3 pt-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={onBack}
+            className="inline-flex items-center gap-1.5 text-sm text-slate transition-colors hover:text-charcoal"
+          >
+            <ArrowLeft size={16} />
+            Back to songs
+          </button>
+          <ChordTransposer songKey={song.key} />
+        </div>
       </div>
 
       {/* Hero banner */}
-      <div className={`relative mb-8 overflow-hidden rounded-lg bg-gradient-to-br ${gradient}`}>
+      <div className={`relative mb-6 overflow-hidden rounded-lg bg-gradient-to-br ${gradient}`}>
         <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-end sm:p-8">
-          {/* Art thumbnail */}
           <div className="h-28 w-28 shrink-0 overflow-hidden rounded-lg shadow-lg sm:h-36 sm:w-36">
             {song.image_url && !imgError ? (
               <img
@@ -146,7 +155,6 @@ export default function SongDetail({ song, onBack }) {
             )}
           </div>
 
-          {/* Song info overlay */}
           <div className="min-w-0 flex-1 text-white">
             <h1 className="font-display text-3xl font-bold leading-tight sm:text-4xl">
               {song.title}
@@ -172,48 +180,78 @@ export default function SongDetail({ song, onBack }) {
         </div>
       </div>
 
-      {/* Lyrics with chords */}
-      <div className="mb-8 rounded-lg border border-divider bg-white p-6 sm:p-8">
-        {renderedLines.map((line, i) => {
-          if (line.type === 'empty') {
-            return <div key={i} className="h-4" />
-          }
-
-          if (line.type === 'section') {
-            return (
-              <div key={i} className="mb-3 mt-6 first:mt-0">
-                <span className="inline-block rounded-md bg-accent/10 px-3 py-1 font-mono text-[11px] font-bold tracking-wider text-accent">
-                  {line.label}
-                </span>
-              </div>
-            )
-          }
-
+      {/* Detail Tabs */}
+      <div className="mb-6 flex gap-1 border-b border-divider">
+        {DETAIL_TABS.map((tab) => {
+          const Icon = tab.icon
+          const isDisabled = tab.id === 'video' && (!song.youtube_url || !extractYoutubeId(song.youtube_url))
           return (
-            <div key={i} className="flex flex-wrap items-baseline gap-x-1.5 gap-y-1.5 py-1.5 min-h-[3rem]">
-              {line.segments.map((seg, j) => {
-                if (seg.chord) {
-                  return (
-                    <span
-                      key={j}
-                      className="inline-flex flex-col items-center gap-1"
-                    >
-                      <span className="font-mono text-sm font-bold text-accent leading-none">
-                        {seg.chord}
-                      </span>
-                      <span className="leading-tight">{seg.text || '\u00A0'}</span>
-                    </span>
-                  )
-                }
-                return <span key={j}>{seg.text}</span>
-              })}
-            </div>
+            <button
+              key={tab.id}
+              onClick={() => !isDisabled && setActiveTab(tab.id)}
+              disabled={isDisabled}
+              className={`flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition-all ${
+                activeTab === tab.id
+                  ? 'border-accent text-accent'
+                  : isDisabled
+                    ? 'cursor-not-allowed border-transparent text-slate/30'
+                    : 'border-transparent text-slate hover:border-divider hover:text-charcoal'
+              }`}
+            >
+              <Icon size={16} />
+              {tab.label}
+            </button>
           )
         })}
       </div>
 
-      {/* YouTube Video */}
-      {song.youtube_url && extractYoutubeId(song.youtube_url) && (
+      {/* Tab Content */}
+      {activeTab === 'lyrics' && (
+        <div className="mb-8 rounded-lg border border-divider bg-white p-6 sm:p-8">
+          {renderedLines.length === 0 ? (
+            <p className="text-center text-sm text-slate/60">No lyrics available</p>
+          ) : (
+            renderedLines.map((line, i) => {
+              if (line.type === 'empty') {
+                return <div key={i} className="h-5" />
+              }
+
+              if (line.type === 'section') {
+                return (
+                  <div key={i} className="mb-4 mt-8 first:mt-0">
+                    <span className="inline-block rounded-md bg-accent/10 px-3 py-1 font-mono text-[11px] font-bold tracking-wider text-accent">
+                      {line.label}
+                    </span>
+                  </div>
+                )
+              }
+
+              return (
+                <div key={i} className="flex flex-wrap items-baseline gap-x-2 gap-y-2 py-1.5 min-h-[2.5rem]">
+                  {line.segments.map((seg, j) => {
+                    if (seg.chord) {
+                      return (
+                        <span
+                          key={j}
+                          className="inline-flex flex-col items-center gap-0.5"
+                        >
+                          <span className="font-mono text-sm font-bold text-accent leading-none">
+                            {seg.chord}
+                          </span>
+                          <span className="text-base leading-relaxed text-charcoal/85">{seg.text || '\u00A0'}</span>
+                        </span>
+                      )
+                    }
+                    return <span key={j} className="text-base leading-relaxed text-charcoal/85">{seg.text}</span>
+                  })}
+                </div>
+              )
+            })
+          )}
+        </div>
+      )}
+
+      {activeTab === 'video' && song.youtube_url && extractYoutubeId(song.youtube_url) && (
         <div className="mb-8 overflow-hidden rounded-lg border border-divider">
           <div className="flex items-center gap-2 border-b border-divider bg-ivory px-4 py-2.5">
             <Youtube size={16} className="text-red-500" />
@@ -227,6 +265,35 @@ export default function SongDetail({ song, onBack }) {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'info' && (
+        <div className="mb-8 space-y-4 rounded-lg border border-divider bg-white p-6 sm:p-8">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-wider text-slate/50">Key</p>
+              <p className="mt-1 text-sm font-medium text-charcoal">{song.key}</p>
+            </div>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-wider text-slate/50">Category</p>
+              <p className="mt-1 text-sm font-medium text-charcoal">{song.category}</p>
+            </div>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-wider text-slate/50">Language</p>
+              <p className="mt-1 text-sm font-medium text-charcoal">{song.language}</p>
+            </div>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-wider text-slate/50">Artist</p>
+              <p className="mt-1 text-sm font-medium text-charcoal">{song.artist || '—'}</p>
+            </div>
+            {song.album && (
+              <div>
+                <p className="font-mono text-xs uppercase tracking-wider text-slate/50">Album</p>
+                <p className="mt-1 text-sm font-medium text-charcoal">{song.album}{song.album_year ? ` (${song.album_year})` : ''}</p>
+              </div>
+            )}
           </div>
         </div>
       )}
