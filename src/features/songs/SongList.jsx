@@ -1,4 +1,4 @@
-import { Search, Music, Grid3X3, List, ChevronDown, SlidersHorizontal, Plus, X } from 'lucide-react'
+import { Search, Music, ListMusic, Grid3X3, List, ChevronDown, SlidersHorizontal, Plus, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Skeleton } from '../../components/ui/Skeleton'
 import useSongsStore from './songsStore'
@@ -25,7 +25,7 @@ function extractYoutubeId(url) {
   return match ? match[1] : ''
 }
 
-export default function SongList({ onSelectSong }) {
+export default function SongList({ onSelectSong, onShowPlaylists }) {
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   const [playlistSong, setPlaylistSong] = useState(null)
@@ -152,9 +152,13 @@ export default function SongList({ onSelectSong }) {
             </div>
 
             <div className="hidden shrink-0 sm:block">
-              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/5 backdrop-blur-sm ring-1 ring-white/10">
-                <Music size={32} className="text-white/25" />
-              </div>
+              <button
+                onClick={onShowPlaylists}
+                className="flex items-center gap-2 rounded-xl bg-white/5 px-4 py-3 backdrop-blur-sm ring-1 ring-white/10 transition-all hover:bg-white/10 hover:ring-white/20"
+              >
+                <ListMusic size={18} className="text-white/50" />
+                <span className="text-sm font-medium text-white/70">Playlists</span>
+              </button>
             </div>
           </div>
 
