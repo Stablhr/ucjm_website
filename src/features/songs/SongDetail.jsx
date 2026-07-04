@@ -1,4 +1,4 @@
-import { ArrowLeft, Plus, Youtube, Pencil, Info, Music, Film } from 'lucide-react'
+import { ArrowLeft, Plus, Youtube, Pencil, Info, Music, Film, Trash2 } from 'lucide-react'
 import { useState, useMemo } from 'react'
 import useSongsStore from './songsStore'
 import useAuthStore from '../../store/authStore'
@@ -6,6 +6,7 @@ import { transposeLyrics } from './chordParser'
 import ChordTransposer from './ChordTransposer'
 import AddToPlaylistModal from './AddToPlaylistModal'
 import EditSongModal from './EditSongModal'
+import ConfirmModal from '../../components/ui/ConfirmModal'
 
 const CHORD_REGEX = /\[([A-G][#b]?(?:m|dim|aug|sus[24]|add[0-9]|[0-9])?(?:\/[A-G][#b]?)?)\]/g
 
@@ -91,9 +92,15 @@ const DETAIL_TABS = [
 export default function SongDetail({ song, onBack }) {
   const transposeOffset = useSongsStore((s) => s.transposeOffset)
   const user = useAuthStore((s) => s.user)
+  const profile = useAuthStore((s) => s.profile)
   const addRecentlyViewed = useSongsStore((s) => s.addRecentlyViewed)
+  const deleteSong = useSongsStore((s) => s.deleteSong)
   const [showPlaylistModal, setShowPlaylistModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+
+  const isAdmin = profile?.role === 'admin'
   const [imgError, setImgError] = useState(false)
   const [activeTab, setActiveTab] = useState('lyrics')
 
@@ -118,6 +125,19 @@ export default function SongDetail({ song, onBack }) {
   const gradient = song.image_color || CATEGORY_GRADIENTS[song.category] || pickFallbackGradient(song.id)
 
   if (!song) return null
+
+  async function handleDelete() {
+    setDeleting(true)
+    try {
+      await deleteSong(song)
+      setShowDeleteConfirm(false)
+      onBack()
+    } catch (e) {
+      console.error('Failed to delete song:', e)
+    } finally {
+      setDeleting(false)
+    }
+  }
 
   return (
     <div className="animate-fade-up">
@@ -317,6 +337,16 @@ export default function SongDetail({ song, onBack }) {
             Edit Song
           </button>
         )}
+
+        {isAdmin && (
+          <button
+            onClick={() => setShowDeleteConfirm(true)}
+            className="inline-flex items-center gap-2 rounded-lg border border-red-200 px-4 py-2.5 text-sm text-red-500 transition-all hover:border-red-300 hover:bg-red-50 active:scale-[0.98]"
+          >
+            <Trash2 size={16} />
+            Delete Song
+          </button>
+        )}
       </div>
 
       {showPlaylistModal && (
@@ -333,6 +363,16 @@ export default function SongDetail({ song, onBack }) {
           onSaved={() => {}}
         />
       )}
+
+      <ConfirmModal
+        open={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+        onConfirm={handleDelete}
+        title="Delete Song"
+        message={`Are you sure you want to delete "${song.title}"? This action cannot be undone.`}
+        confirmLabel="Delete Song"
+        loading={deleting}
+      />
     </div>
   )
 }

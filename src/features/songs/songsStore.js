@@ -21,6 +21,7 @@ const useSongsStore = create((set, get) => ({
   viewMode: 'grid',
   transposeOffset: 0,
   currentSongId: null,
+  hiddenSongIds: [],
 
   setSearchQuery: (query) => set({ searchQuery: query }),
 
@@ -98,7 +99,8 @@ const useSongsStore = create((set, get) => ({
         (s) => !builtInKeys.has(`${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`)
       )
 
-      set({ songs: [...mergedBuiltIn, ...uniqueUserSongs], userSongs: [...uniqueUserSongs], loaded: true })
+      const hidden = get().hiddenSongIds || []
+      set({ songs: [...mergedBuiltIn, ...uniqueUserSongs].filter((s) => !hidden.includes(s.id)), userSongs: [...uniqueUserSongs].filter((s) => !hidden.includes(s.id)), loaded: true })
     } catch (e) {
       console.error('fetchSongs error:', e)
       set({ songs: [] })
@@ -220,14 +222,25 @@ const useSongsStore = create((set, get) => ({
   },
 
   deleteSong: async (song) => {
-    if (song._source === 'user' && song.id && !song.id.startsWith('edit-')) {
-      const { error } = await supabase.from('songs').delete().eq('id', song.id)
-      if (error) throw error
+    if (song._source === 'user') {
+      if (song.id && !song.id.startsWith('edit-')) {
+        const { error } = await supabase.from('songs').delete().eq('id', song.id)
+        if (error) throw error
+      } else if (song.id && song.id.startsWith('edit-')) {
+        const { error } = await supabase
+          .from('songs')
+          .delete()
+          .eq('title', song.title)
+          .eq('artist', song.artist || '')
+        if (error) throw error
+      }
     }
 
+    // Also mark built-in songs as hidden so they don't reappear on reload
     set((state) => ({
       songs: state.songs.filter((s) => s.id !== song.id),
       userSongs: state.userSongs.filter((s) => s.id !== song.id),
+      hiddenSongIds: [...(state.hiddenSongIds || []), song.id],
     }))
   },
 
@@ -302,6 +315,7 @@ const useSongsStore = create((set, get) => ({
       transposeOffset: 0,
       currentSongId: null,
       recentlyViewed: [],
+      hiddenSongIds: [],
     })
   },
 }))
