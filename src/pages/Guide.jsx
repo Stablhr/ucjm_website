@@ -129,21 +129,23 @@ export default function Guide() {
           <div className="absolute inset-0 opacity-[0.04]" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }} />
+          <div className="absolute bottom-0 left-1/2 h-24 w-3/4 -translate-x-1/2 rounded-full bg-accent-warm/5 blur-3xl" />
 
-          <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-3xl text-center">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm ring-1 ring-white/10">
                 <BookOpen size={14} />
                 Daily Scripture Reading
               </div>
-              <h1 className="font-display text-4xl font-bold text-white sm:text-5xl">
+              <h1 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
                 Reading Guide
               </h1>
-              <p className="mt-3 text-lg text-white/70">
+              <p className="mx-auto mt-3 max-w-xl text-lg leading-relaxed text-white/80">
                 Choose a plan and start your daily Scripture reading journey.
               </p>
-              <p className="mt-4 font-display text-base italic text-accent-warm/80">
-                "Your word is a lamp to my feet and a light to my path." — Psalm 119:105
+              <div className="mx-auto mt-7 h-px max-w-xs bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+              <p className="mt-7 font-display text-lg text-amber-200/90 drop-shadow-sm">
+                "Your word is a lamp to my feet and a light to my path." <span className="text-white/50">— Psalm 119:105</span>
               </p>
             </div>
           </div>
