@@ -1,18 +1,6 @@
 import { create } from 'zustand'
 import { supabase } from '../../services/supabase'
 
-const STORAGE_KEY = 'ucjm_hiddenSongIds'
-
-function getHiddenIds() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-  } catch { return [] }
-}
-
-function saveHiddenIds(ids) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(ids)) } catch {}
-}
-
 function slugify(text) {
   return text
     .toLowerCase()
@@ -33,7 +21,6 @@ const useSongsStore = create((set, get) => ({
   viewMode: 'grid',
   transposeOffset: 0,
   currentSongId: null,
-  hiddenSongIds: [],
 
   setSearchQuery: (query) => set({ searchQuery: query }),
 
@@ -84,9 +71,16 @@ const useSongsStore = create((set, get) => ({
         console.error('Failed to load songs from Supabase:', error)
       }
 
-      const userSongs = !error && supabaseSongs
+      const allUserSongs = !error && supabaseSongs
         ? supabaseSongs.map((s) => ({ ...s, _source: 'user' }))
         : []
+
+      // Separate deleted markers (image_color === '__DELETED__')
+      const deletedMarkers = allUserSongs.filter((s) => s.image_color === '__DELETED__')
+      const deletedKeys = new Set(
+        deletedMarkers.map((s) => `${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`)
+      )
+      const userSongs = allUserSongs.filter((s) => s.image_color !== '__DELETED__')
 
       // Build edits map: newest user song wins per title+artist
       const editsMap = new Map()
@@ -111,8 +105,12 @@ const useSongsStore = create((set, get) => ({
         (s) => !builtInKeys.has(`${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`)
       )
 
-      const hidden = getHiddenIds()
-      set({ songs: [...mergedBuiltIn, ...uniqueUserSongs].filter((s) => !hidden.includes(s.id.replace(/^edit-/, ''))), userSongs: [...uniqueUserSongs].filter((s) => !hidden.includes(s.id)), loaded: true })
+      const isDeleted = (s) => {
+        const key = `${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`
+        return deletedKeys.has(key)
+      }
+
+      set({ songs: [...mergedBuiltIn, ...uniqueUserSongs].filter((s) => !isDeleted(s)), userSongs: uniqueUserSongs.filter((s) => !isDeleted(s)), loaded: true })
     } catch (e) {
       console.error('fetchSongs error:', e)
       set({ songs: [] })
@@ -248,14 +246,17 @@ const useSongsStore = create((set, get) => ({
       }
     }
 
-    // Persist hidden songs in localStorage so deletions survive page refresh
-    const baseId = song.id.replace(/^edit-/, '')
-    const updatedHidden = [...new Set([...getHiddenIds(), baseId])]
-    saveHiddenIds(updatedHidden)
+    // Built-in song: insert cross-device deletion marker
+    if (song._source !== 'user') {
+      const { error: markerError } = await supabase
+        .from('songs')
+        .insert({ title: song.title, artist: song.artist || '', image_color: '__DELETED__' })
+      if (markerError) throw markerError
+    }
+
     set((state) => ({
       songs: state.songs.filter((s) => s.id !== song.id),
       userSongs: state.userSongs.filter((s) => s.id !== song.id),
-      hiddenSongIds: updatedHidden,
     }))
   },
 
@@ -330,9 +331,7 @@ const useSongsStore = create((set, get) => ({
       transposeOffset: 0,
       currentSongId: null,
       recentlyViewed: [],
-  hiddenSongIds: getHiddenIds(),
     })
-    saveHiddenIds([])
   },
 }))
 
