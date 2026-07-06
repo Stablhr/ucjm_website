@@ -5,7 +5,7 @@ import { BibleTextView } from '@youversion/platform-react-ui'
 import Button from '../../components/ui/Button'
 import useAuthStore from '../../store/authStore'
 import useGuideStore from './guideStore'
-import plans from './plans'
+import plans, { formatVerseRef } from './plans'
 
 export default function GuideReadingView({ planId, dayNumber, onBack, onComplete }) {
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn)
@@ -122,7 +122,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
             <BookOpen size={14} />
             Scripture
             <span className="font-mono normal-case tracking-normal text-accent/60">
-              — {day.verseRef.replace('.', ' ').replace('.', ':')}
+              — {formatVerseRef(day.verseRef)}
             </span>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
             className="[&_p]:font-display [&_p]:text-lg [&_p]:sm:text-xl [&_p]:leading-relaxed [&_p]:sm:leading-loose [&_p]:text-charcoal [&_sup]:text-accent [&_p]:font-medium"
           />
           <p className="mt-6 text-right font-mono text-sm text-slate">
-            — {day.verseRef.replace('.', ' ').replace('.', ':')}
+            — {formatVerseRef(day.verseRef)}
           </p>
         </div>
       </div>

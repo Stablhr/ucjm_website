@@ -1,7 +1,7 @@
 import { CheckCircle, BookOpen, Sparkles, ChevronRight } from 'lucide-react'
 import { BibleTextView } from '@youversion/platform-react-ui'
 import useGuideStore from './guideStore'
-import plans from './plans'
+import plans, { formatVerseRef } from './plans'
 
 const colorMap = {
   rose: { border: 'border-rose-400', bg: 'bg-rose-500', light: 'bg-rose-50', text: 'text-rose-700' },
@@ -90,7 +90,7 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
                 completed ? 'text-emerald-600' : 'text-slate'
               }`}
             >
-              {day.verseRef.replace(/\./g, ' ')}
+              {formatVerseRef(day.verseRef)}
             </p>
             <div className={`mt-1.5 line-clamp-2 text-xs leading-relaxed ${
               completed ? 'text-emerald-600/70' : 'text-slate/60'
