@@ -10,10 +10,25 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>UCJM Church</title>
   </head>
   <body class="bg-ivory text-charcoal font-body antialiased">
     <div id="root"></div>
+    <script>
+      // Force reload if a new version is deployed
+      var v = '1.0.1'
+      try {
+        var c = localStorage.getItem('ucjm-version')
+        if (c && c !== v) {
+          localStorage.clear()
+          location.reload(true)
+        }
+        localStorage.setItem('ucjm-version', v)
+      } catch(e) {}
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
