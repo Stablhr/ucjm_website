@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { BibleReader } from '@youversion/platform-react-ui'
+import { useState, useEffect, useRef } from 'react'
+import { BibleReader, BibleTextView } from '@youversion/platform-react-ui'
 import { BookOpen, Minus, Plus, Sun, Moon, Compass } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/ui/SEO'
@@ -18,10 +18,24 @@ export default function Bible() {
     }
     return false
   })
+  const [book, setBook] = useState('JHN')
+  const [chapter, setChapter] = useState('1')
+  const [selectedVerses, setSelectedVerses] = useState([])
+  const contentRef = useRef(null)
 
   useEffect(() => {
     localStorage.setItem('bible-dark-mode', darkMode)
   }, [darkMode])
+
+  const handleVerseSelect = (verses) => {
+    const added = verses.filter(v => !selectedVerses.includes(v))
+    added.forEach(v => {
+      const el = contentRef.current?.querySelector(`[v="${v}"]`)
+      const text = el?.textContent?.trim() || ''
+      console.log(`Verse ${v}: ${text}`)
+    })
+    setSelectedVerses(verses)
+  }
 
   return (
     <>
@@ -117,6 +131,10 @@ export default function Bible() {
           <BibleReader.Root
             defaultBook="JHN"
             defaultChapter="1"
+            book={book}
+            onBookChange={setBook}
+            chapter={chapter}
+            onChapterChange={setChapter}
             defaultVersionId={3034}
             fontSize={fontSize}
             fontFamily="Playfair Display, serif"
@@ -126,8 +144,18 @@ export default function Bible() {
           >
             <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
               <BibleReader.Toolbar border="bottom" />
-              <div className="mt-6">
-                <BibleReader.Content />
+              <div className="mt-6" ref={contentRef}>
+                <BibleTextView
+                  reference={`${book}.${chapter}`}
+                  versionId={3034}
+                  fontSize={fontSize}
+                  fontFamily="Playfair Display, serif"
+                  lineHeight={1.8}
+                  showVerseNumbers={true}
+                  theme={darkMode ? 'dark' : 'light'}
+                  selectedVerses={selectedVerses}
+                  onVerseSelect={handleVerseSelect}
+                />
               </div>
             </div>
           </BibleReader.Root>
