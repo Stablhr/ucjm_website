@@ -41,7 +41,7 @@ export default function Layout() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
-      <main className="flex-1 pt-20">
+      <main className="flex-1 pt-20 overflow-x-hidden">
         <div className={`transition-opacity duration-300 ${transitioning ? 'opacity-0' : 'opacity-100'}`}>
           <Outlet />
         </div>
