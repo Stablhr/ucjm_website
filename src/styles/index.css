@@ -1,6 +1,4 @@
-@import '@fontsource/playfair-display/600.css';
-@import '@fontsource/playfair-display/700.css';
-@import '@fontsource/playfair-display/800.css';
+@import '@fontsource/inter/300.css';
 @import '@fontsource/inter/400.css';
 @import '@fontsource/inter/500.css';
 @import '@fontsource/inter/600.css';
@@ -17,14 +15,21 @@
 
   body {
     @apply bg-ivory text-charcoal font-body antialiased;
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.374px;
   }
 
   *:focus-visible {
-    @apply outline-none ring-2 ring-accent/40 ring-offset-2 ring-offset-ivory;
+    @apply outline-none ring-2 ring-accent/50 ring-offset-2 ring-offset-ivory;
   }
 
   ::selection {
     @apply bg-accent/15 text-charcoal;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.374px;
   }
 
   ::-webkit-scrollbar {

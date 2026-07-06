@@ -4,24 +4,33 @@ import { useEffect, useState, useRef } from 'react'
 export default function PageTransition({ children }) {
   const location = useLocation()
   const [displayChildren, setDisplayChildren] = useState(children)
-  const [transitionStage, setTransitionStage] = useState('animate-fade-up')
+  const [stage, setStage] = useState('enter')
   const prevPath = useRef(location.pathname)
 
   useEffect(() => {
     if (prevPath.current !== location.pathname) {
-      setTransitionStage('opacity-0')
+      setStage('exit')
       prevPath.current = location.pathname
 
-      const timeout = setTimeout(() => {
+      const t1 = setTimeout(() => {
         setDisplayChildren(children)
-        setTransitionStage('animate-fade-up')
-      }, 200)
+        setStage('enter')
+      }, 250)
 
-      return () => clearTimeout(timeout)
+      return () => clearTimeout(t1)
     } else {
       setDisplayChildren(children)
+      setStage('enter')
     }
   }, [location.pathname, children])
 
-  return <div className={transitionStage}>{displayChildren}</div>
+  return (
+    <div
+      className={`transition-all duration-500 ease-apple will-change-transform ${
+        stage === 'exit' ? 'opacity-0 blur-sm scale-[0.98]' : 'opacity-1 blur-0 scale-100'
+      }`}
+    >
+      {displayChildren}
+    </div>
+  )
 }
