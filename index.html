@@ -18,7 +18,6 @@
   <body class="bg-ivory text-charcoal font-body antialiased">
     <div id="root"></div>
     <script>
-      // Force reload if a new version is deployed
       var v = '1.0.2'
       try {
         var c = localStorage.getItem('ucjm-version')
@@ -28,6 +27,15 @@
         }
         localStorage.setItem('ucjm-version', v)
       } catch(e) {}
+      fetch('/version.json?t=' + Date.now())
+        .then(function(r) { return r.json() })
+        .then(function(d) {
+          if (d.version && d.version !== v) {
+            localStorage.clear()
+            location.reload(true)
+          }
+        })
+        .catch(function() {})
     </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
