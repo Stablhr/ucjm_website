@@ -162,8 +162,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
         </div>
         <div className="px-6 py-5">
           <p className="italic leading-relaxed text-charcoal/70">
-            Lord, thank You for Your Word. Help me to live out what I've learned today.
-            Let this truth take root in my heart and transform the way I think, speak, and act. Amen.
+            {day.prayer}
           </p>
         </div>
       </div>
