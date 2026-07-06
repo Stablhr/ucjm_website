@@ -9,6 +9,7 @@ import {
   CheckCircle,
   ArrowRight,
 } from 'lucide-react'
+import { BibleTextView } from '@youversion/platform-react-ui'
 import useAuthStore from '../../store/authStore'
 import useGuideStore from './guideStore'
 
@@ -135,6 +136,13 @@ export default function GuidePlanCard({ plan }) {
         <p className="mt-1 text-sm text-white/80">
           {plan.description}
         </p>
+
+        <div className="mt-4 border-l-2 border-white/20 pl-3 text-sm italic leading-relaxed text-white/70 [&_p]:text-white/70 [&_p]:text-sm [&_p]:italic">
+          <BibleTextView
+            versionId={3034}
+            references={[plan.days[0].verseRef]}
+          />
+        </div>
       </div>
 
       <div className="relative z-10 -mt-4 rounded-t-2xl bg-surface px-6 pb-6 pt-4">
