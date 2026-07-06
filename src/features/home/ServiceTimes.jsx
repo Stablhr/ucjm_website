@@ -1,4 +1,4 @@
-import { Clock, MapPin } from 'lucide-react'
+import { Clock, MapPin, ExternalLink } from 'lucide-react'
 import useScrollReveal from '../../hooks/useScrollReveal'
 
 const services = [
@@ -7,9 +7,9 @@ const services = [
 ]
 
 const locations = [
-  { name: 'Main Church', address: 'Imus, Philippines, 4103' },
-  { name: 'UCJM Castillon', address: 'General Trias, Philippines, 4107' },
-  { name: 'UCJM Ternate', address: 'Poblacion 1-A, 9012 Gov. Drive, Ternate, Cavite, Philippines, 4103' },
+  { name: 'UCJM Main (Imus)', address: 'Imus, Philippines, 4103', facebook: 'https://www.facebook.com/ucjmmain' },
+  { name: 'UCJM Castillon (Gen.Tri)', address: 'General Trias, Philippines, 4107', facebook: 'https://www.facebook.com/UCJMGenTrias' },
+  { name: 'UCJM Ternate', address: 'Poblacion 1-A, 9012 Gov. Drive, Ternate, Cavite, Philippines, 4103', facebook: 'https://www.facebook.com/profile.php?id=100069203779606' },
 ]
 
 export default function ServiceTimes() {
@@ -49,13 +49,20 @@ export default function ServiceTimes() {
 
           <div className="mt-8 space-y-3">
             {locations.map((loc) => (
-              <div key={loc.name} className="flex items-start gap-3 rounded-lg bg-ivory p-4">
+              <a
+                key={loc.name}
+                href={loc.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 rounded-lg bg-ivory p-4 transition hover:bg-accent/5"
+              >
                 <MapPin size={18} className="mt-0.5 shrink-0 text-accent-warm" />
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-charcoal">{loc.name}</p>
                   <p className="mt-0.5 text-xs text-slate">{loc.address}</p>
                 </div>
-              </div>
+                <ExternalLink size={14} className="mt-1 shrink-0 text-slate/40 transition group-hover:text-accent" />
+              </a>
             ))}
           </div>
         </div>
