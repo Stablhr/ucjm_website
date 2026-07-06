@@ -124,11 +124,13 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
           </div>
         </div>
         <div className="px-6 py-6 sm:px-8 sm:py-10">
-          <BibleTextView
-            versionId={3034}
-            references={[day.verseRef]}
-            className="[&_p]:font-display [&_p]:text-lg [&_p]:sm:text-xl [&_p]:leading-relaxed [&_p]:sm:leading-loose [&_p]:text-charcoal [&_sup]:text-accent [&_p]:font-medium"
-          />
+          <div className="font-display text-lg leading-relaxed text-charcoal sm:text-xl sm:leading-loose">
+            <BibleTextView
+              versionId={3034}
+              references={[day.verseRef]}
+              className="[&_p]:text-charcoal [&_sup]:text-accent"
+            />
+          </div>
           <p className="mt-8 text-right font-mono text-sm text-slate">
             - {formatVerseRef(day.verseRef)}
           </p>
