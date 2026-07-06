@@ -42,12 +42,17 @@ export default {
           '50%': { transform: 'scale(1.05) rotate(2deg)', filter: 'drop-shadow(0 0 10px rgba(196, 137, 42, 0.9))' },
           '75%': { transform: 'scale(1.2) rotate(-1deg)', filter: 'drop-shadow(0 0 8px rgba(232, 89, 12, 0.8))' },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-8px)' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.6s ease-out forwards',
         'fade-in': 'fade-in 0.6s ease-out forwards',
         'slide-down': 'slide-down 0.4s ease-out forwards',
         fire: 'fire 1.2s ease-in-out infinite',
+        float: 'float 3s ease-in-out infinite',
       },
       spacing: {
         18: '4.5rem',
