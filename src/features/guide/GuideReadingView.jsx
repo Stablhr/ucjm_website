@@ -116,7 +116,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
       </div>
 
       {/* Scripture */}
-      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-surface">
+      <div className="mb-8 overflow-hidden rounded-lg border border-divider bg-gradient-to-br from-surface to-accent/5">
         <div className="border-b border-divider bg-gradient-to-r from-accent/5 to-transparent px-6 py-3">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent">
             <BookOpen size={14} />
@@ -126,14 +126,14 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
             </span>
           </div>
         </div>
-        <div className="px-6 py-5">
+        <div className="px-6 py-6 sm:px-8 sm:py-8">
           <BibleTextView
             versionId={3034}
             references={[day.verseRef]}
-            className="[&_p]:leading-relaxed [&_p]:text-charcoal [&_sup]:text-accent [&_p]:text-base"
+            className="[&_p]:font-display [&_p]:text-lg [&_p]:sm:text-xl [&_p]:leading-relaxed [&_p]:sm:leading-loose [&_p]:text-charcoal [&_sup]:text-accent [&_p]:font-medium"
           />
-          <p className="mt-4 text-right font-mono text-xs text-slate">
-            {day.verseRef.replace(/\./g, ' ')}
+          <p className="mt-6 text-right font-mono text-sm text-slate">
+            — {day.verseRef.replace('.', ' ').replace('.', ':')}
           </p>
         </div>
       </div>
