@@ -21,9 +21,10 @@ export default function Modal({ open, onClose, title, children }) {
       <div className="relative z-10 w-full max-w-lg animate-fade-up rounded-xl border border-divider bg-surface shadow-xl">
         <div className="flex items-center justify-between border-b border-divider px-6 py-4">
           <h2 className="font-display text-lg font-bold text-charcoal">{title}</h2>
-          <button
+            <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate transition-colors hover:bg-accent/5 hover:text-charcoal"
+            aria-label="Close modal"
+            className="rounded-lg p-2 text-slate transition-colors hover:bg-accent/5 hover:text-charcoal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
           >
             <X size={18} />
           </button>

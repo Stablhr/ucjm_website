@@ -8,6 +8,8 @@ import {
   Zap,
   CheckCircle,
   ArrowRight,
+  Clock,
+  Tag,
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { BibleTextView } from '@youversion/platform-react-ui'
@@ -134,6 +136,12 @@ export default function GuidePlanCard({ plan }) {
               Continue
             </span>
           )}
+          {plan.readingTime && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/25 px-2.5 py-0.5 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
+              <Clock size={10} />
+              {plan.readingTime} min/day
+            </span>
+          )}
           <span className={`inline-block rounded-full ${colors.badge} px-2.5 py-0.5 font-mono text-xs font-bold`}>
             {plan.days.length} {plan.days.length === 1 ? 'day' : 'days'}
           </span>
@@ -149,6 +157,19 @@ export default function GuidePlanCard({ plan }) {
         <p className="mt-1 text-sm text-white/80">
           {plan.description}
         </p>
+
+        {plan.tags && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {plan.tags.map((tag) => (
+              <span
+                key={tag}
+                className="inline-block rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-medium text-white/75 backdrop-blur-sm"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
         <div className="mt-4 border-l-2 border-white/20 pl-3 text-sm italic leading-relaxed text-white/70 [&_p]:text-white/70 [&_p]:text-sm [&_p]:italic">
           <BibleTextView

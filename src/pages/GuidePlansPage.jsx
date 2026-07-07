@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { BookOpen, Flame, CheckCircle, TrendingUp, ArrowRight, Award } from 'lucide-react'
+import { useEffect, useState, useMemo } from 'react'
+import { BookOpen, Flame, CheckCircle, TrendingUp, ArrowRight, Award, Bell, BellOff } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/ui/SEO'
 import { Skeleton } from '../components/ui/Skeleton'
@@ -7,7 +7,9 @@ import useAuthStore from '../store/authStore'
 import useGuideStore from '../features/guide/guideStore'
 import useGuideStats from '../features/guide/useGuideStats'
 import AnimatedCounter from '../features/guide/AnimatedCounter'
+import GuidePlanFilter from '../features/guide/GuidePlanFilter'
 import GuidePlanCard from '../features/guide/GuidePlanCard'
+import useNotificationReminder from '../features/guide/useNotificationReminder'
 import plans from '../features/guide/plans'
 
 export default function GuidePlansPage() {
@@ -17,10 +19,39 @@ export default function GuidePlansPage() {
   const loadProgress = useGuideStore((s) => s.loadProgress)
 
   const stats = useGuideStats()
+  const { permission, reminderTime, requestPermission, setReminderTime, clearReminder } = useNotificationReminder()
+  const [search, setSearch] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('')
+  const [showReminderPicker, setShowReminderPicker] = useState(false)
 
   useEffect(() => {
     if (isLoggedIn) loadProgress()
   }, [isLoggedIn, loadProgress])
+
+  const filteredPlans = useMemo(() => {
+    let result = plans
+    if (search.trim()) {
+      const q = search.toLowerCase()
+      result = result.filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q) ||
+          (p.tags && p.tags.some((t) => t.toLowerCase().includes(q)))
+      )
+    }
+    if (categoryFilter) {
+      result = result.filter((p) => p.category === categoryFilter)
+    }
+    return result
+  }, [search, categoryFilter])
+
+  const handleReminderClick = async () => {
+    if (permission !== 'granted') {
+      const result = await requestPermission()
+      if (result !== 'granted') return
+    }
+    setShowReminderPicker(!showReminderPicker)
+  }
 
   return (
     <>
@@ -29,12 +60,8 @@ export default function GuidePlansPage() {
         {/* Animated Hero Section */}
         <div className="relative overflow-hidden border-b border-divider bg-gradient-to-br from-ivory via-white to-ivory">
           <div className="absolute inset-0 bg-gradient-to-r from-accent/3 via-transparent to-accent/5" />
-
-          {/* Animated gradient orbs */}
           <div className="absolute -left-32 -top-32 h-96 w-96 animate-blur-in rounded-full bg-gradient-to-br from-accent/8 to-transparent opacity-60" />
           <div className="absolute -bottom-40 -right-40 h-[30rem] w-[30rem] animate-fade-up rounded-full bg-gradient-to-tl from-accent-warm/5 to-transparent opacity-40" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }} />
-
-          {/* Subtle grid pattern overlay */}
           <div className="absolute inset-0 opacity-[0.06]" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23006bbf' fill-opacity='1'%3E%3Cpath d='M0 0h1v40H0zM40 0h1v40h-1zM0 0v1h40V0zM0 40v1h40v-1z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }} />
@@ -111,20 +138,52 @@ export default function GuidePlansPage() {
                   </p>
                   <p className="font-mono text-xs text-slate/60">Plans Done</p>
                 </div>
-                <div className="animate-fade-up rounded-lg border border-divider bg-surface p-4 text-center" style={{ animationDelay: '300ms', animationFillMode: 'backwards' }}>
+                <div className="animate-fade-up rounded-lg border border-divider bg-surface p-4 text-center relative" style={{ animationDelay: '300ms', animationFillMode: 'backwards' }}>
                   <Award size={18} className="mx-auto mb-1.5 text-amber-500" />
                   <p className="font-display text-2xl font-bold text-charcoal">
                     <AnimatedCounter value={stats.longestStreak} />
                   </p>
                   <p className="font-mono text-xs text-slate/60">Best Streak</p>
+                  {/* Reminder toggle */}
+                  <button
+                    onClick={handleReminderClick}
+                    aria-label="Set daily reminder"
+                    className={`absolute right-2 top-2 rounded-full p-1 transition-colors ${
+                      reminderTime ? 'text-accent' : 'text-slate/30 hover:text-slate/60'
+                    }`}
+                  >
+                    {reminderTime ? <Bell size={14} /> : <BellOff size={14} />}
+                  </button>
+                  {showReminderPicker && (
+                    <div className="absolute right-0 top-10 z-20 w-44 rounded-lg border border-divider bg-surface p-3 text-left shadow-sm">
+                      <p className="mb-2 font-mono text-[10px] font-medium text-slate">Reminder time</p>
+                      <input
+                        type="time"
+                        value={reminderTime || '08:00'}
+                        onChange={(e) => { setReminderTime(e.target.value); setShowReminderPicker(false) }}
+                        className="w-full rounded border border-divider px-2 py-1 text-xs text-charcoal focus:border-accent focus:outline-none"
+                        aria-label="Pick reminder time"
+                      />
+                      {reminderTime && (
+                        <button
+                          onClick={() => { clearReminder(); setShowReminderPicker(false) }}
+                          className="mt-2 w-full rounded bg-red-50 px-2 py-1 text-[10px] text-red-600 transition hover:bg-red-100"
+                        >
+                          Remove reminder
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Plan Grid */}
+        {/* Search & Plan Grid */}
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <GuidePlanFilter value={search} onChange={setSearch} category={categoryFilter} onCategoryChange={setCategoryFilter} />
+
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {loading ? (
               Array.from({ length: 8 }).map((_, i) => (
@@ -135,8 +194,12 @@ export default function GuidePlansPage() {
                   <Skeleton className="h-4 w-1/2" />
                 </div>
               ))
+            ) : filteredPlans.length === 0 ? (
+              <div className="col-span-full py-12 text-center">
+                <p className="text-sm text-slate">No plans match your search.</p>
+              </div>
             ) : (
-              plans.map((plan, i) => (
+              filteredPlans.map((plan, i) => (
                 <div key={plan.id} className="animate-fade-up" style={{ animationDelay: `${i * 60}ms`, animationFillMode: 'backwards' }}>
                   <GuidePlanCard plan={plan} />
                 </div>

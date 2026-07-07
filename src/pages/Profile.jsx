@@ -151,7 +151,8 @@ export default function Profile() {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border border-divider bg-surface text-slate shadow-sm transition-colors hover:text-accent"
+                  aria-label="Change avatar"
+                  className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full border border-divider bg-surface text-slate shadow-sm transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
                 >
                   <Camera size={14} />
                 </button>

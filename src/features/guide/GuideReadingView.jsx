@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { ArrowLeft, CheckCircle, Flame, BookOpen, Heart, Target, LogIn, Sparkles } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BibleTextView } from '@youversion/platform-react-ui'
@@ -7,6 +7,8 @@ import useAuthStore from '../../store/authStore'
 import useGuideStore from './guideStore'
 import plans, { formatVerseRef } from './plans'
 import { fireConfetti, firePlanComplete } from './Confetti'
+import GuideNotes from './GuideNotes'
+import GuideAudioButton from './GuideAudioButton'
 
 export default function GuideReadingView({ planId, dayNumber, onBack, onComplete }) {
   const navigate = useNavigate()
@@ -23,20 +25,20 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
   const day = plan?.days?.find((d) => d.day === dayNumber)
   const completed = isDayComplete(planId, dayNumber)
 
-  if (!plan || !day) return null
+  const prevDay = plan?.days?.find((d) => d.day === dayNumber - 1)
+  const nextDay = plan?.days?.find((d) => d.day === dayNumber + 1)
 
-  const prevDay = plan.days.find((d) => d.day === dayNumber - 1)
-  const nextDay = plan.days.find((d) => d.day === dayNumber + 1)
+  const completedDaysCount = plan
+    ? plan.days.filter((d) => progress[`${plan.id}-${d.day}`]?.completed).length
+    : 0
 
-  const completedDaysCount = plan.days.filter((d) =>
-    progress[`${plan.id}-${d.day}`]?.completed
-  ).length
+  const allComplete =
+    completed &&
+    plan &&
+    plan.days.every((d) => progress[`${plan.id}-${d.day}`]?.completed)
 
-  const allComplete = completed && plan.days.every((d) =>
-    progress[`${plan.id}-${d.day}`]?.completed
-  )
-
-  const handleComplete = async () => {
+  const handleComplete = useCallback(async () => {
+    if (!plan) return
     setCompleting(true)
 
     const wasAlreadyComplete = completed
@@ -53,8 +55,8 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
 
     if (!wasAllCompleteBefore) {
       const currentProgress = useGuideStore.getState().progress
-      const nowAllComplete = plan.days.every((d) =>
-        currentProgress[`${plan.id}-${d.day}`]?.completed
+      const nowAllComplete = plan.days.every(
+        (d) => currentProgress[`${plan.id}-${d.day}`]?.completed
       )
       if (nowAllComplete) {
         setTimeout(() => firePlanComplete(), 300)
@@ -62,7 +64,28 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
     }
 
     if (onComplete) onComplete()
-  }
+  }, [plan, completed, allComplete, markDayComplete, planId, dayNumber, onComplete])
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === 'ArrowLeft' && prevDay) {
+        e.preventDefault()
+        navigate(`/guide/${planId}/${prevDay.day}`)
+      }
+      if (e.key === 'ArrowRight' && nextDay) {
+        e.preventDefault()
+        navigate(`/guide/${planId}/${nextDay.day}`)
+      }
+      if (e.key === 'm' && isLoggedIn && !completed && plan) {
+        e.preventDefault()
+        handleComplete()
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [prevDay, nextDay, planId, isLoggedIn, completed, plan, navigate, handleComplete])
+
+  if (!plan || !day) return null
 
   return (
     <div className="animate-fade-up">
@@ -92,6 +115,13 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
           </button>
 
           <div className="flex items-center gap-3">
+            <GuideAudioButton
+              planTitle={plan.title}
+              dayTitle={day.title}
+              verseRef={formatVerseRef(day.verseRef)}
+              reflection={day.reflection}
+              prayer={day.prayer}
+            />
             <span className="font-mono text-xs text-slate/60">
               Day {day.day} of {plan.days.length}
             </span>
@@ -186,6 +216,11 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
           </p>
         </div>
       </div>
+
+      {/* My Notes */}
+      {isLoggedIn && (
+        <GuideNotes planId={planId} dayNumber={dayNumber} />
+      )}
 
       {/* Navigation */}
       <div className="flex items-center justify-between gap-4 border-t border-divider pt-6">

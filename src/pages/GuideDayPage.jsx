@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { Clock } from 'lucide-react'
 import SEO from '../components/ui/SEO'
 import GuideBreadcrumb from '../features/guide/GuideBreadcrumb'
 import GuideReadingView from '../features/guide/GuideReadingView'
@@ -40,6 +41,13 @@ export default function GuideDayPage() {
               { label: `Day ${dayNumber}` },
             ]}
           />
+
+          {plan.readingTime && (
+            <div className="mb-6 flex items-center gap-1.5 font-mono text-xs text-slate/50">
+              <Clock size={12} />
+              ~{plan.readingTime} min read
+            </div>
+          )}
 
           <GuideReadingView
             planId={plan.id}

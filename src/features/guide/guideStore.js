@@ -103,6 +103,27 @@ const useGuideStore = create(
         if (error) console.error('Failed to save progress:', error)
       },
 
+      updateNote: (planId, day, note) => {
+        const { progress } = get()
+        const key = `${planId}-${day}`
+        set({
+          progress: {
+            ...progress,
+            [key]: {
+              ...progress[key],
+              completed: progress[key]?.completed || false,
+              date: progress[key]?.date || null,
+              note,
+            },
+          },
+        })
+      },
+
+      getNote: (planId, day) => {
+        const { progress } = get()
+        return progress[`${planId}-${day}`]?.note || ''
+      },
+
       isDayComplete: (planId, day) => {
         const { progress } = get()
         return !!progress[`${planId}-${day}`]?.completed

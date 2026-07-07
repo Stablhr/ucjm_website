@@ -59,7 +59,7 @@ export default function Navbar() {
         </Link>
 
         <button
-          className="text-charcoal lg:hidden"
+          className="rounded-lg p-2 text-charcoal transition-colors hover:bg-accent/5 lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
@@ -75,7 +75,7 @@ export default function Navbar() {
                   key={link.label}
                   to={link.to}
                   onClick={link.action}
-                  className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-[#0a1db0]"
+                  className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-[#0a1db0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:rounded"
                   title={profile?.full_name || firstName}
                 >
                   <img
@@ -92,7 +92,7 @@ export default function Navbar() {
                 key={link.label}
                 to={link.to}
                 onClick={link.action}
-                className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-[#0a1db0]"
+                className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-[#0a1db0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:rounded"
               >
                 <Icon size={16} className="transition-transform group-hover:scale-110" />
                 {link.label}

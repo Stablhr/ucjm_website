@@ -63,7 +63,8 @@ export default function ImageUpload({ value, onChange, bucket = 'admin-images', 
           <button
             type="button"
             onClick={handleRemove}
-            className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-surface/80 text-slate shadow-sm backdrop-blur-sm transition-colors hover:bg-surface hover:text-red-500"
+            aria-label="Remove image"
+            className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-surface/80 text-slate shadow-sm backdrop-blur-sm transition-colors hover:bg-surface hover:text-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
           >
             <X size={14} />
           </button>
