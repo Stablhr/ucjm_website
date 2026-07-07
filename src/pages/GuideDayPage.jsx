@@ -1,14 +1,21 @@
+import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import SEO from '../components/ui/SEO'
 import GuideBreadcrumb from '../features/guide/GuideBreadcrumb'
 import GuideReadingView from '../features/guide/GuideReadingView'
+import useGuideStore from '../features/guide/guideStore'
 import plans from '../features/guide/plans'
 
 export default function GuideDayPage() {
   const { planId, day } = useParams()
   const navigate = useNavigate()
+  const setLastRead = useGuideStore((s) => s.setLastRead)
   const plan = plans.find((p) => p.id === planId)
   const dayNumber = parseInt(day, 10)
+
+  useEffect(() => {
+    if (planId && dayNumber) setLastRead(planId, dayNumber)
+  }, [planId, dayNumber, setLastRead])
 
   if (!plan || !dayNumber) {
     return (

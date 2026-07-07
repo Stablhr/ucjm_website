@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
-import { BookOpen, Flame, CheckCircle, TrendingUp } from 'lucide-react'
+import { BookOpen, Flame, CheckCircle, TrendingUp, ArrowRight, Award } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import SEO from '../components/ui/SEO'
 import { Skeleton } from '../components/ui/Skeleton'
 import useAuthStore from '../store/authStore'
 import useGuideStore from '../features/guide/guideStore'
 import useGuideStats from '../features/guide/useGuideStats'
+import AnimatedCounter from '../features/guide/AnimatedCounter'
 import GuidePlanCard from '../features/guide/GuidePlanCard'
 import plans from '../features/guide/plans'
 
@@ -24,14 +26,21 @@ export default function GuidePlansPage() {
     <>
       <SEO title="Reading Guide" />
       <section>
-        {/* Hero Section */}
+        {/* Animated Hero Section */}
         <div className="relative overflow-hidden border-b border-divider bg-gradient-to-br from-ivory via-white to-ivory">
-          <div className="absolute inset-0 opacity-[0.15]" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230a1db0' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          <div className="absolute inset-0 bg-gradient-to-r from-accent/3 via-transparent to-accent/5" />
+
+          {/* Animated gradient orbs */}
+          <div className="absolute -left-32 -top-32 h-96 w-96 animate-blur-in rounded-full bg-gradient-to-br from-accent/8 to-transparent opacity-60" />
+          <div className="absolute -bottom-40 -right-40 h-[30rem] w-[30rem] animate-fade-up rounded-full bg-gradient-to-tl from-accent-warm/5 to-transparent opacity-40" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }} />
+
+          {/* Subtle grid pattern overlay */}
+          <div className="absolute inset-0 opacity-[0.06]" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23006bbf' fill-opacity='1'%3E%3Cpath d='M0 0h1v40H0zM40 0h1v40h-1zM0 0v1h40V0zM0 40v1h40v-1z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }} />
 
           <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
+            <div className="mx-auto max-w-3xl text-center animate-fade-up">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent/5 px-4 py-1.5 text-xs font-medium text-accent">
                 <BookOpen size={14} />
                 Daily Scripture Reading
@@ -50,30 +59,64 @@ export default function GuidePlansPage() {
           </div>
         </div>
 
+        {/* Continue Reading Banner */}
+        {isLoggedIn && stats?.lastReadPlan && (
+          <div className="border-b border-divider bg-gradient-to-r from-accent/5 to-transparent">
+            <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+              <div className="flex items-center gap-3">
+                <BookOpen size={20} className="text-accent" />
+                <div>
+                  <p className="text-sm font-medium text-charcoal">
+                    Continue reading
+                  </p>
+                  <p className="text-xs text-slate">
+                    {stats.lastReadPlan.title} — Day {stats.lastReadPlan.day}
+                  </p>
+                </div>
+              </div>
+              <Link
+                to={`/guide/${stats.lastReadPlan.id}/${stats.lastReadPlan.day}`}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent-focus"
+              >
+                Go to Day {stats.lastReadPlan.day}
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* Stats Dashboard */}
         {isLoggedIn && stats && (
           <div className="border-b border-divider bg-ivory">
             <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <div className="rounded-lg border border-divider bg-surface p-4 text-center">
+                <div className="animate-fade-up rounded-lg border border-divider bg-surface p-4 text-center" style={{ animationDelay: '0ms', animationFillMode: 'backwards' }}>
                   <Flame size={18} className="mx-auto mb-1.5 text-accent-warm" />
-                  <p className="font-display text-2xl font-bold text-charcoal">{streak}</p>
+                  <p className="font-display text-2xl font-bold text-charcoal">
+                    <AnimatedCounter value={streak} />
+                  </p>
                   <p className="font-mono text-xs text-slate/60">Day Streak</p>
                 </div>
-                <div className="rounded-lg border border-divider bg-surface p-4 text-center">
+                <div className="animate-fade-up rounded-lg border border-divider bg-surface p-4 text-center" style={{ animationDelay: '100ms', animationFillMode: 'backwards' }}>
                   <CheckCircle size={18} className="mx-auto mb-1.5 text-emerald-500" />
-                  <p className="font-display text-2xl font-bold text-charcoal">{stats.totalCompleted}</p>
+                  <p className="font-display text-2xl font-bold text-charcoal">
+                    <AnimatedCounter value={stats.totalCompleted} />
+                  </p>
                   <p className="font-mono text-xs text-slate/60">Days Read</p>
                 </div>
-                <div className="rounded-lg border border-divider bg-surface p-4 text-center">
+                <div className="animate-fade-up rounded-lg border border-divider bg-surface p-4 text-center" style={{ animationDelay: '200ms', animationFillMode: 'backwards' }}>
                   <TrendingUp size={18} className="mx-auto mb-1.5 text-accent" />
-                  <p className="font-display text-2xl font-bold text-charcoal">{stats.plansCompleted}/{stats.totalPlans}</p>
+                  <p className="font-display text-2xl font-bold text-charcoal">
+                    <AnimatedCounter value={stats.plansCompleted} suffix={`/${stats.totalPlans}`} />
+                  </p>
                   <p className="font-mono text-xs text-slate/60">Plans Done</p>
                 </div>
-                <div className="rounded-lg border border-divider bg-surface p-4 text-center">
-                  <BookOpen size={18} className="mx-auto mb-1.5 text-slate" />
-                  <p className="font-display text-2xl font-bold text-charcoal">{stats.pct}%</p>
-                  <p className="font-mono text-xs text-slate/60">Overall</p>
+                <div className="animate-fade-up rounded-lg border border-divider bg-surface p-4 text-center" style={{ animationDelay: '300ms', animationFillMode: 'backwards' }}>
+                  <Award size={18} className="mx-auto mb-1.5 text-amber-500" />
+                  <p className="font-display text-2xl font-bold text-charcoal">
+                    <AnimatedCounter value={stats.longestStreak} />
+                  </p>
+                  <p className="font-mono text-xs text-slate/60">Best Streak</p>
                 </div>
               </div>
             </div>
@@ -93,8 +136,10 @@ export default function GuidePlansPage() {
                 </div>
               ))
             ) : (
-              plans.map((plan) => (
-                <GuidePlanCard key={plan.id} plan={plan} />
+              plans.map((plan, i) => (
+                <div key={plan.id} className="animate-fade-up" style={{ animationDelay: `${i * 60}ms`, animationFillMode: 'backwards' }}>
+                  <GuidePlanCard plan={plan} />
+                </div>
               ))
             )}
           </div>

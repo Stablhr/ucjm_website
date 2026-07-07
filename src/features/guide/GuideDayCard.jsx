@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { CheckCircle, Sparkles, ChevronRight } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BibleTextView } from '@youversion/platform-react-ui'
@@ -19,6 +20,7 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
   const navigate = useNavigate()
   const { day: activeDay } = useParams()
   const isDayComplete = useGuideStore((s) => s.isDayComplete)
+  const ref = useRef(null)
 
   const plan = plans.find((p) => p.id === planId)
   const colors = colorMap[plan?.color] || colorMap.blue
@@ -27,8 +29,14 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
   const isActive = activeDay && parseInt(activeDay) === dayNumber
   const isLast = dayNumber === plan?.days?.length
 
+  useEffect(() => {
+    if (isActive && ref.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }
+  }, [isActive])
+
   return (
-    <div className="group relative flex gap-4">
+    <div ref={ref} className="group relative flex gap-4">
       {/* Timeline line */}
       {!isLast && (
         <div
@@ -42,16 +50,16 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
       {/* Circle indicator */}
       <div className="relative flex shrink-0 flex-col items-center">
         <div
-          className={`flex h-9 w-9 items-center justify-center rounded-full border-2 text-sm font-bold transition-all ${
+          className={`flex h-9 w-9 items-center justify-center rounded-full border-2 text-sm font-bold transition-all duration-500 ${
             completed
-              ? `${colors.bg} border-transparent text-white`
+              ? `${colors.bg} border-transparent text-white scale-in`
               : isActive
-                ? `border-accent bg-accent text-white`
+                ? `border-accent bg-accent text-white animate-pulse-ring`
                 : 'border-slate/30 bg-surface text-slate'
           }`}
         >
           {completed ? (
-            <CheckCircle size={18} />
+            <CheckCircle size={18} className="animate-scale-in" />
           ) : (
             dayNumber
           )}
@@ -61,9 +69,9 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
       {/* Card */}
       <button
         onClick={() => navigate(`/guide/${planId}/${dayNumber}`)}
-        className={`min-w-0 flex-1 rounded-lg border px-4 py-3.5 text-left transition-all ${
+        className={`min-w-0 flex-1 rounded-lg border px-4 py-3.5 text-left transition-all duration-300 ${
           isActive
-            ? 'border-accent bg-accent/5 shadow-sm'
+            ? 'border-accent bg-accent/5'
             : completed
               ? `${colors.light} ${colors.border}`
               : 'border-divider bg-surface hover:border-accent/30 hover:bg-accent/[0.02]'
@@ -76,7 +84,7 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
                 Day {dayNumber}/{plan?.days?.length}
               </span>
               {completed && (
-                <Sparkles size={12} className="text-emerald-500" />
+                <Sparkles size={12} className="animate-scale-in text-emerald-500" />
               )}
             </div>
             <h4

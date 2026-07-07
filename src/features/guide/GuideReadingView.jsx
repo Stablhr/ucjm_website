@@ -6,6 +6,7 @@ import Button from '../../components/ui/Button'
 import useAuthStore from '../../store/authStore'
 import useGuideStore from './guideStore'
 import plans, { formatVerseRef } from './plans'
+import { fireConfetti, firePlanComplete } from './Confetti'
 
 export default function GuideReadingView({ planId, dayNumber, onBack, onComplete }) {
   const navigate = useNavigate()
@@ -37,10 +38,29 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
 
   const handleComplete = async () => {
     setCompleting(true)
+
+    const wasAlreadyComplete = completed
+    const wasAllCompleteBefore = allComplete
+
     await markDayComplete(planId, dayNumber)
     setCompleting(false)
     setJustCompleted(true)
     setTimeout(() => setJustCompleted(false), 2000)
+
+    if (!wasAlreadyComplete) {
+      fireConfetti()
+    }
+
+    if (!wasAllCompleteBefore) {
+      const currentProgress = useGuideStore.getState().progress
+      const nowAllComplete = plan.days.every((d) =>
+        currentProgress[`${plan.id}-${d.day}`]?.completed
+      )
+      if (nowAllComplete) {
+        setTimeout(() => firePlanComplete(), 300)
+      }
+    }
+
     if (onComplete) onComplete()
   }
 

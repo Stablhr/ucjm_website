@@ -103,6 +103,8 @@ export default function GuidePlanCard({ plan }) {
   const navigate = useNavigate()
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn)
   const progress = useGuideStore((s) => s.progress)
+  const lastReadPlan = useGuideStore((s) => s.lastReadPlan)
+  const lastReadDay = useGuideStore((s) => s.lastReadDay)
 
   const Icon = iconMap[plan.icon] || BookOpen
   const colors = colorMap[plan.color] || colorMap.blue
@@ -114,14 +116,24 @@ export default function GuidePlanCard({ plan }) {
   const hasStarted = completedDays > 0
   const isComplete = completedDays === plan.days.length
   const pct = Math.round((completedDays / plan.days.length) * 100)
+  const isLastReadPlan = isLoggedIn && lastReadPlan === plan.id && lastReadDay > 0
 
   return (
     <button
       onClick={() => navigate(`/guide/${plan.id}`)}
-      className="group relative flex flex-col overflow-hidden rounded-xl border border-divider bg-surface text-left transition-all hover:-translate-y-1 hover:border-accent/30"
+      className={`group relative flex flex-col overflow-hidden rounded-xl border bg-surface text-left transition-all duration-300 hover:-translate-y-1 ${
+        isLastReadPlan
+          ? 'border-accent/40 hover:border-accent'
+          : 'border-divider hover:border-accent/30'
+      }`}
     >
       <div className={`relative bg-gradient-to-br ${colors.bg} px-6 pb-12 pt-8`}>
-        <div className="absolute right-3 top-3">
+        <div className="absolute right-3 top-3 flex gap-2">
+          {isLastReadPlan && (
+            <span className="inline-block rounded-full bg-white/30 px-2.5 py-0.5 font-mono text-xs font-bold text-white backdrop-blur-sm">
+              Continue
+            </span>
+          )}
           <span className={`inline-block rounded-full ${colors.badge} px-2.5 py-0.5 font-mono text-xs font-bold`}>
             {plan.days.length} {plan.days.length === 1 ? 'day' : 'days'}
           </span>
@@ -166,7 +178,9 @@ export default function GuidePlanCard({ plan }) {
         <p className="text-sm italic text-slate/60">
           {isComplete
             ? 'All days completed!'
-            : `Start with "${plan.days[0].title}"`}
+            : isLastReadPlan
+              ? `Continue Day ${lastReadDay}`
+              : `Start with "${plan.days[0].title}"`}
         </p>
 
         {!isLoggedIn && (
