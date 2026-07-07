@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ArrowLeft, CheckCircle, Flame, BookOpen, Heart, Target, LogIn, Sparkles } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BibleTextView } from '@youversion/platform-react-ui'
 import Button from '../../components/ui/Button'
 import useAuthStore from '../../store/authStore'
@@ -8,8 +8,8 @@ import useGuideStore from './guideStore'
 import plans, { formatVerseRef } from './plans'
 
 export default function GuideReadingView({ planId, dayNumber, onBack, onComplete }) {
+  const navigate = useNavigate()
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn)
-  const setCurrentDay = useGuideStore((s) => s.setCurrentDay)
   const markDayComplete = useGuideStore((s) => s.markDayComplete)
   const isDayComplete = useGuideStore((s) => s.isDayComplete)
   const streak = useGuideStore((s) => s.streak)
@@ -172,7 +172,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
         <div>
           {prevDay && (
             <button
-              onClick={() => setCurrentDay(prevDay.day)}
+              onClick={() => navigate(`/guide/${planId}/${prevDay.day}`)}
               className="inline-flex items-center gap-1 text-sm text-slate transition-colors hover:text-charcoal"
             >
               <ArrowLeft size={14} />
@@ -209,7 +209,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
         <div>
           {nextDay && (
             <button
-              onClick={() => setCurrentDay(nextDay.day)}
+              onClick={() => navigate(`/guide/${planId}/${nextDay.day}`)}
               className="inline-flex items-center gap-1 text-sm text-slate transition-colors hover:text-charcoal"
             >
               <span className="hidden sm:inline">Day {nextDay.day}: {nextDay.title}</span>

@@ -9,6 +9,7 @@ import {
   CheckCircle,
   ArrowRight,
 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { BibleTextView } from '@youversion/platform-react-ui'
 import useAuthStore from '../../store/authStore'
 import useGuideStore from './guideStore'
@@ -99,8 +100,8 @@ const colorMap = {
 }
 
 export default function GuidePlanCard({ plan }) {
+  const navigate = useNavigate()
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn)
-  const setActivePlan = useGuideStore((s) => s.setActivePlan)
   const progress = useGuideStore((s) => s.progress)
 
   const Icon = iconMap[plan.icon] || BookOpen
@@ -116,7 +117,7 @@ export default function GuidePlanCard({ plan }) {
 
   return (
     <button
-      onClick={() => setActivePlan(plan.id)}
+      onClick={() => navigate(`/guide/${plan.id}`)}
       className="group relative flex flex-col overflow-hidden rounded-xl border border-divider bg-surface text-left transition-all hover:-translate-y-1 hover:border-accent/30"
     >
       <div className={`relative bg-gradient-to-br ${colors.bg} px-6 pb-12 pt-8`}>

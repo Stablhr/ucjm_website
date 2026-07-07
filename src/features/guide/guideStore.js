@@ -3,16 +3,10 @@ import { supabase } from '../../services/supabase'
 import useAuthStore from '../../store/authStore'
 
 const useGuideStore = create((set, get) => ({
-  activePlanId: null,
-  currentDay: null,
   progress: {},
   streak: 0,
   longestStreak: 0,
   loading: false,
-
-  setActivePlan: (planId) => set({ activePlanId: planId, currentDay: null }),
-
-  setCurrentDay: (day) => set({ currentDay: day }),
 
   loadProgress: async () => {
     const user = useAuthStore.getState().user
@@ -88,8 +82,6 @@ const useGuideStore = create((set, get) => ({
 
   reset: () =>
     set({
-      activePlanId: null,
-      currentDay: null,
       progress: {},
       streak: 0,
       longestStreak: 0,

@@ -3,7 +3,9 @@ import Layout from './components/layout/Layout'
 import Home from './pages/Home'
 import Bible from './pages/Bible'
 import Songs from './pages/Songs'
-import Guide from './pages/Guide'
+import GuidePlansPage from './pages/GuidePlansPage'
+import GuidePlanDetailPage from './pages/GuidePlanDetailPage'
+import GuideDayPage from './pages/GuideDayPage'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import ForgotPassword from './pages/ForgotPassword'
@@ -23,7 +25,9 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/bible" element={<Bible />} />
         <Route path="/songs" element={<Songs />} />
-        <Route path="/guide" element={<Guide />} />
+        <Route path="/guide" element={<GuidePlansPage />} />
+        <Route path="/guide/:planId" element={<GuidePlanDetailPage />} />
+        <Route path="/guide/:planId/:day" element={<GuideDayPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

@@ -1,4 +1,5 @@
-import { CheckCircle, BookOpen, Sparkles, ChevronRight } from 'lucide-react'
+import { CheckCircle, Sparkles, ChevronRight } from 'lucide-react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { BibleTextView } from '@youversion/platform-react-ui'
 import useGuideStore from './guideStore'
 import plans, { formatVerseRef } from './plans'
@@ -15,15 +16,15 @@ const colorMap = {
 }
 
 export default function GuideDayCard({ planId, day, dayNumber }) {
-  const setCurrentDay = useGuideStore((s) => s.setCurrentDay)
-  const currentDay = useGuideStore((s) => s.currentDay)
+  const navigate = useNavigate()
+  const { day: activeDay } = useParams()
   const isDayComplete = useGuideStore((s) => s.isDayComplete)
 
   const plan = plans.find((p) => p.id === planId)
   const colors = colorMap[plan?.color] || colorMap.blue
 
   const completed = isDayComplete(planId, dayNumber)
-  const isActive = currentDay === dayNumber
+  const isActive = activeDay && parseInt(activeDay) === dayNumber
   const isLast = dayNumber === plan?.days?.length
 
   return (
@@ -59,7 +60,7 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
 
       {/* Card */}
       <button
-        onClick={() => setCurrentDay(dayNumber)}
+        onClick={() => navigate(`/guide/${planId}/${dayNumber}`)}
         className={`min-w-0 flex-1 rounded-lg border px-4 py-3.5 text-left transition-all ${
           isActive
             ? 'border-accent bg-accent/5 shadow-sm'
