@@ -72,7 +72,7 @@ export default function GuidePlansPage() {
                 <BookOpen size={14} />
                 Daily Scripture Reading
               </div>
-              <h1 className="font-display text-4xl font-bold tracking-tight text-charcoal sm:text-5xl">
+              <h1 className="font-display text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
                 Reading Guide
               </h1>
               <p className="mx-auto mt-3 max-w-xl text-lg leading-relaxed text-slate">
@@ -155,7 +155,7 @@ export default function GuidePlansPage() {
                     {reminderTime ? <Bell size={14} /> : <BellOff size={14} />}
                   </button>
                   {showReminderPicker && (
-                    <div className="absolute right-0 top-10 z-20 w-44 rounded-lg border border-divider bg-surface p-3 text-left shadow-sm">
+                    <div className="absolute right-0 top-10 z-20 w-44 rounded-lg border border-divider bg-surface p-3 text-left ">
                       <p className="mb-2 font-mono text-[10px] font-medium text-slate">Reminder time</p>
                       <input
                         type="time"

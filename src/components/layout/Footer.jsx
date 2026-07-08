@@ -26,7 +26,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="border-t border-divider bg-ivory">
+    <footer className="bg-surface">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-12 md:flex-row md:justify-between">
           <div>
@@ -43,13 +43,13 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-semibold text-charcoal">Our Branches</h3>
-            <div className="flex flex-col gap-2">
+            <h3 className="text-xs font-semibold text-charcoal">Our Branches</h3>
+            <div className="flex flex-col leading-[2.41]">
               <a
                 href="https://www.facebook.com/ucjmmain"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-slate transition-all hover:translate-x-1 hover:text-accent"
+                className="inline-flex items-center gap-2 text-sm text-slate/60 transition-all hover:text-accent"
               >
                 <ExternalLink size={14} />
                 UCJM Main (Imus)
@@ -58,7 +58,7 @@ export default function Footer() {
                 href="https://www.facebook.com/UCJMGenTrias"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-slate transition-all hover:translate-x-1 hover:text-accent"
+                className="inline-flex items-center gap-2 text-sm text-slate/60 transition-all hover:text-accent"
               >
                 <ExternalLink size={14} />
                 UCJM Castillon (Gen.Tri)
@@ -67,7 +67,7 @@ export default function Footer() {
                 href="https://www.facebook.com/profile.php?id=100069203779606"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-slate transition-all hover:translate-x-1 hover:text-accent"
+                className="inline-flex items-center gap-2 text-sm text-slate/60 transition-all hover:text-accent"
               >
                 <ExternalLink size={14} />
                 UCJM Ternate
@@ -76,15 +76,15 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-semibold text-charcoal">Quick Links</h3>
-            <div className="flex flex-col gap-2">
+            <h3 className="text-xs font-semibold text-charcoal">Quick Links</h3>
+            <div className="flex flex-col leading-[2.41]">
               {quickLinks.map((link) => {
                 const Icon = iconMap[link.label]
                 return (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className="flex items-center gap-2 text-sm text-slate transition-all hover:translate-x-1 hover:text-accent"
+                    className="inline-flex items-center gap-2 text-sm text-slate/60 transition-all hover:text-accent"
                   >
                     <Icon size={14} />
                     {link.label}
@@ -95,7 +95,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-divider pt-8 text-center text-sm text-slate">
+        <div className="mt-12 border-t border-divider pt-8 text-center text-xs text-slate/60">
           &copy; {new Date().getFullYear()} UNITY IN CHRIST JESUS MINISTRIES. All rights reserved.
         </div>
       </div>

@@ -47,7 +47,7 @@ export default function Bible() {
         }`}>
           <div className="flex items-center gap-2 text-accent">
             <BookOpen size={20} />
-            <h1 className={`font-display text-xl font-bold transition-colors duration-300 ${darkMode ? 'text-white' : 'text-charcoal'}`}>
+            <h1 className={`font-display text-xl font-semibold transition-colors duration-300 ${darkMode ? 'text-white' : 'text-charcoal'}`}>
               Bible
             </h1>
           </div>

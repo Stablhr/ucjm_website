@@ -59,7 +59,7 @@ export default function Guide() {
         <section className="py-16">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             {/* Breadcrumb */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-lg bg-ivory px-4 py-2 text-xs text-slate shadow-sm">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-lg bg-ivory px-4 py-2 text-xs text-slate">
               <button onClick={() => { setActivePlan(null); setCurrentDay(null) }} className="transition-colors hover:text-charcoal">
                 All Plans
               </button>
@@ -89,7 +89,7 @@ export default function Guide() {
         <section className="py-16">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             {/* Breadcrumb */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-lg bg-ivory px-4 py-2 text-xs text-slate shadow-sm">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-lg bg-ivory px-4 py-2 text-xs text-slate">
               <button onClick={() => setActivePlan(null)} className="transition-colors hover:text-charcoal">
                 All Plans
               </button>
@@ -136,7 +136,7 @@ export default function Guide() {
                 <BookOpen size={14} />
                 Daily Scripture Reading
               </div>
-              <h1 className="font-display text-4xl font-bold tracking-tight text-charcoal sm:text-5xl">
+              <h1 className="font-display text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
                 Reading Guide
               </h1>
               <p className="mx-auto mt-3 max-w-xl text-lg leading-relaxed text-slate">

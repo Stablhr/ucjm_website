@@ -11,7 +11,7 @@ export default function NotFound() {
         <div className="text-accent-warm">
           <Cross size={64} className="mx-auto mb-6 opacity-30" />
         </div>
-        <h1 className="font-display text-7xl font-bold text-charcoal">404</h1>
+        <h1 className="font-display text-7xl font-semibold text-charcoal">404</h1>
         <p className="mt-4 text-lg text-slate">
           Page not found
         </p>

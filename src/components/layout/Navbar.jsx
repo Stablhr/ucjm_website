@@ -41,7 +41,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 z-50 w-full animate-slide-down transition-all duration-500 ${
         scrolled
-          ? 'border-b border-white/20 bg-surface/50 shadow-sm shadow-black/5 backdrop-blur-xl'
+          ? 'border-b border-white/20 bg-surface/50 backdrop-blur-xl'
           : 'border-b border-divider bg-surface/80'
       }`}
     >
@@ -52,14 +52,14 @@ export default function Navbar() {
             alt="UNITY IN CHRIST JESUS MINISTRIES"
             className="h-10 w-auto"
           />
-          <span className="text-xs font-semibold sm:text-lg" style={{ color: '#0a1db0' }}>
+          <span className="text-xs font-semibold sm:text-lg text-accent">
             <span className="sm:hidden">UCJM</span>
             <span className="hidden sm:inline">UNITY IN CHRIST JESUS MINISTRIES</span>
           </span>
         </Link>
 
         <button
-          className="rounded-lg p-2 text-charcoal transition-colors hover:bg-accent/5 lg:hidden"
+          className="rounded-lg p-3 text-charcoal transition-colors hover:bg-accent/5 lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
@@ -75,15 +75,15 @@ export default function Navbar() {
                   key={link.label}
                   to={link.to}
                   onClick={link.action}
-                  className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-[#0a1db0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:rounded"
+                  className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:rounded"
                   title={profile?.full_name || firstName}
                 >
                   <img
                     src={profile.avatar_url}
                     alt={firstName}
-                    className="h-7 w-7 rounded-full object-cover ring-2 ring-transparent transition-all group-hover:ring-[#0a1db0]/30"
+                    className="h-7 w-7 rounded-full object-cover ring-2 ring-transparent transition-all group-hover:ring-accent/30"
                   />
-                  <span className="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-[#0a1db0] transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-accent transition-all duration-300 group-hover:w-full" />
                 </Link>
               )
             }
@@ -92,11 +92,11 @@ export default function Navbar() {
                 key={link.label}
                 to={link.to}
                 onClick={link.action}
-                className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-[#0a1db0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:rounded"
+                className="group relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:rounded"
               >
                 <Icon size={16} className="transition-transform group-hover:scale-110" />
                 {link.label}
-                <span className="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-[#0a1db0] transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-accent transition-all duration-300 group-hover:w-full" />
               </Link>
             )
           })}
@@ -135,7 +135,7 @@ export default function Navbar() {
                     if (link.action) link.action()
                     setIsOpen(false)
                   }}
-                  className="flex items-center gap-2 text-sm font-medium text-charcoal transition-colors hover:text-[#0a1db0]"
+                  className="flex items-center gap-2 text-sm font-medium text-charcoal transition-colors hover:text-accent"
                 >
                   {link.isProfile && hasAvatar ? (
                     <img

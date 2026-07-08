@@ -57,7 +57,7 @@ export default function Home() {
         </div>
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 px-4 text-center text-white">
-          <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight md:text-7xl">
+          <h1 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl">
             {'Welcome to UCJM Church'.split(' ').map((word, i, arr) => (
               <span key={i}>
                 <HeroText delay={200 + i * 100}>
@@ -88,7 +88,7 @@ export default function Home() {
       </AnimatedSection>
 
       {/* Announcements — live from Supabase */}
-      <AnimatedSection animation="fade-up" delay={100}>
+      <AnimatedSection animation="fade-up" delay={100} className="bg-surface">
         <AnnouncementsSection />
       </AnimatedSection>
 
@@ -98,7 +98,7 @@ export default function Home() {
       </AnimatedSection>
 
       {/* Feature Teaser */}
-      <AnimatedSection animation="fade-up" delay={100}>
+      <AnimatedSection animation="fade-up" delay={100} className="bg-surface">
         <FeatureTeaser />
       </AnimatedSection>
 
@@ -108,28 +108,28 @@ export default function Home() {
       </AnimatedSection>
 
       {/* Photo Gallery — live from Supabase */}
-      <AnimatedSection animation="slide-left" delay={100}>
+      <AnimatedSection animation="slide-left" delay={100} className="bg-surface">
         <PhotoGallery />
       </AnimatedSection>
 
-      {/* CTA Banner */}
-      <section className="bg-accent py-24">
+      {/* CTA — Dark Tile */}
+      <section className="bg-[#272729] py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <AnimatedSection animation="scale-in">
-            <div className="mb-4 flex items-center justify-center gap-2 text-accent-warm">
-              <Heart size={28} fill="currentColor" />
+            <div className="mb-4 flex items-center justify-center gap-2">
+              <Heart size={28} fill="currentColor" className="text-white/40" />
             </div>
-            <h2 className="font-display text-4xl font-bold text-white">
+            <h2 className="font-display text-4xl font-semibold text-white">
               Join Our Community
             </h2>
-            <p className="mx-auto mt-4 max-w-lg text-white/80">
+            <p className="mx-auto mt-4 max-w-lg text-white/70">
               Become part of our church family.
             </p>
-            <Link to="/signup" className="mt-8 inline-block">
-              <Button variant="outline" className="border-white text-white hover:bg-surface hover:text-black">
+            <div className="mt-8 inline-block">
+              <Button variant="outline" className="border-white/30 text-white hover:bg-white hover:text-charcoal">
                 Sign Up Today <ArrowRight size={16} />
               </Button>
-            </Link>
+            </div>
           </AnimatedSection>
         </div>
       </section>

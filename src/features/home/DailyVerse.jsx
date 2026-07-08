@@ -7,7 +7,7 @@ export default function DailyVerse() {
   const [ref, isVisible] = useScrollReveal()
 
   return (
-    <section className="border-t border-divider py-24">
+    <section className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div ref={ref} className="mx-auto max-w-3xl">
           <div

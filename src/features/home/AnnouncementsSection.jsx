@@ -9,7 +9,7 @@ export default function AnnouncementsSection() {
   const [selected, setSelected] = useState(null)
 
   return (
-    <section className="border-t border-divider py-24">
+    <section className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-4 flex items-center gap-2 text-accent">
           <Megaphone size={24} />
@@ -34,7 +34,7 @@ export default function AnnouncementsSection() {
               <div
                 key={a.id}
                 onClick={() => setSelected(a)}
-                className="cursor-pointer rounded-lg border border-divider p-6 transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-sm"
+                className="cursor-pointer rounded-lg border border-divider p-6 transition-all hover:border-accent/30"
               >
                 {a.image_url ? (
                   <img
@@ -64,7 +64,7 @@ export default function AnnouncementsSection() {
       {selected && (
         <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto pt-10 pb-10">
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSelected(null)} />
-          <div className="relative z-10 w-full max-w-2xl animate-fade-up rounded-xl border border-divider bg-surface shadow-xl">
+          <div className="relative z-10 w-full max-w-2xl animate-fade-up rounded-xl border border-divider bg-surface">
             <div className="flex items-center justify-between border-b border-divider px-6 py-4">
               <h2 className="font-display text-xl font-bold text-charcoal">{selected.title}</h2>
               <button onClick={() => setSelected(null)} className="rounded-lg p-1.5 text-slate transition-colors hover:bg-accent/5 hover:text-charcoal">

@@ -38,7 +38,7 @@ export default function GuidePlanDetailPage() {
           />
 
           <div className="mb-8">
-            <h1 className="font-display text-3xl font-bold text-charcoal">
+            <h1 className="font-display text-3xl font-semibold text-charcoal">
               {plan.title}
             </h1>
             <p className="mt-2 text-slate">{plan.description}</p>
@@ -96,7 +96,7 @@ export default function GuidePlanDetailPage() {
               <div className="flex items-start gap-3">
                 <CheckCircle size={20} className="mt-0.5 shrink-0 text-emerald-500" />
                 <div>
-                  <h3 className="font-display text-lg font-bold text-emerald-800">
+                  <h3 className="font-display text-lg font-semibold text-emerald-800">
                     Plan Complete!
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-emerald-700/80">

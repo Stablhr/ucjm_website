@@ -42,9 +42,9 @@ function FeatureCard({ feature, index }) {
   return (
     <div
       ref={ref}
-      className={`group flex flex-col overflow-hidden rounded-xl border border-divider bg-surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
-        isVisible ? 'animate-fade-up' : 'opacity-0'
-      }`}
+       className={`group flex flex-col overflow-hidden rounded-xl border border-divider bg-surface transition-all duration-300 ${
+          isVisible ? 'animate-fade-up' : 'opacity-0'
+        }`}
       style={{ animationDelay: `${index * 150}ms` }}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -54,7 +54,7 @@ function FeatureCard({ feature, index }) {
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        <div className="absolute bottom-3 left-3 inline-flex items-center justify-center rounded-lg bg-surface/90 p-2.5 text-accent shadow-sm backdrop-blur-sm">
+        <div className="absolute bottom-3 left-3 inline-flex items-center justify-center rounded-lg bg-surface/90 p-2.5 text-accent backdrop-blur-sm">
           <Icon size={20} />
         </div>
       </div>
@@ -79,7 +79,7 @@ function FeatureCard({ feature, index }) {
 
 export default function FeatureTeaser() {
   return (
-    <section className="border-t border-divider py-24">
+    <section className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-charcoal">

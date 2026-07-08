@@ -39,7 +39,7 @@ export default function ForgotPassword() {
         />
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-12 text-center text-white">
           <Cross size={48} className="mb-6 text-white/30" />
-          <h2 className="font-display text-4xl font-bold">Forgot Password?</h2>
+          <h2 className="font-display text-4xl font-semibold">Forgot Password?</h2>
           <p className="mt-3 max-w-sm text-white/70">
             "Call to me and I will answer you and tell you great and
             unsearchable things you do not know."
@@ -54,7 +54,7 @@ export default function ForgotPassword() {
             <div className="rounded-lg bg-accent/10 p-2">
               <KeyRound size={20} />
             </div>
-            <h1 className="font-display text-3xl font-bold text-charcoal">
+            <h1 className="font-display text-3xl font-semibold text-charcoal">
               Reset Password
             </h1>
           </div>

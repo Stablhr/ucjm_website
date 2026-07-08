@@ -32,7 +32,7 @@ export default function PhotoGallery() {
   }, [index, goNext, goPrev])
 
   return (
-    <section className="border-t border-divider py-24">
+    <section className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-4 flex items-center gap-2 text-accent">
           <Image size={24} />

@@ -190,7 +190,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
                   onClick={() => setActiveCategory(cat)}
                   className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-xs transition-all ${
                     activeCategory === cat
-                      ? `bg-gradient-to-br ${style.gradient} text-white shadow-sm`
+                      ? `bg-gradient-to-br ${style.gradient} text-white`
                       : 'bg-accent/5 text-slate hover:bg-accent/10 hover:text-charcoal'
                   }`}
                 >
@@ -255,7 +255,7 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
                 <button
                   key={song.id}
                   onClick={() => handleSelectSong(song)}
-                  className="flex shrink-0 items-center gap-2 rounded-lg border border-divider bg-surface px-3 py-2 text-left text-xs transition-all hover:border-accent/30 hover:shadow-sm"
+                  className="flex shrink-0 items-center gap-2 rounded-lg border border-divider bg-surface px-3 py-2 text-left text-xs transition-all hover:border-accent/30"
                 >
                   <div className={`h-8 w-8 shrink-0 overflow-hidden rounded-md bg-gradient-to-br ${CATEGORY_COLORS[song.category] || 'from-accent to-blue-700'}`}>
                     {song.image_url ? (

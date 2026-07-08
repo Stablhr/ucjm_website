@@ -42,7 +42,7 @@ export default function Login() {
         />
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-12 text-center text-white">
           <Cross size={48} className="mb-6 text-white/30" />
-          <h2 className="font-display text-4xl font-bold">UCJM Church</h2>
+          <h2 className="font-display text-4xl font-semibold">UCJM Church</h2>
           <p className="mt-3 max-w-sm text-white/70">
             "For where two or three gather in my name, there am I with them."
           </p>
@@ -56,7 +56,7 @@ export default function Login() {
             <div className="rounded-lg bg-accent/10 p-2">
               <LogIn size={20} />
             </div>
-            <h1 className="font-display text-3xl font-bold text-charcoal">
+            <h1 className="font-display text-3xl font-semibold text-charcoal">
               Welcome Back
             </h1>
           </div>
