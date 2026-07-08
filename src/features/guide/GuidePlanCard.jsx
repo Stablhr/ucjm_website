@@ -123,7 +123,7 @@ export default function GuidePlanCard({ plan }) {
   return (
     <button
       onClick={() => navigate(`/guide/${plan.id}`)}
-      className={`group relative flex flex-col overflow-hidden rounded-xl border bg-surface text-left transition-all duration-300 hover:-translate-y-1 ${
+      className={`group relative flex h-full flex-col overflow-hidden rounded-xl border bg-surface text-left transition-all duration-300 hover:-translate-y-1 ${
         isLastReadPlan
           ? 'border-accent/40 hover:border-accent'
           : 'border-divider hover:border-accent/30'
@@ -179,7 +179,7 @@ export default function GuidePlanCard({ plan }) {
         </div>
       </div>
 
-      <div className="relative z-10 -mt-4 rounded-t-2xl bg-surface px-6 pb-6 pt-4">
+      <div className="relative z-10 -mt-4 flex flex-1 flex-col rounded-t-2xl bg-surface px-6 pb-6 pt-4">
         {isLoggedIn && (
           <div className="mb-3">
             <div className="flex items-center justify-between gap-3">
