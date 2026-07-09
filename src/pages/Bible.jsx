@@ -94,6 +94,19 @@ export default function Bible() {
   const handleVerseSelect = (verses) => {
     setSelectedVerses(verses)
     if (verses.length > 0) {
+      const container = contentRef.current
+      if (container) {
+        const lastV = verses[verses.length - 1]
+        const el = container.querySelector(`[v="${lastV}"]`)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          setPopupPos({
+            x: rect.left + rect.width / 2,
+            y: Math.min(rect.bottom + 4, window.innerHeight - 80),
+          })
+          return
+        }
+      }
       const sel = window.getSelection()
       if (sel && sel.rangeCount > 0) {
         const rect = sel.getRangeAt(0).getBoundingClientRect()
