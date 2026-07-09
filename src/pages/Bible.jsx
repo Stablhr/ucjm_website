@@ -45,8 +45,9 @@ export default function Bible() {
   const [versionId, setVersionId] = useState(3034)
   const [selectedVerses, setSelectedVerses] = useState([])
   const [highlights, setHighlights] = useState(loadHighlights)
+  const [popupPos, setPopupPos] = useState({ x: 0, y: 0 })
   const contentRef = useRef(null)
-  const toolbarRef = useRef(null)
+  const popupRef = useRef(null)
 
   useEffect(() => {
     localStorage.setItem('bible-dark-mode', darkMode)
@@ -92,7 +93,36 @@ export default function Bible() {
 
   const handleVerseSelect = (verses) => {
     setSelectedVerses(verses)
+    if (verses.length > 0) {
+      const sel = window.getSelection()
+      if (sel && sel.rangeCount > 0) {
+        const rect = sel.getRangeAt(0).getBoundingClientRect()
+        setPopupPos({
+          x: rect.left + rect.width / 2,
+          y: Math.min(rect.bottom + 4, window.innerHeight - 80),
+        })
+      }
+    }
   }
+
+  // Dismiss popup on click outside or Escape
+  useEffect(() => {
+    if (selectedVerses.length === 0) return
+    const handleClick = (e) => {
+      if (popupRef.current && !popupRef.current.contains(e.target)) {
+        setSelectedVerses([])
+      }
+    }
+    const handleKey = (e) => {
+      if (e.key === 'Escape') setSelectedVerses([])
+    }
+    document.addEventListener('mousedown', handleClick)
+    document.addEventListener('keydown', handleKey)
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener('keydown', handleKey)
+    }
+  }, [selectedVerses])
 
   const handleHighlight = (colorIdx) => {
     if (selectedVerses.length === 0) return
@@ -258,84 +288,52 @@ export default function Bible() {
           </BibleReader.Root>
         </div>
 
-        {/* Highlight Toolbar */}
+        {/* Floating highlight popup */}
         {selectedVerses.length > 0 && (
           <div
-            ref={toolbarRef}
-            className={`sticky bottom-0 z-30 border-t px-4 py-3 backdrop-blur-md transition-colors duration-300 sm:px-6 ${
+            ref={popupRef}
+            className={`fixed z-50 flex items-center gap-1 rounded-lg border px-2 py-1.5 shadow-lg backdrop-blur-md transition-colors ${
               darkMode
                 ? 'border-white/10 bg-charcoal/95'
                 : 'border-divider bg-ivory/95'
             }`}
+            style={{
+              left: popupPos.x,
+              top: popupPos.y,
+              transform: 'translateX(-50%)',
+            }}
           >
-            <div className="mx-auto flex max-w-3xl items-center justify-between">
-              <div className="flex items-center gap-1.5">
-                <span className={`mr-2 text-xs font-medium ${darkMode ? 'text-white/50' : 'text-slate'}`}>
-                  {selectedVerses.length} verse{selectedVerses.length > 1 ? 's' : ''}
-                </span>
-                {HIGHLIGHT_COLORS.map((color, idx) => (
-                  <button
-                    key={color.name}
-                    onClick={() => handleHighlight(idx)}
-                    className="group relative rounded-lg border border-white/20 p-1.5 transition hover:scale-110"
-                    style={{ backgroundColor: color.bg }}
-                    aria-label={`Highlight ${color.label}`}
-                    title={color.label}
-                  >
-                    <span
-                      className={`absolute -inset-0.5 rounded-lg ring-1 ring-inset ${
-                        darkMode ? 'ring-white/20' : 'ring-black/10'
-                      }`}
-                    />
-                  </button>
-                ))}
-                <span className={`mx-1 h-5 w-px ${darkMode ? 'bg-white/10' : 'bg-divider'}`} />
-                <button
-                  onClick={handleRemoveHighlight}
-                  className={`flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium transition ${
-                    darkMode
-                      ? 'text-red-400 hover:bg-red-500/10'
-                      : 'text-red-500 hover:bg-red-500/10'
-                  }`}
-                  aria-label="Remove highlight"
-                  title="Remove highlight"
-                >
-                  <Trash2 size={13} />
-                  Remove
-                </button>
-              </div>
+            <span className={`mr-1 text-[11px] font-medium leading-none ${darkMode ? 'text-white/40' : 'text-slate/50'}`}>
+              {selectedVerses.length}
+            </span>
+            {HIGHLIGHT_COLORS.map((color, idx) => (
               <button
-                onClick={handleClearSelection}
-                className={`flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium transition ${
-                  darkMode
-                    ? 'text-white/50 hover:bg-white/10 hover:text-white'
-                    : 'text-slate hover:bg-black/5 hover:text-charcoal'
-                }`}
-                aria-label="Clear selection"
-              >
-                <X size={13} />
-                Clear
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Mobile Today's Reading bar (only when toolbar is hidden) */}
-        {selectedVerses.length === 0 && (
-          <div className={`sticky bottom-0 border-t px-4 py-3 sm:hidden transition-colors duration-300 ${
-            darkMode ? 'border-white/10 bg-charcoal/95' : 'border-divider bg-ivory/95 backdrop-blur-md'
-          }`}>
-            <Link
-              to="/guide"
-              className={`flex items-center justify-center gap-2 rounded-lg py-2 text-sm font-medium transition ${
-                darkMode
-                  ? 'bg-accent-warm/20 text-accent-warm'
-                  : 'bg-accent-warm/10 text-accent-warm'
-              }`}
+                key={color.name}
+                onClick={() => handleHighlight(idx)}
+                className="h-6 w-6 rounded-md border border-white/20 transition hover:scale-110"
+                style={{ backgroundColor: color.bg }}
+                aria-label={`Highlight ${color.label}`}
+                title={color.label}
+              />
+            ))}
+            <span className={`mx-0.5 h-5 w-px ${darkMode ? 'bg-white/10' : 'bg-divider'}`} />
+            <button
+              onClick={handleRemoveHighlight}
+              className="flex items-center justify-center rounded-md p-1 text-red-500 transition hover:bg-red-500/10"
+              aria-label="Remove highlight"
+              title="Remove highlight"
             >
-              <Compass size={16} />
-              Today's Reading
-            </Link>
+              <Trash2 size={13} />
+            </button>
+            <button
+              onClick={handleClearSelection}
+              className={`flex items-center justify-center rounded-md p-1 transition ${
+                darkMode ? 'text-white/40 hover:text-white' : 'text-slate/50 hover:text-charcoal'
+              }`}
+              aria-label="Clear selection"
+            >
+              <X size={13} />
+            </button>
           </div>
         )}
       </div>
