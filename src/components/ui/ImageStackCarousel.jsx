@@ -1,9 +1,10 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function ImageStackCarousel({ photos = [] }) {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [lightboxIndex, setLightboxIndex] = useState(null)
   const lastNavigationTime = useRef(0)
   const navigationCooldown = 400
 
@@ -35,6 +36,17 @@ export default function ImageStackCarousel({ photos = [] }) {
     window.addEventListener('wheel', handleWheel, { passive: true })
     return () => window.removeEventListener('wheel', handleWheel)
   }, [handleWheel])
+
+  useEffect(() => {
+    if (lightboxIndex === null) return
+    const handler = (e) => {
+      if (e.key === 'Escape') setLightboxIndex(null)
+      if (e.key === 'ArrowRight') setLightboxIndex((i) => (i + 1) % photos.length)
+      if (e.key === 'ArrowLeft') setLightboxIndex((i) => (i - 1 + photos.length) % photos.length)
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [lightboxIndex, photos.length])
 
   const getCardStyle = (index) => {
     const total = photos.length
@@ -77,7 +89,8 @@ export default function ImageStackCarousel({ photos = [] }) {
           return (
             <motion.div
               key={photo.id}
-              className="absolute cursor-grab active:cursor-grabbing"
+              className={`absolute ${isCurrent ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing'}`}
+              onClick={() => { if (isCurrent) setLightboxIndex(currentIndex) }}
               animate={{
                 x: style.x,
                 scale: style.scale,
@@ -151,7 +164,52 @@ export default function ImageStackCarousel({ photos = [] }) {
         </div>
       </div>
 
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-[70] flex items-start justify-center bg-black/80 p-4"
+          onClick={() => setLightboxIndex(null)}
+        >
+          <button
+            onClick={() => setLightboxIndex(null)}
+            className="fixed right-5 top-5 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+          >
+            <X size={22} />
+          </button>
 
+          {photos.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); setLightboxIndex((i) => (i - 1 + photos.length) % photos.length) }}
+                className="fixed left-5 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+              >
+                <ChevronLeft size={30} />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); setLightboxIndex((i) => (i + 1) % photos.length) }}
+                className="fixed right-5 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+              >
+                <ChevronRight size={30} />
+              </button>
+            </>
+          )}
+
+          <div
+            className="mt-10 flex min-h-0 w-full max-w-4xl items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={photos[lightboxIndex].image_url}
+              alt={photos[lightboxIndex].alt_text ?? ''}
+              className="max-h-[85vh] w-full rounded-lg object-contain"
+            />
+          </div>
+
+          <div className="fixed bottom-6 rounded-full bg-white/10 px-3 py-1 text-sm text-white/70 backdrop-blur-sm">
+            {lightboxIndex + 1} / {photos.length}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
