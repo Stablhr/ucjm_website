@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { Skeleton } from '../../components/ui/Skeleton'
 import Modal from '../../components/ui/Modal'
 import ImageUpload from '../../components/ui/ImageUpload'
+import Loader from '../../components/ui/Loader'
 import { supabase } from '../../services/supabase'
 
 export default function AdminPhotos() {
@@ -136,7 +137,7 @@ export default function AdminPhotos() {
           >
             {uploading ? (
               <div className="flex flex-col items-center gap-2 text-sm text-slate">
-                <l-ring size="24" color="#0066cc" stroke="3" speed="1.5"></l-ring>
+                <Loader size={28} speed={2} />
                 {uploadProgress}
               </div>
             ) : (
@@ -250,7 +251,7 @@ export default function AdminPhotos() {
                       className="inline-flex items-center gap-1 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-red-700 disabled:opacity-60"
                     >
                       {deleting === photo.id ? (
-                        <l-ring size="12" color="currentColor" stroke="3" speed="1.5"></l-ring>
+                        <Loader size={16} speed={2} color="currentColor" />
                       ) : (
                         <Check size={12} />
                       )}

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { Upload, X, Image as ImageIcon } from 'lucide-react'
 import toast from 'react-hot-toast'
+import Loader from './Loader'
 import { supabase } from '../../services/supabase'
 
 export default function ImageUpload({ value, onChange, bucket = 'admin-images', label = 'Image' }) {
@@ -77,7 +78,7 @@ export default function ImageUpload({ value, onChange, bucket = 'admin-images', 
           >
             {uploading ? (
               <div className="flex items-center gap-2 text-sm text-slate">
-                <l-ring size="16" color="#0066cc" stroke="3" speed="1.5"></l-ring>
+                <Loader size={20} speed={2} />
                 Uploading...
               </div>
             ) : (

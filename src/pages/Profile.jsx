@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import SEO from '../components/ui/SEO'
 import Button from '../components/ui/Button'
+import Loader from '../components/ui/Loader'
 import { supabase } from '../services/supabase'
 import useAuthStore from '../store/authStore'
 
@@ -137,7 +138,7 @@ export default function Profile() {
               <div className="relative">
                 <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-divider bg-ivory">
                   {uploading ? (
-                    <l-ring size="32" color="#0066cc" stroke="3" speed="1.5"></l-ring>
+                    <Loader size={36} speed={2} />
                   ) : avatarUrl ? (
                     <img
                       src={avatarUrl}

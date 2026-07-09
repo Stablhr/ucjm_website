@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 import AdminRoute from './components/layout/AdminRoute'
 import AdminLayout from './features/admin/AdminLayout'
+import Loader from './components/ui/Loader'
 
 const Home = lazy(() => import('./pages/Home'))
 const Bible = lazy(() => import('./pages/Bible'))
@@ -25,7 +26,7 @@ function SuspenseWrapper({ children }) {
     <Suspense fallback={
       <div className="flex min-h-[50vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <l-ring size="40" color="#0066cc" stroke="5" speed="1.5"></l-ring>
+          <Loader size={45} speed={2} />
           <p className="text-sm text-slate">Loading...</p>
         </div>
       </div>

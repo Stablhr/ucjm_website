@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { X, Upload } from 'lucide-react'
 import toast from 'react-hot-toast'
+import Loader from '../../components/ui/Loader'
 import { supabase } from '../../services/supabase'
 import useSongsStore from './songsStore'
 
@@ -142,7 +143,7 @@ export default function EditSongModal({ song, onClose, onSaved }) {
             >
               {uploading ? (
                 <div className="flex flex-col items-center gap-2 text-sm text-slate">
-                  <l-ring size="24" color="#0066cc" stroke="3" speed="1.5"></l-ring>
+                  <Loader size={28} speed={2} />
                   Uploading...
                 </div>
               ) : imageUrl ? (

@@ -1,6 +1,6 @@
+import Loader from './Loader'
 
-
-export default function Button({
+function Button({
   children,
   variant = 'primary',
   loading = false,
@@ -20,8 +20,10 @@ export default function Button({
       disabled={disabled || loading}
       {...props}
     >
-      {loading && <l-ring size="16" color="currentColor" stroke="3" speed="1.5"></l-ring>}
+      {loading && <Loader size={20} speed={2} color="currentColor" />}
       {children}
     </button>
   )
 }
+
+export default Button

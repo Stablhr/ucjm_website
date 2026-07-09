@@ -4,6 +4,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import ScrollToTop from '../ui/ScrollToTop'
 import ErrorBoundary from '../ui/ErrorBoundary'
+import Loader from '../ui/Loader'
 import useAuthStore from '../../store/authStore'
 
 export default function Layout() {
@@ -32,7 +33,7 @@ export default function Layout() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-ivory">
         <div className="flex flex-col items-center gap-4">
-          <l-ring size="48" color="#0066cc" stroke="5" speed="1.5"></l-ring>
+          <Loader size={45} speed={2} />
           <p className="text-sm text-slate">Loading...</p>
         </div>
       </div>
