@@ -1,4 +1,4 @@
-import { Loader2 } from 'lucide-react'
+
 
 export default function Button({
   children,
@@ -20,7 +20,7 @@ export default function Button({
       disabled={disabled || loading}
       {...props}
     >
-      {loading && <Loader2 size={16} className="animate-spin" />}
+      {loading && <l-ring size="16" color="currentColor" stroke="3" speed="1.5"></l-ring>}
       {children}
     </button>
   )

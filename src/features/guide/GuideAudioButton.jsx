@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Volume2, VolumeX, Loader2 } from 'lucide-react'
+import { Volume2, VolumeX } from 'lucide-react'
 
 export default function GuideAudioButton({ planTitle, dayTitle, verseRef, reflection, prayer }) {
   const [speaking, setSpeaking] = useState(false)
@@ -56,7 +56,7 @@ export default function GuideAudioButton({ planTitle, dayTitle, verseRef, reflec
     >
       {speaking ? (
         <>
-          <Loader2 size={14} className="animate-spin" />
+          <l-ring size="14" color="#0066cc" stroke="3" speed="1.5"></l-ring>
           Playing...
         </>
       ) : (

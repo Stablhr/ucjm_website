@@ -6,6 +6,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { YouVersionProvider } from '@youversion/platform-react-ui'
 import App from './App'
 import useAuthStore from './store/authStore'
+import 'ldrs/ring'
 import './styles/index.css'
 
 useAuthStore.getState().initialize()

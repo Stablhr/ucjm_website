@@ -25,7 +25,7 @@ function SuspenseWrapper({ children }) {
     <Suspense fallback={
       <div className="flex min-h-[50vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+          <l-ring size="40" color="#0066cc" stroke="5" speed="1.5"></l-ring>
           <p className="text-sm text-slate">Loading...</p>
         </div>
       </div>

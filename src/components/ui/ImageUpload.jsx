@@ -77,7 +77,7 @@ export default function ImageUpload({ value, onChange, bucket = 'admin-images', 
           >
             {uploading ? (
               <div className="flex items-center gap-2 text-sm text-slate">
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+                <l-ring size="16" color="#0066cc" stroke="3" speed="1.5"></l-ring>
                 Uploading...
               </div>
             ) : (

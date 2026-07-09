@@ -1,4 +1,4 @@
-import { AlertTriangle, Loader2 } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 
 export default function ConfirmModal({ open, onClose, onConfirm, title, message, confirmLabel = 'Delete', loading = false, imageUrl }) {
   if (!open) return null
@@ -33,7 +33,7 @@ export default function ConfirmModal({ open, onClose, onConfirm, title, message,
               disabled={loading}
               className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-red-700 active:scale-[0.97] disabled:opacity-60"
             >
-              {loading && <Loader2 size={16} className="animate-spin" />}
+              {loading && <l-ring size="16" color="currentColor" stroke="3" speed="1.5"></l-ring>}
               {confirmLabel}
             </button>
           </div>

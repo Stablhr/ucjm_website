@@ -143,7 +143,7 @@ export default function AddSongModal({ onClose }) {
             >
               {uploading ? (
                 <div className="flex flex-col items-center gap-2 text-sm text-slate">
-                  <div className="h-6 w-6 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+                  <l-ring size="24" color="#0066cc" stroke="3" speed="1.5"></l-ring>
                   Uploading...
                 </div>
               ) : imageUrl ? (

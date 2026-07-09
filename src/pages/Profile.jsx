@@ -137,7 +137,7 @@ export default function Profile() {
               <div className="relative">
                 <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-divider bg-ivory">
                   {uploading ? (
-                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+                    <l-ring size="32" color="#0066cc" stroke="3" speed="1.5"></l-ring>
                   ) : avatarUrl ? (
                     <img
                       src={avatarUrl}

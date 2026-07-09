@@ -136,7 +136,7 @@ export default function AdminPhotos() {
           >
             {uploading ? (
               <div className="flex flex-col items-center gap-2 text-sm text-slate">
-                <div className="h-6 w-6 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+                <l-ring size="24" color="#0066cc" stroke="3" speed="1.5"></l-ring>
                 {uploadProgress}
               </div>
             ) : (
@@ -250,7 +250,7 @@ export default function AdminPhotos() {
                       className="inline-flex items-center gap-1 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-red-700 disabled:opacity-60"
                     >
                       {deleting === photo.id ? (
-                        <span className="h-3 w-3 animate-spin rounded-full border border-white border-t-transparent" />
+                        <l-ring size="12" color="currentColor" stroke="3" speed="1.5"></l-ring>
                       ) : (
                         <Check size={12} />
                       )}

@@ -32,7 +32,7 @@ export default function Layout() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-ivory">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+          <l-ring size="48" color="#0066cc" stroke="5" speed="1.5"></l-ring>
           <p className="text-sm text-slate">Loading...</p>
         </div>
       </div>
