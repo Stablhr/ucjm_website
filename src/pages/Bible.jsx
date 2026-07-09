@@ -42,6 +42,7 @@ export default function Bible() {
   })
   const [book, setBook] = useState('JHN')
   const [chapter, setChapter] = useState('1')
+  const [versionId, setVersionId] = useState(3034)
   const [selectedVerses, setSelectedVerses] = useState([])
   const [highlights, setHighlights] = useState(loadHighlights)
   const contentRef = useRef(null)
@@ -229,7 +230,8 @@ export default function Bible() {
             onBookChange={setBook}
             chapter={chapter}
             onChapterChange={setChapter}
-            defaultVersionId={3034}
+            versionId={versionId}
+            onVersionChange={setVersionId}
             fontSize={fontSize}
             fontFamily="Playfair Display, serif"
             lineHeight={1.8}
@@ -241,7 +243,7 @@ export default function Bible() {
               <div className="mt-6" ref={contentRef}>
                 <BibleTextView
                   reference={`${book}.${chapter}`}
-                  versionId={3034}
+                  versionId={versionId}
                   fontSize={fontSize}
                   fontFamily="Playfair Display, serif"
                   lineHeight={1.8}
