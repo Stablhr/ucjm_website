@@ -123,6 +123,7 @@ export default function Bible() {
     if (selectedVerses.length === 0) return
     const handleClick = (e) => {
       if (popupRef.current && !popupRef.current.contains(e.target)) {
+        if (e.target.closest('[v]')) return
         setSelectedVerses([])
       }
     }
