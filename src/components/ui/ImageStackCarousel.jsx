@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+
 
 export default function ImageStackCarousel({ photos = [] }) {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -151,29 +151,7 @@ export default function ImageStackCarousel({ photos = [] }) {
         </div>
       </div>
 
-      {/* Instruction hint */}
-      <motion.div
-        className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.6 }}
-      >
-        <div className="flex items-center gap-3 text-slate">
-          <motion.div
-            animate={{ x: [0, -6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-          >
-            <ChevronLeft size={20} />
-          </motion.div>
-          <span className="text-xs font-medium tracking-widest uppercase">Swipe</span>
-          <motion.div
-            animate={{ x: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-          >
-            <ChevronRight size={20} />
-          </motion.div>
-        </div>
-      </motion.div>
+
     </div>
   )
 }
