@@ -1,38 +1,15 @@
 import { useState, useEffect, useCallback } from 'react'
 import { ArrowLeft, CheckCircle, Flame, BookOpen, Heart, Target, LogIn, Sparkles } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
+import { usePassage } from '@youversion/platform-react-hooks'
 import Button from '../../components/ui/Button'
 import useAuthStore from '../../store/authStore'
 import useGuideStore from './guideStore'
+import useBibleStore from '../../store/bibleStore'
 import plans, { formatVerseRef } from './plans'
 import { fireConfetti, firePlanComplete } from './Confetti'
 import GuideNotes from './GuideNotes'
 import GuideAudioButton from './GuideAudioButton'
-
-function useVerseText(verseRef) {
-  const [text, setText] = useState('')
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    if (!verseRef) { setLoading(false); return }
-    let cancelled = false
-    setLoading(true)
-
-    const parts = verseRef.split('.')
-    const refForApi = parts.slice(0, -1).join(' ') + ':' + parts[parts.length - 1]
-    fetch(`https://bible-api.com/${encodeURIComponent(refForApi)}?translation=kjv`)
-      .then((r) => r.ok ? r.json() : Promise.reject())
-      .then((data) => {
-        if (!cancelled && data.text) setText(data.text.trim())
-      })
-      .catch(() => {})
-      .finally(() => { if (!cancelled) setLoading(false) })
-
-    return () => { cancelled = true }
-  }, [verseRef])
-
-  return { text, loading }
-}
 
 export default function GuideReadingView({ planId, dayNumber, onBack, onComplete }) {
   const navigate = useNavigate()
@@ -41,6 +18,7 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
   const isDayComplete = useGuideStore((s) => s.isDayComplete)
   const streak = useGuideStore((s) => s.streak)
   const progress = useGuideStore((s) => s.progress)
+  const bibleVersionId = useBibleStore((s) => s.bibleVersionId)
 
   const [completing, setCompleting] = useState(false)
   const [justCompleted, setJustCompleted] = useState(false)
@@ -109,9 +87,14 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
     return () => window.removeEventListener('keydown', handler)
   }, [prevDay, nextDay, planId, isLoggedIn, completed, plan, navigate, handleComplete])
 
-  if (!plan || !day) return null
+  const { passage, loading: verseLoading } = usePassage({
+    versionId: bibleVersionId,
+    usfm: day?.verseRef || '',
+    format: 'text',
+  })
+  const verseText = passage?.content?.trim() || ''
 
-  const { text: verseText, loading: verseLoading } = useVerseText(day.verseRef)
+  if (!plan || !day) return null
 
   return (
     <div className="animate-fade-up">

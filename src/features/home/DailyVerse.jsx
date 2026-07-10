@@ -2,9 +2,11 @@ import { BookOpen, Quote } from 'lucide-react'
 import { VerseOfTheDay } from '@youversion/platform-react-ui'
 import { Link } from 'react-router-dom'
 import useScrollReveal from '../../hooks/useScrollReveal'
+import useBibleStore from '../../store/bibleStore'
 
 export default function DailyVerse() {
   const [ref, isVisible] = useScrollReveal()
+  const bibleVersionId = useBibleStore((s) => s.bibleVersionId)
 
   return (
     <section className="py-16 sm:py-24">
@@ -50,7 +52,7 @@ export default function DailyVerse() {
               style={{ animationDelay: '1.5s' }}
             />
             <div className="relative z-10 [&_blockquote]:font-display [&_blockquote]:text-2xl [&_blockquote]:leading-relaxed [&_blockquote]:text-charcoal [&_blockquote]:italic [&_blockquote]:sm:text-3xl [&_blockquote]:font-medium [&_blockquote]:not-italic">
-              <VerseOfTheDay />
+              <VerseOfTheDay versionId={bibleVersionId} />
             </div>
           </div>
 

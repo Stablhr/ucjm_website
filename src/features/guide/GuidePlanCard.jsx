@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { BibleTextView } from '@youversion/platform-react-ui'
 import useAuthStore from '../../store/authStore'
 import useGuideStore from './guideStore'
+import useBibleStore from '../../store/bibleStore'
 
 const iconMap = {
   Heart,
@@ -107,6 +108,7 @@ export default function GuidePlanCard({ plan }) {
   const progress = useGuideStore((s) => s.progress)
   const lastReadPlan = useGuideStore((s) => s.lastReadPlan)
   const lastReadDay = useGuideStore((s) => s.lastReadDay)
+  const bibleVersionId = useBibleStore((s) => s.bibleVersionId)
 
   const Icon = iconMap[plan.icon] || BookOpen
   const colors = colorMap[plan.color] || colorMap.blue
@@ -173,7 +175,7 @@ export default function GuidePlanCard({ plan }) {
 
         <div className="mt-4 border-l-2 border-white/20 pl-3 text-sm italic leading-relaxed text-white/70 [&_p]:text-white/70 [&_p]:text-sm [&_p]:italic">
           <BibleTextView
-            versionId={3034}
+            versionId={bibleVersionId}
             references={[plan.days[0].verseRef]}
           />
         </div>

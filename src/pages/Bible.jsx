@@ -3,6 +3,7 @@ import { BibleReader, BibleTextView } from '@youversion/platform-react-ui'
 import { BookOpen, Minus, Plus, Sun, Moon, Compass, Trash2, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/ui/SEO'
+import useBibleStore from '../store/bibleStore'
 
 const HIGHLIGHT_COLORS = [
   { name: 'yellow', label: 'Yellow', bg: 'rgba(250,204,21,0.35)' },
@@ -42,7 +43,8 @@ export default function Bible() {
   })
   const [book, setBook] = useState('JHN')
   const [chapter, setChapter] = useState('1')
-  const [versionId, setVersionId] = useState(3034)
+  const versionId = useBibleStore((s) => s.bibleVersionId)
+  const setVersionId = useBibleStore((s) => s.setBibleVersion)
   const [selectedVerses, setSelectedVerses] = useState([])
   const [highlights, setHighlights] = useState(loadHighlights)
   const [popupPos, setPopupPos] = useState({ x: 0, y: 0 })

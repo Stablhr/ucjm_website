@@ -3,6 +3,7 @@ import { CheckCircle, Sparkles, ChevronRight } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BibleTextView } from '@youversion/platform-react-ui'
 import useGuideStore from './guideStore'
+import useBibleStore from '../../store/bibleStore'
 import plans, { formatVerseRef } from './plans'
 
 const colorMap = {
@@ -20,6 +21,7 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
   const navigate = useNavigate()
   const { day: activeDay } = useParams()
   const isDayComplete = useGuideStore((s) => s.isDayComplete)
+  const bibleVersionId = useBibleStore((s) => s.bibleVersionId)
   const ref = useRef(null)
 
   const plan = plans.find((p) => p.id === planId)
@@ -105,7 +107,7 @@ export default function GuideDayCard({ planId, day, dayNumber }) {
               completed ? 'text-emerald-600/70' : 'text-slate/60'
             } [&_p]:inline [&_p]:text-xs [&_sup]:text-[10px]`}>
               <BibleTextView
-                versionId={3034}
+                versionId={bibleVersionId}
                 references={[day.verseRef]}
               />
             </div>
