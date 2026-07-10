@@ -18,7 +18,8 @@ function useVerseText(verseRef) {
     let cancelled = false
     setLoading(true)
 
-    const refForApi = verseRef.replace(/\./g, ' ')
+    const parts = verseRef.split('.')
+    const refForApi = parts.slice(0, -1).join(' ') + ':' + parts[parts.length - 1]
     fetch(`https://bible-api.com/${encodeURIComponent(refForApi)}?translation=kjv`)
       .then((r) => r.ok ? r.json() : Promise.reject())
       .then((data) => {
