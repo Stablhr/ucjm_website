@@ -328,7 +328,7 @@ export default function SongDetail({ song, onBack }) {
           Add to Playlist
         </button>
 
-        {user && (
+        {isAdmin && (
           <button
             onClick={() => setShowEditModal(true)}
             className="inline-flex items-center gap-2 rounded-lg border border-divider px-4 py-2.5 text-sm text-slate transition-all hover:border-accent/30 hover:text-accent active:scale-[0.98]"

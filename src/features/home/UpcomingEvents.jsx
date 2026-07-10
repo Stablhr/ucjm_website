@@ -1,11 +1,19 @@
 import { Calendar, X, Clock, MapPin } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useHomeStore from './homeStore'
+import { requestNotificationPermission, checkAndNotifyEvents } from '../../lib/notify.jsx'
 
 export default function UpcomingEvents() {
   const events = useHomeStore((s) => s.events)
   const loading = useHomeStore((s) => s.loading)
   const [selected, setSelected] = useState(null)
+
+  useEffect(() => {
+    if (loading || events.length === 0) return
+    requestNotificationPermission().then(() => {
+      checkAndNotifyEvents(events)
+    })
+  }, [loading, events])
 
   return (
     <section className="py-16 sm:py-24">

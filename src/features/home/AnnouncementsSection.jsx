@@ -1,12 +1,20 @@
 import { Megaphone, X } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { SkeletonCard } from '../../components/ui/Skeleton'
 import useHomeStore from './homeStore'
+import { requestNotificationPermission, checkAndNotifyAnnouncements } from '../../lib/notify.jsx'
 
 export default function AnnouncementsSection() {
   const announcements = useHomeStore((s) => s.announcements)
   const loading = useHomeStore((s) => s.loading)
   const [selected, setSelected] = useState(null)
+
+  useEffect(() => {
+    if (loading || announcements.length === 0) return
+    requestNotificationPermission().then(() => {
+      checkAndNotifyAnnouncements(announcements)
+    })
+  }, [loading, announcements])
 
   return (
     <section className="py-16 sm:py-24">

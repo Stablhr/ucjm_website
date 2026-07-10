@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { ArrowLeft, CheckCircle, Flame, BookOpen, Heart, Target, LogIn, Sparkles } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
-import { BibleTextView } from '@youversion/platform-react-ui'
 import Button from '../../components/ui/Button'
 import useAuthStore from '../../store/authStore'
 import useGuideStore from './guideStore'
@@ -9,6 +8,30 @@ import plans, { formatVerseRef } from './plans'
 import { fireConfetti, firePlanComplete } from './Confetti'
 import GuideNotes from './GuideNotes'
 import GuideAudioButton from './GuideAudioButton'
+
+function useVerseText(verseRef) {
+  const [text, setText] = useState('')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (!verseRef) { setLoading(false); return }
+    let cancelled = false
+    setLoading(true)
+
+    const refForApi = verseRef.replace(/\./g, ' ')
+    fetch(`https://bible-api.com/${encodeURIComponent(refForApi)}?translation=kjv`)
+      .then((r) => r.ok ? r.json() : Promise.reject())
+      .then((data) => {
+        if (!cancelled && data.text) setText(data.text.trim())
+      })
+      .catch(() => {})
+      .finally(() => { if (!cancelled) setLoading(false) })
+
+    return () => { cancelled = true }
+  }, [verseRef])
+
+  return { text, loading }
+}
 
 export default function GuideReadingView({ planId, dayNumber, onBack, onComplete }) {
   const navigate = useNavigate()
@@ -86,6 +109,8 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
   }, [prevDay, nextDay, planId, isLoggedIn, completed, plan, navigate, handleComplete])
 
   if (!plan || !day) return null
+
+  const { text: verseText, loading: verseLoading } = useVerseText(day.verseRef)
 
   return (
     <div className="animate-fade-up">
@@ -175,11 +200,17 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
         </div>
         <div className="px-6 py-6 sm:px-8 sm:py-10">
           <div className="font-display text-lg leading-relaxed text-charcoal sm:text-xl sm:leading-loose">
-            <BibleTextView
-              versionId={3034}
-              references={[day.verseRef]}
-              className="[&_p]:text-charcoal [&_sup]:text-accent"
-            />
+            {verseLoading ? (
+              <div className="space-y-2 animate-pulse">
+                <div className="h-4 w-3/4 rounded bg-slate/10" />
+                <div className="h-4 w-full rounded bg-slate/10" />
+                <div className="h-4 w-2/3 rounded bg-slate/10" />
+              </div>
+            ) : verseText ? (
+              <p>{verseText}</p>
+            ) : (
+              <p className="text-slate/60 italic">Verse text unavailable</p>
+            )}
           </div>
           <p className="mt-8 text-right font-mono text-sm text-slate">
             - {formatVerseRef(day.verseRef)}
