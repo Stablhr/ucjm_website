@@ -229,7 +229,329 @@ From the [C]grave to the [F]sky
 [D]My comfort, my [A]shelter
 [G]Tower of refuge and [D]strength
 [D]Let every [A]breath, all that [G]I am
-[A]Never cease to [D]worship [A]You`,
+[A]Never cease to [D]worship [A]You
+
+[Chorus]
+[D]Shout to the [A]Lord, all the [G]earth, let us [D]sing
+[D]Power and [A]majesty, praise to the [G]King
+[D]Mountains [A]bow down and the [G]seas will [D]roar
+[A]At the [D]sound of Your [G]name
+
+[D]I sing for [A]joy at the [G]work of Your [D]hands
+[D]Forever I'll [A]love You, forever I'll [G]stand
+[D]Nothing com[A]pares to the [G]promise I [D]have
+[A]In [D]You`,
+  },
+  {
+    title: 'Trust in God',
+    artist: 'Elevation Worship',
+    key: 'C',
+    category: 'Worship',
+    language: 'English',
+    lyrics_with_chords: `[Verse 1]
+[C]I sought the Lord and He [G]answered me
+He [Am]delivered me from every [F]fear
+[C]Those who look on Him are [G]radiant
+Their [Am]faces shall never be a[F]shamed
+
+[Chorus]
+This [C]poor man cried and the [G]Lord heard me
+And [Am]saved me from my [F]enemies
+The [C]Son of God surrounds the [G]one who serves
+He [F]will deliver [C]them
+
+[Verse 2]
+[C]Taste and see that the [G]Lord is good
+He [Am]blessed assurance for [F]those who hide in Him
+[C]The one who fears shall [G]lack no thing
+The [Am]Lion of Judah will [F]provide
+
+[Chorus]
+[C]Trust in God, my [G]helper through the [F]storm
+[C]He's my refuge, my [G]fortress, my [F]refuge
+[C]Trust in God, my [G]provider and my [F]shield
+[C]He's my deliverer, my [G]Savior
+He will [F]never fail`,
+  },
+  {
+    title: 'We Fall Down',
+    artist: 'Chris Tomlin',
+    key: 'D',
+    category: 'Worship',
+    language: 'English',
+    lyrics_with_chords: `[D]We fall down, we lay our [A]crowns
+At the feet of [G]Jesus
+The greatnes [D]of His mercy and [A]love
+At the feet of [G]Jesus
+And we cry holy, [A]holy, holy
+[D]Holy, [A]holy
+
+[D]We fall down, we lay our [A]crowns
+At the feet of [G]Jesus
+The greatnes [D]of His mercy and [A]love
+At the feet of [G]Jesus
+And we cry holy, [A]holy, holy
+[D]Holy, [A]holy`,
+  },
+  {
+    title: 'The Stand',
+    artist: 'Hillsong',
+    key: 'D',
+    category: 'Worship',
+    language: 'English',
+    lyrics_with_chords: `[Verse 1]
+[D]You stood before creation
+[Bm]Eternity within Your [A]hand
+[D]You spoke the earth into mo[G]tion
+My soul now to stand
+
+[D]You stood before my fail[Bm]ure
+Carried the cross for my [A]shame
+[D]My sin weighed upon Your [G]shoulders
+My soul now to stand
+
+[Chorus]
+[D]So I'll stand with arms [Bm]high and heart a[G]bandoned
+In awe of the One who gave [A]it all
+[D]So I'll stand, my soul [Bm]Lord to You sur[G]rendered
+All I am is [A]Yours`,
+  },
+  {
+    title: 'Fighting for Us',
+    artist: 'Hillsong',
+    key: 'B',
+    category: 'Worship',
+    language: 'English',
+    lyrics_with_chords: `[Verse 1]
+[B]When the world has fallen [F#]out from under me
+I'll be found in [E]You, still standing
+[B]When the world has fallen [F#]out from under me
+I'll be found in [E]You, still standing
+
+[Chorus]
+[F#]Every fear I face [E]You overcome
+[F#]You're still fighting for [B]us
+[F#]Your love will not give [E]up on me
+[F#]You're still fighting for [B]us
+
+[Verse 2]
+[B]You have overcome the [F#]world, my Savior
+You're the hope for [E]all mankind
+[B]You have overcome the [F#]world, my Savior
+You're the hope for [E]all mankind
+
+[Chorus]
+[F#]Every fear I face [E]You overcome
+[F#]You're still fighting for [B]us
+[F#]Your love will not give [E]up on me
+[F#]You're still fighting for [B]us`,
+  },
+  {
+    title: 'You Are Good',
+    artist: 'Planetshakers',
+    key: 'G',
+    category: 'Praise',
+    language: 'English',
+    lyrics_with_chords: `[Verse 1]
+[G]You are good, and nothing can [C]take that away
+You are good, and nothing can [G]take that away
+You are good, and nothing can [C]take that away
+You are good, nothing can [G]take that away
+
+[Chorus]
+[G]Hallelujah, [C]hallelujah
+[G]Hallelujah, [C]hallelujah
+[G]You are good, You are [C]good
+[G]You are good, You are [C]good
+[G]To [D]me
+
+[G]Hallelujah, [C]hallelujah
+[G]Hallelujah, [C]hallelujah
+[G]You are good, You are [C]good
+[G]You are good, You are [C]good
+[G]To [D]me
+
+[Bridge]
+[G]Your love will never let me [C]go
+[G]Your grace is all I'll ever [C]know
+[G]Your joy is all that fills my [C]soul
+[G]You are [D]good`,
+  },
+  {
+    title: 'Glory',
+    artist: 'Hillsong',
+    key: 'E',
+    category: 'Praise',
+    language: 'English',
+    lyrics_with_chords: `[Verse 1]
+[E]Singing out Your [B]glory
+[C#m]Worshipping Your [A]name
+[E]Lifting up Your [B]name
+[C#m]Heaven and earth [A]proclaim
+[E]Jesus, we [B]adore You
+[C#m]You have set us [A]free
+[E]Risen King of [B]glory
+[C#m]We will worship [A]Thee
+
+[Chorus]
+[E]Glory, [B]glory to our [A]King
+[E]Glory, [B]glory to our [A]King
+[E]Glory, [B]glory to our [A]King
+[E]You are [B]everything
+
+[E]Glory, [B]glory to our [A]King
+[E]Glory, [B]glory to our [A]King
+[E]Glory, [B]glory to our [A]King
+[E]You are [B]everything`,
+  },
+  {
+    title: 'I Came for You',
+    artist: 'Planetshakers',
+    key: 'C',
+    category: 'Worship',
+    language: 'English',
+    lyrics_with_chords: `[Verse 1]
+[C]I came for You, Jesus
+[F]I came for You
+[C]I came for You, Jesus
+[F]I came for You
+[G]There is no one like You
+[F]There is no one like You
+[C]There is no one like You
+[F]I came for You
+
+[Chorus]
+[C]So here I am, [F]here I am
+[C]I give my heart to [F]You
+[C]Here I am, [F]here I am
+[C]I surrender all to [F]You
+[G]All to You, [F]all to You
+[C]All to You, [F]all to You
+[G]I came for [C]You`,
+  },
+  {
+    title: 'Fall Like Rain',
+    artist: 'Passion',
+    key: 'Eb',
+    category: 'Worship',
+    language: 'English',
+    lyrics_with_chords: `[Verse 1]
+[Eb]I'm ready for a [Bb]flood
+I'm standing in a [Ab]sea
+Of everything I've [Eb]held so dear
+Has now become debris
+
+[Eb]I'm ready for a [Bb]change
+I'm stepping in a [Ab]river
+Of everything You [Eb]have in store
+For me to receive and [Bb]give
+
+[Chorus]
+[Eb]Let Your Spirit [Bb]fall like rain
+[Ab]Falling on my [Bb]heart again
+[Eb]Let Your presence [Bb]wash away
+[Ab]All I am, I [Bb]surrender
+
+[Eb]Let Your Spirit [Bb]fall like rain
+[Ab]Falling on my [Bb]heart again
+[Eb]Let Your presence [Bb]wash away
+[Ab]All I am, I [Bb]surrender`,
+  },
+  {
+    title: 'Sinking Deep',
+    artist: 'Hillsong Young & Free',
+    key: 'A',
+    category: 'Worship',
+    language: 'English',
+    lyrics_with_chords: `[Verse 1]
+[A]Waking up to a new [E]sunrise
+Looking back from the other [F#m]side
+I can see now with [D]open eyes
+Darkest water and deepest [A]pain
+I wouldn't trade it for [E]anything
+'Cause my brokenness brought me to [F#m]You
+And these wounds are a story You'll [D]use
+
+[Chorus]
+So I'm not [A]afraid to say
+[E]I am sinking deep
+[F#m]In Your love, [D]in Your love
+I'm not [A]afraid to say
+[E]I am sinking deep
+[F#m]In Your love, [D]in Your love
+
+[Verse 2]
+[A]Now I'm resting in the arms of [E]Jesus
+Safe and sound, my heart is [F#m]home
+He has brought me to a [D]promised land
+From the ashes I am [A]reborn
+I'm not [E]afraid anymore
+
+[Bridge]
+[F#m]There's no one like You, [D]Jesus
+[F#m]There's no one like You, [D]Jesus
+[F#m]There's no one like You, [D]Jesus
+To [A]me`,
+  },
+  {
+    title: 'Worthy of It All',
+    artist: 'CeCe Winans',
+    key: 'Em',
+    category: 'Praise',
+    language: 'English',
+    lyrics_with_chords: `[Verse 1]
+[Em]Day and night, night and day
+[C]Let incense arise
+[Em]Day and night, night and day
+[C]Let incense arise
+
+[Chorus]
+[D]All the saints and [G]angels
+They bow before Your [Em]throne
+[D]All the elders [G]cast their crowns
+Before the Lamb of [C]God and sing
+
+[D]You are worthy of it [G]all
+[Em]You are worthy of it [C]all
+[D]For from You are all [G]things
+[Em]And to You are all [C]things
+You deserve the [D]glory`,
+  },
+  {
+    title: "Sa 'Yo Lamang",
+    artist: 'Victory Worship',
+    key: 'D',
+    category: 'Worship',
+    language: 'Filipino',
+    lyrics_with_chords: `[Verse 1]
+[D]Sa 'Yo lamang, [A]Panginoon
+[Bm]Buong puso kong [G]naghahandog ng [D]buhay
+[D]Sa 'Yo lamang, [A]Panginoon
+[Bm]Itinataas ang [G]alan Mo
+
+[Chorus]
+[A]Ikaw ang aking [G]kaligtasan
+[D]Ikaw ang aking [A]kaginhawaan
+[A]Sa 'Yo lamang, [G]Panginoon
+[D]Ako'y [A]sumasamba
+
+[Verse 2]
+[D]Sa 'Yo lamang, [A]Panginoon
+[Bm]Buong puso kong [G]naghahandog ng [D]buhay
+[D]Sa 'Yo lamang, [A]Panginoon
+[Bm]Itinataas ang [G]alan Mo
+
+[Chorus]
+[A]Ikaw ang aking [G]kaligtasan
+[D]Ikaw ang aking [A]kaginhawaan
+[A]Sa 'Yo lamang, [G]Panginoon
+[D]Ako'y [A]sumasamba
+
+[Bridge]
+[D]Hindi na ako [A]maghahanap ng [G]iba
+[D]Ikaw lamang ang [A]king ninanais
+[D]Hindi na ako [A]maghahanap ng [G]iba
+[D]Ikaw lamang, [A]Panginoon`,
   },
 ]
 
