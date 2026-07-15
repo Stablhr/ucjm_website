@@ -13,7 +13,7 @@
         { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains; preload" },
         { 
           "key": "Content-Security-Policy", 
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' https:; connect-src 'self' https://smqbmromffltzihpjbfe.supabase.co https://*.supabase.co wss://*.supabase.co https://www.youversion.com https://your.version.bible; frame-src 'self' https://www.youversion.com https://your.version.bible; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' https:; connect-src 'self' https://smqbmromffltzihpjbfe.supabase.co https://*.supabase.co wss://*.supabase.co https://api.youversion.com https://www.youversion.com https://your.version.bible; frame-src 'self' https://www.youversion.com https://your.version.bible; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
         }
       ]
     },
