@@ -2,8 +2,10 @@ import { Search, Music, ListMusic, Grid3X3, List, ChevronDown, SlidersHorizontal
 import { useEffect, useState } from 'react'
 import { Skeleton } from '../../components/ui/Skeleton'
 import useSongsStore from './songsStore'
+import useAuthStore from '../../store/authStore'
 import SongCard from './SongCard'
 import AddToPlaylistModal from './AddToPlaylistModal'
+import AddSongModal from './AddSongModal'
 
 const ITEMS_PER_PAGE = 12
 
@@ -29,6 +31,10 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   const [playlistSong, setPlaylistSong] = useState(null)
+  const [showAddSong, setShowAddSong] = useState(false)
+
+  const profile = useAuthStore((s) => s.profile)
+  const isAdmin = profile?.role === 'admin'
 
   const searchQuery = useSongsStore((s) => s.searchQuery)
   const setSearchQuery = useSongsStore((s) => s.setSearchQuery)
@@ -152,9 +158,18 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
             </div>
 
             <div className="hidden shrink-0 sm:block">
+              {isAdmin && (
+                <button
+                  onClick={() => setShowAddSong(true)}
+                  className="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-3 backdrop-blur-sm ring-1 ring-white/20 transition-all hover:bg-white/20 hover:ring-white/30"
+                >
+                  <Plus size={18} className="text-white/60" />
+                  <span className="text-sm font-medium text-white/80">Add Song</span>
+                </button>
+              )}
               <button
                 onClick={onShowPlaylists}
-                className="flex items-center gap-2 rounded-xl bg-surface/5 px-4 py-3 backdrop-blur-sm ring-1 ring-white/10 transition-all hover:bg-surface/10 hover:ring-white/20"
+                className="ml-2 inline-flex items-center gap-2 rounded-xl bg-surface/5 px-4 py-3 backdrop-blur-sm ring-1 ring-white/10 transition-all hover:bg-surface/10 hover:ring-white/20"
               >
                 <ListMusic size={18} className="text-white/50" />
                 <span className="text-sm font-medium text-white/70">Playlists</span>
@@ -384,6 +399,11 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
           song={playlistSong}
           onClose={() => setPlaylistSong(null)}
         />
+      )}
+
+      {/* Add Song Modal (Admin) */}
+      {showAddSong && (
+        <AddSongModal onClose={() => setShowAddSong(false)} />
       )}
     </div>
   )
