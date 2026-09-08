@@ -1,21 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Megaphone, Calendar, ArrowRight } from 'lucide-react'
+import { Megaphone, Calendar, Music, ArrowRight } from 'lucide-react'
 import { supabase } from '../../services/supabase'
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState({ announcements: 0, events: 0 })
+  const [stats, setStats] = useState({ announcements: 0, events: 0, songs: 0 })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function loadStats() {
-      const [announcementsRes, eventsRes] = await Promise.all([
+      const [announcementsRes, eventsRes, songsRes] = await Promise.all([
         supabase.from('announcements').select('id', { count: 'exact', head: true }),
         supabase.from('events').select('id', { count: 'exact', head: true }),
+        supabase.from('songs').select('id', { count: 'exact', head: true }),
       ])
       setStats({
         announcements: announcementsRes.count ?? 0,
         events: eventsRes.count ?? 0,
+        songs: songsRes.count ?? 0,
       })
       setLoading(false)
     }
@@ -38,6 +40,14 @@ export default function AdminDashboard() {
       href: '/admin/events',
       color: 'text-accent-warm',
       bg: 'bg-accent-warm/5',
+    },
+    {
+      label: 'Songs',
+      count: stats.songs,
+      icon: Music,
+      href: '/admin/songs',
+      color: 'text-emerald-600',
+      bg: 'bg-emerald-50',
     },
   ]
 

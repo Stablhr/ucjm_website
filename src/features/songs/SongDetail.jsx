@@ -1,7 +1,8 @@
-import { ArrowLeft, Plus, Youtube, Pencil, Info, Music, Film, Trash2 } from 'lucide-react'
-import { useState, useMemo } from 'react'
+import { ArrowLeft, Plus, Youtube, Pencil, Info, Music, Film, Trash2, Heart } from 'lucide-react'
+import { useState, useMemo, useEffect } from 'react'
 import useSongsStore from './songsStore'
 import useAuthStore from '../../store/authStore'
+import useFavoritesStore from './favoritesStore'
 import { transposeLyrics } from './chordParser'
 import ChordTransposer from './ChordTransposer'
 import AddToPlaylistModal from './AddToPlaylistModal'
@@ -103,6 +104,14 @@ export default function SongDetail({ song, onBack }) {
   const isAdmin = profile?.role === 'admin'
   const [imgError, setImgError] = useState(false)
   const [activeTab, setActiveTab] = useState('lyrics')
+
+  const isFavorite = useFavoritesStore((s) => s.isFavorite(song?.id))
+  const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite)
+  const loadFavorites = useFavoritesStore((s) => s.loadFavorites)
+
+  useEffect(() => {
+    loadFavorites()
+  }, [loadFavorites])
 
   const transposedLyrics = useMemo(
     () => transposeLyrics(song.lyrics_with_chords, transposeOffset),
@@ -320,6 +329,19 @@ export default function SongDetail({ song, onBack }) {
 
       {/* Actions */}
       <div className="flex flex-wrap items-center gap-3">
+        <button
+          onClick={() => toggleFavorite(song.id)}
+          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+          className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm transition-all active:scale-[0.98] ${
+            isFavorite
+              ? 'border-red-200 bg-red-50 text-red-500'
+              : 'border-divider text-slate hover:border-red-200 hover:text-red-500'
+          }`}
+        >
+          <Heart size={16} fill={isFavorite ? 'currentColor' : 'none'} />
+          {isFavorite ? 'Favorited' : 'Favorite'}
+        </button>
+
         <button
           onClick={() => setShowPlaylistModal(true)}
           className="inline-flex items-center gap-2 rounded-lg border border-divider px-4 py-2.5 text-sm text-slate transition-all hover:border-accent/30 hover:text-accent active:scale-[0.98]"

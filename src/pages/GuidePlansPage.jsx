@@ -89,14 +89,14 @@ export default function GuidePlansPage() {
         {/* Continue Reading Banner */}
         {isLoggedIn && stats?.lastReadPlan && (
           <div className="border-b border-divider bg-gradient-to-r from-accent/5 to-transparent">
-            <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-              <div className="flex items-center gap-3">
-                <BookOpen size={20} className="text-accent" />
-                <div>
+            <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 py-4 sm:px-6 lg:px-8">
+              <div className="flex min-w-0 items-center gap-3">
+                <BookOpen size={20} className="shrink-0 text-accent" />
+                <div className="min-w-0">
                   <p className="text-sm font-medium text-charcoal">
                     Continue reading
                   </p>
-                  <p className="text-xs text-slate">
+                  <p className="truncate text-xs text-slate">
                     {stats.lastReadPlan.title} — Day {stats.lastReadPlan.day}
                   </p>
                 </div>
@@ -148,11 +148,11 @@ export default function GuidePlansPage() {
                   <button
                     onClick={handleReminderClick}
                     aria-label="Set daily reminder"
-                    className={`absolute right-2 top-2 rounded-full p-1 transition-colors ${
+                    className={`absolute right-1.5 top-1.5 flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
                       reminderTime ? 'text-accent' : 'text-slate/30 hover:text-slate/60'
                     }`}
                   >
-                    {reminderTime ? <Bell size={14} /> : <BellOff size={14} />}
+                    {reminderTime ? <Bell size={16} /> : <BellOff size={16} />}
                   </button>
                   {showReminderPicker && (
                     <div className="absolute right-0 top-10 z-20 w-44 rounded-lg border border-divider bg-surface p-3 text-left ">

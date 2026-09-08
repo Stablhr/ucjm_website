@@ -214,20 +214,22 @@ export default function PlaylistDetail({ playlist, onBack }) {
                 </div>
 
                 {/* Move up/down */}
-                <div className="flex shrink-0 flex-col gap-0.5">
+                <div className="flex shrink-0 flex-col gap-1">
                   <button
                     onClick={() => moveSong(origIdx)}
                     disabled={origIdx === 0 || searchQuery}
-                    className="rounded p-0.5 text-slate/20 transition-colors hover:text-slate/50 disabled:opacity-0"
+                    aria-label="Move song up"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-slate/30 transition-colors hover:bg-accent/5 hover:text-accent disabled:opacity-0"
                   >
-                    <ChevronUp size={12} />
+                    <ChevronUp size={16} />
                   </button>
                   <button
                     onClick={() => moveSongDown(origIdx)}
                     disabled={origIdx === songs.length - 1 || searchQuery}
-                    className="rounded p-0.5 text-slate/20 transition-colors hover:text-slate/50 disabled:opacity-0"
+                    aria-label="Move song down"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-slate/30 transition-colors hover:bg-accent/5 hover:text-accent disabled:opacity-0"
                   >
-                    <ChevronDown size={12} />
+                    <ChevronDown size={16} />
                   </button>
                 </div>
 

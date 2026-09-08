@@ -20,6 +20,7 @@ const AdminDashboard = lazy(() => import('./features/admin/AdminDashboard'))
 const AdminAnnouncements = lazy(() => import('./features/admin/AdminAnnouncements'))
 const AdminEvents = lazy(() => import('./features/admin/AdminEvents'))
 const AdminPhotos = lazy(() => import('./features/admin/AdminPhotos'))
+const AdminSongs = lazy(() => import('./features/admin/AdminSongs'))
 
 function SuspenseWrapper({ children }) {
   return (
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="/admin/announcements" element={<SuspenseWrapper><AdminAnnouncements /></SuspenseWrapper>} />
           <Route path="/admin/events" element={<SuspenseWrapper><AdminEvents /></SuspenseWrapper>} />
           <Route path="/admin/photos" element={<SuspenseWrapper><AdminPhotos /></SuspenseWrapper>} />
+          <Route path="/admin/songs" element={<SuspenseWrapper><AdminSongs /></SuspenseWrapper>} />
         </Route>
       </Route>
     </Routes>

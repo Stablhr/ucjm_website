@@ -114,16 +114,16 @@ export default function GuideReadingView({ planId, dayNumber, onBack, onComplete
 
       {/* Sticky progress header */}
       <div className="sticky top-0 z-10 -mx-4 -mt-4 mb-6 rounded-t-none border-b border-divider bg-ivory/90 px-4 pb-3 pt-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-y-2">
           <button
             onClick={onBack}
-            className="inline-flex items-center gap-1.5 text-sm text-slate transition-colors hover:text-charcoal"
+            className="inline-flex min-w-0 max-w-full items-center gap-1.5 text-sm text-slate transition-colors hover:text-charcoal"
           >
-            <ArrowLeft size={16} />
-            {plan.title}
+            <ArrowLeft size={16} className="shrink-0" />
+            <span className="truncate">{plan.title}</span>
           </button>
 
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center gap-3">
             <GuideAudioButton
               planTitle={plan.title}
               dayTitle={day.title}

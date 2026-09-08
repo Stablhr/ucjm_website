@@ -190,7 +190,7 @@ export default function AdminAnnouncements() {
           </button>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-lg border border-divider">
+        <div className="overflow-x-auto rounded-lg border border-divider">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-divider bg-ivory">
               <tr>
@@ -203,7 +203,9 @@ export default function AdminAnnouncements() {
             <tbody className="divide-y divide-divider">
               {announcements.map((a) => (
                 <tr key={a.id} className="bg-surface transition-colors hover:bg-ivory/50">
-                  <td className="px-4 py-3 font-medium text-charcoal">{a.title}</td>
+                  <td className="max-w-0 px-4 py-3 font-medium text-charcoal">
+                    <span className="block truncate">{a.title}</span>
+                  </td>
                   <td className="hidden px-4 py-3 text-slate md:table-cell">
                     {new Date(a.posted_at).toLocaleDateString()}
                   </td>

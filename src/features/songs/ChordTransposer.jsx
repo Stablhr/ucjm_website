@@ -29,10 +29,10 @@ export default function ChordTransposer({ songKey }) {
       <button
         onClick={() => setTransposeOffset(transposeOffset - 1)}
         disabled={transposeOffset <= -5}
-        className="flex h-6 w-6 items-center justify-center rounded-lg text-slate transition-colors hover:bg-accent/10 hover:text-accent disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate"
+        className="flex h-8 w-8 items-center justify-center rounded-lg text-slate transition-colors hover:bg-accent/10 hover:text-accent disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate"
         aria-label="Transpose down"
       >
-        <Minus size={14} />
+        <Minus size={15} />
       </button>
 
       <span className="flex h-7 min-w-[2rem] items-center justify-center rounded-lg bg-accent/10 px-2 font-mono text-sm font-bold text-accent">
@@ -42,10 +42,10 @@ export default function ChordTransposer({ songKey }) {
       <button
         onClick={() => setTransposeOffset(transposeOffset + 1)}
         disabled={transposeOffset >= 6}
-        className="flex h-6 w-6 items-center justify-center rounded-lg text-slate transition-colors hover:bg-accent/10 hover:text-accent disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate"
+        className="flex h-8 w-8 items-center justify-center rounded-lg text-slate transition-colors hover:bg-accent/10 hover:text-accent disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate"
         aria-label="Transpose up"
       >
-        <Plus size={14} />
+        <Plus size={15} />
       </button>
     </div>
   )

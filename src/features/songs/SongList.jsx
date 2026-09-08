@@ -1,8 +1,9 @@
-import { Search, Music, ListMusic, Grid3X3, List, ChevronDown, SlidersHorizontal, Plus, X } from 'lucide-react'
+import { Search, Music, ListMusic, Grid3X3, List, ChevronDown, SlidersHorizontal, Plus, X, Heart } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Skeleton } from '../../components/ui/Skeleton'
 import useSongsStore from './songsStore'
 import useAuthStore from '../../store/authStore'
+import useFavoritesStore from './favoritesStore'
 import SongCard from './SongCard'
 import AddToPlaylistModal from './AddToPlaylistModal'
 import AddSongModal from './AddSongModal'
@@ -32,9 +33,14 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   const [playlistSong, setPlaylistSong] = useState(null)
   const [showAddSong, setShowAddSong] = useState(false)
+  const [favoritesOnly, setFavoritesOnly] = useState(false)
 
   const profile = useAuthStore((s) => s.profile)
   const isAdmin = profile?.role === 'admin'
+
+  const user = useAuthStore((s) => s.user)
+  const favoriteIds = useFavoritesStore((s) => s.favoriteIds)
+  const loadFavorites = useFavoritesStore((s) => s.loadFavorites)
 
   const searchQuery = useSongsStore((s) => s.searchQuery)
   const setSearchQuery = useSongsStore((s) => s.setSearchQuery)
@@ -52,15 +58,23 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
   const loading = useSongsStore((s) => s.loading)
   const recentlyViewed = useSongsStore((s) => s.recentlyViewed)
   const addRecentlyViewed = useSongsStore((s) => s.addRecentlyViewed)
-  const filteredSongs = useSongsStore((s) => s.getFilteredSongs())
+  const filteredSongsAll = useSongsStore((s) => s.getFilteredSongs())
   const categories = useSongsStore((s) => s.getCategories())
   const artists = useSongsStore((s) => s.getArtists())
   const albums = useSongsStore((s) => s.getAlbums())
   const languages = useSongsStore((s) => s.getLanguages())
 
+  const filteredSongs = favoritesOnly
+    ? filteredSongsAll.filter((s) => favoriteIds.has(s.id))
+    : filteredSongsAll
+
   useEffect(() => {
     fetchSongs(true)
   }, [fetchSongs])
+
+  useEffect(() => {
+    if (user) loadFavorites()
+  }, [user, loadFavorites])
 
   useEffect(() => {
     setVisibleCount(ITEMS_PER_PAGE)
@@ -196,7 +210,20 @@ export default function SongList({ onSelectSong, onShowPlaylists }) {
       <div className="mx-auto max-w-5xl">
         {/* Category chips + View toggle */}
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5">
+            {user && (
+              <button
+                onClick={() => setFavoritesOnly((v) => !v)}
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-xs transition-all ${
+                  favoritesOnly
+                    ? 'bg-red-500 text-white'
+                    : 'bg-red-50 text-red-500 hover:bg-red-100'
+                }`}
+              >
+                <Heart size={12} fill="currentColor" />
+                Favorites
+              </button>
+            )}
             {categories.map((cat) => {
               const style = CATEGORY_STYLES[cat] || { dot: 'bg-accent', gradient: 'from-accent to-blue-700' }
               return (

@@ -231,7 +231,7 @@ export default function AdminEvents() {
           </button>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-lg border border-divider">
+        <div className="overflow-x-auto rounded-lg border border-divider">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-divider bg-ivory">
               <tr>
@@ -244,7 +244,9 @@ export default function AdminEvents() {
             <tbody className="divide-y divide-divider">
               {events.map((e) => (
                 <tr key={e.id} className="bg-surface transition-colors hover:bg-ivory/50">
-                  <td className="px-4 py-3 font-medium text-charcoal">{e.title}</td>
+                  <td className="max-w-0 px-4 py-3 font-medium text-charcoal">
+                    <span className="block truncate">{e.title}</span>
+                  </td>
                   <td className="hidden px-4 py-3 text-slate md:table-cell">
                     {new Date(e.date).toLocaleDateString()}
                   </td>

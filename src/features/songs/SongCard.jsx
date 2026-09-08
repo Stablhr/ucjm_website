@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Music, Youtube, Plus, Play } from 'lucide-react'
+import { Music, Youtube, Plus, Play, Heart } from 'lucide-react'
 import useSongsStore from './songsStore'
+import useFavoritesStore from './favoritesStore'
 
 const FALLBACK_GRADIENTS = [
   'from-rose-500 to-pink-600',
@@ -80,6 +81,7 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
   const catColor = CATEGORY_COLORS[song.category] || pickFallbackGradient(song.id)
   const catDot = CATEGORY_DOTS[song.category] || 'bg-accent'
   const [showActions, setShowActions] = useState(false)
+  const isFavorite = useFavoritesStore((s) => s.favoriteIds.has(song.id))
 
   const handleAddToPlaylist = (e) => {
     e.stopPropagation()
@@ -115,6 +117,11 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
         </div>
 
         <div className="flex shrink-0 items-center gap-2 flex-wrap">
+          {isFavorite && (
+            <span className="text-red-500">
+              <Heart size={13} fill="currentColor" />
+            </span>
+          )}
           <span className={`h-1.5 w-1.5 rounded-full ${catDot}`} />
           {song.youtube_url && (
             <span className="text-red-500">
@@ -170,6 +177,11 @@ export default function SongCard({ song, onClick, viewMode, index = 0, onAddToPl
         </div>
 
         <div className="absolute right-2 top-2 flex gap-1">
+          {isFavorite && (
+            <span className="inline-flex items-center rounded-lg bg-red-500/80 p-1 text-white">
+              <Heart size={10} fill="currentColor" />
+            </span>
+          )}
           {song.youtube_url && (
             <span className="inline-flex items-center gap-0.5 rounded-lg bg-red-500/80 px-1.5 py-0.5 font-mono text-[11px] text-white">
               <Youtube size={10} />
