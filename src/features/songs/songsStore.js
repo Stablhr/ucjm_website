@@ -1,16 +1,8 @@
 import { create } from 'zustand'
 import { supabase } from '../../services/supabase'
 
-function slugify(text) {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-}
-
 const useSongsStore = create((set, get) => ({
   songs: [],
-  userSongs: [],
   loading: false,
   loaded: false,
   searchQuery: '',
@@ -23,94 +15,34 @@ const useSongsStore = create((set, get) => ({
   currentSongId: null,
 
   setSearchQuery: (query) => set({ searchQuery: query }),
-
   setActiveCategory: (category) => set({ activeCategory: category }),
-
   setActiveArtist: (artist) => set({ activeArtist: artist }),
-
   setActiveAlbum: (album) => set({ activeAlbum: album }),
-
   setActiveLanguage: (language) => set({ activeLanguage: language }),
-
   setViewMode: (mode) => set({ viewMode: mode }),
-
   setTransposeOffset: (offset) => set({ transposeOffset: offset }),
-
   setCurrentSongId: (id) => set({ currentSongId: id }),
 
   recentlyViewed: [],
   addRecentlyViewed: (song) =>
     set((state) => {
-      const filtered = state.recentlyViewed.filter(
-        (s) => s.id !== song.id
-      )
-      return {
-        recentlyViewed: [song, ...filtered].slice(0, 6),
-      }
+      const filtered = state.recentlyViewed.filter((s) => s.id !== song.id)
+      return { recentlyViewed: [song, ...filtered].slice(0, 6) }
     }),
 
   fetchSongs: async (force = false) => {
-    const { loaded, songs } = get()
+    const { loaded } = get()
     if (loaded && !force) return
     if (!loaded) set({ loading: true })
     try {
-      const res = await fetch(`/songs.json?t=${Date.now()}`)
-      const jsonSongs = await res.json()
-      const builtIn = jsonSongs.map((s, i) => ({
-        ...s,
-        id: `builtin-${slugify(s.title)}-${i}`,
-        _source: 'builtin',
-      }))
-
-      const { data: supabaseSongs, error } = await supabase
+      const { data, error } = await supabase
         .from('songs')
         .select('*')
         .order('created_at', { ascending: false })
 
-      if (error) {
-        console.error('Failed to load songs from Supabase:', error)
-      }
+      if (error) throw error
 
-      const allUserSongs = !error && supabaseSongs
-        ? supabaseSongs.map((s) => ({ ...s, _source: 'user' }))
-        : []
-
-      // Separate deleted markers (image_color === '__DELETED__')
-      const deletedMarkers = allUserSongs.filter((s) => s.image_color === '__DELETED__')
-      const deletedKeys = new Set(
-        deletedMarkers.map((s) => `${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`)
-      )
-      const userSongs = allUserSongs.filter((s) => s.image_color !== '__DELETED__')
-
-      // Build edits map: newest user song wins per title+artist
-      const editsMap = new Map()
-      userSongs.forEach((s) => {
-        const key = `${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`
-        if (!editsMap.has(key)) {
-          editsMap.set(key, s)
-        }
-      })
-
-      const mergedBuiltIn = builtIn.map((s) => {
-        const key = `${s.title.toLowerCase()}|${s.artist.toLowerCase()}`
-        if (editsMap.has(key)) {
-          const edit = editsMap.get(key)
-          return { ...edit, id: `edit-${s.id}`, _source: 'user' }
-        }
-        return s
-      })
-
-      const builtInKeys = new Set(builtIn.map((s) => `${s.title.toLowerCase()}|${s.artist.toLowerCase()}`))
-      const uniqueUserSongs = userSongs.filter(
-        (s) => !builtInKeys.has(`${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`)
-      )
-
-      const isDeleted = (s) => {
-        const key = `${s.title.toLowerCase()}|${(s.artist || '').toLowerCase()}`
-        return deletedKeys.has(key)
-      }
-
-      set({ songs: [...mergedBuiltIn, ...uniqueUserSongs].filter((s) => !isDeleted(s)), userSongs: uniqueUserSongs.filter((s) => !isDeleted(s)), loaded: true })
+      set({ songs: data || [], loaded: true })
     } catch (e) {
       console.error('fetchSongs error:', e)
       set({ songs: [] })
@@ -139,126 +71,43 @@ const useSongsStore = create((set, get) => ({
       .single()
 
     if (error) throw error
-
-    const newSong = { ...data, _source: 'user' }
-    set((state) => ({ songs: [newSong, ...state.songs], userSongs: [newSong, ...state.userSongs] }))
-    return newSong
+    set((state) => ({ songs: [data, ...state.songs] }))
+    return data
   },
 
   updateSong: async (song, fields) => {
-    if (song._source === 'user' && song.id && !song.id.startsWith('edit-')) {
-      const { error } = await supabase
-        .from('songs')
-        .update({
-          title: fields.title,
-          artist: fields.artist || '',
-          key: fields.key || 'G',
-          category: fields.category || 'Worship',
-          language: fields.language || 'English',
-          lyrics_with_chords: fields.lyrics_with_chords || '',
-          youtube_url: fields.youtube_url || '',
-          album: fields.album || '',
-          album_year: fields.album_year || null,
-          image_url: fields.image_url || '',
-          image_color: fields.image_color || 'from-gray-300 to-gray-100',
-        })
-        .eq('id', song.id)
-      if (error) throw error
-
-      const updated = { ...song, ...fields }
-      set((state) => ({
-        songs: state.songs.map((s) => (s.id === song.id ? updated : s)),
-        userSongs: state.userSongs.map((s) => (s.id === song.id ? updated : s)),
-      }))
-      return updated
-    }
-
-    // For built-in songs: upsert an edit record keyed by title+artist
-    const keyTitle = fields.title || song.title
-    const keyArtist = fields.artist || song.artist || ''
-
-    const { data: existing } = await supabase
+    const { error } = await supabase
       .from('songs')
-      .select('id')
-      .eq('title', keyTitle)
-      .eq('artist', keyArtist)
-      .maybeSingle()
+      .update({
+        title: fields.title,
+        artist: fields.artist || '',
+        key: fields.key || 'G',
+        category: fields.category || 'Worship',
+        language: fields.language || 'English',
+        lyrics_with_chords: fields.lyrics_with_chords || '',
+        youtube_url: fields.youtube_url || '',
+        album: fields.album || '',
+        album_year: fields.album_year || null,
+        image_url: fields.image_url || '',
+        image_color: fields.image_color || 'from-gray-300 to-gray-100',
+      })
+      .eq('id', song.id)
 
-    const payload = {
-      title: keyTitle,
-      artist: keyArtist,
-      key: fields.key || song.key || 'G',
-      category: fields.category || song.category || 'Worship',
-      language: fields.language || song.language || 'English',
-      lyrics_with_chords: fields.lyrics_with_chords || song.lyrics_with_chords || '',
-      youtube_url: fields.youtube_url !== undefined ? fields.youtube_url : song.youtube_url || '',
-      album: fields.album !== undefined ? fields.album : song.album || '',
-      album_year: fields.album_year !== undefined ? fields.album_year : song.album_year || null,
-      image_url: fields.image_url !== undefined ? fields.image_url : song.image_url || '',
-      image_color: fields.image_color !== undefined ? fields.image_color : song.image_color || 'from-gray-300 to-gray-100',
-    }
+    if (error) throw error
 
-    let data
-    if (existing) {
-      const { error } = await supabase
-        .from('songs')
-        .update(payload)
-        .eq('id', existing.id)
-      if (error) throw error
-      data = { ...payload, id: existing.id, created_at: song.created_at }
-    } else {
-      const { data: inserted, error } = await supabase
-        .from('songs')
-        .insert(payload)
-        .select()
-        .single()
-      if (error) throw error
-      data = inserted
-    }
-
-    const newSong = { ...data, _source: 'user' }
+    const updated = { ...song, ...fields }
     set((state) => ({
-      songs: state.songs.map((s) =>
-        s.id === song.id ? { ...newSong, id: `edit-${s.id}` } : s
-      ),
-      userSongs: [
-        ...state.userSongs.filter(
-          (s) => s.title !== keyTitle || s.artist !== keyArtist
-        ),
-        newSong,
-      ],
+      songs: state.songs.map((s) => (s.id === song.id ? updated : s)),
     }))
-    return { ...newSong, id: `edit-${song.id}` }
+    return updated
   },
 
   deleteSong: async (song) => {
-    const isBuiltInEdit = song._source === 'user' && song.id && song.id.startsWith('edit-')
-
-    if (song._source === 'user') {
-      if (song.id && !song.id.startsWith('edit-')) {
-        const { error } = await supabase.from('songs').delete().eq('id', song.id)
-        if (error) throw error
-      } else if (isBuiltInEdit) {
-        const { error } = await supabase
-          .from('songs')
-          .delete()
-          .eq('title', song.title)
-          .eq('artist', song.artist || '')
-        if (error) throw error
-      }
-    }
-
-    // Cross-device deletion marker for all songs backed by a built-in
-    if (song._source !== 'user' || isBuiltInEdit) {
-      const { error: markerError } = await supabase
-        .from('songs')
-        .insert({ title: song.title, artist: song.artist || '', image_color: '__DELETED__' })
-      if (markerError) throw markerError
-    }
+    const { error } = await supabase.from('songs').delete().eq('id', song.id)
+    if (error) throw error
 
     set((state) => ({
       songs: state.songs.filter((s) => s.id !== song.id),
-      userSongs: state.userSongs.filter((s) => s.id !== song.id),
     }))
   },
 
@@ -320,10 +169,8 @@ const useSongsStore = create((set, get) => ({
   },
 
   reset: () => {
-    _loaded = false
     set({
       songs: [],
-      userSongs: [],
       searchQuery: '',
       activeCategory: 'All',
       activeArtist: 'All',
@@ -333,6 +180,7 @@ const useSongsStore = create((set, get) => ({
       transposeOffset: 0,
       currentSongId: null,
       recentlyViewed: [],
+      loaded: false,
     })
   },
 }))

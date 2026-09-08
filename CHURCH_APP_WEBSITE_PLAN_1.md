@@ -18,7 +18,7 @@
 | Profile Management | ✅ Live | Edit name, view role/email, auto-profile creation on signup |
 | Home Page | ✅ Live | Hero section, Daily Verse (YouVersion), Announcements, Service Times, Feature Teasers, Upcoming Events, Photo Gallery, CTA banner |
 | Bible Reader | ✅ Live | Full YouVersion BibleReader with font size controls, dark mode, verse numbers |
-| Songs Library | ✅ Live | 14 built-in songs with chords, transpose (-5 to +6), filters (category/artist/album/language), grid/list view |
+| Songs Library | ✅ Live | 30 songs with chords in Supabase, transpose (-5 to +6), filters (category/artist/album/language), grid/list view |
 | Playlists | ✅ Live | Create/manage playlists for service sets, add/remove/sort songs |
 | Reading Guide | ✅ Live | 8 seven-day plans (Love, Faith, Prayer, Wisdom, Hope, Grace, Strength, Peace), streak tracking, progress persisted to Supabase |
 | Admin Dashboard | ✅ Live | Route-guarded, sidebar layout, CRUD for announcements and events |
@@ -58,7 +58,7 @@ Fonts:       Inter (body), Playfair Display (display), IBM Plex Mono (verses)
 | `announcements` | Title, description, image, posted date, publish status |
 | `events` | Title, description, date/time, location, image, publish status |
 | `photos` | Image URL, alt text, sort order |
-| `songs` | Title, artist, key, category, language, lyrics with chords |
+| `songs` | Title, artist, key, category, language, lyrics with chords, `is_builtin` flag, admin-only write |
 | `playlists` | Service playlists with title, date, notes |
 | `playlist_songs` | Junction table with position and key override |
 | `user_progress` | Reading guide progress, streak, longest streak (JSONB) |
@@ -91,7 +91,7 @@ ucjm_website/
     favicon.ico
     apple-touch-icon.png
     robots.txt
-    songs.json                     # Built-in songs data
+    songs.json                     # Deprecated - seed data only (app fetches songs from Supabase)
 
   src/
     components/

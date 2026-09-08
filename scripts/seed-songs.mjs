@@ -2,7 +2,6 @@ import { createClient } from '@supabase/supabase-js'
 import { readFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import songsData from '../src/features/songs/songsData.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -28,8 +27,12 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
+const songsPath = resolve(__dirname, '../public/songs.json')
+const songsData = JSON.parse(readFileSync(songsPath, 'utf-8'))
+
 async function seed() {
   console.log(`Seeding ${songsData.length} songs into Supabase...\n`)
+  console.log('NOTE: This requires admin privileges. If using anon key, run the SQL migration first.\n')
 
   let success = 0
   let failed = 0
@@ -37,11 +40,17 @@ async function seed() {
   for (const song of songsData) {
     const { error } = await supabase.from('songs').insert({
       title: song.title,
-      artist: song.artist,
-      key: song.key,
-      category: song.category,
-      language: song.language,
-      lyrics_with_chords: song.lyrics_with_chords,
+      artist: song.artist || '',
+      key: song.key || 'G',
+      category: song.category || 'Worship',
+      language: song.language || 'English',
+      album: song.album || '',
+      album_year: song.album_year || null,
+      image_color: song.image_color || '',
+      image_url: song.image_url || '',
+      youtube_url: song.youtube_url || '',
+      lyrics_with_chords: song.lyrics_with_chords || '',
+      is_builtin: true,
     })
 
     if (error) {
